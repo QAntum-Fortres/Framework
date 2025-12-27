@@ -146,7 +146,7 @@ console.log(predictions);
 | **Pro** | $29/month | Small teams, startups |
 | **Enterprise** | $149/month | Large companies |
 
-### 🛒 [Get Pro License →](https://buy.stripe.com/YOUR_LINK)
+### 🛒 [Get Pro License →](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)
 
 ---
 

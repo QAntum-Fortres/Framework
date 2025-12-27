@@ -114,7 +114,7 @@ export class MisterMind {
       console.log('║                                                               ║');
       console.log('║  This feature requires a Pro license.                         ║');
       console.log('║                                                               ║');
-      console.log('║  🛒 Get your license at: https://mister-mind.dev/pricing      ║');
+      console.log('║  🛒 Get your license at: https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe ║');
       console.log('║                                                               ║');
       console.log('║  Pro includes:                                                ║');
       console.log('║  • 🔮 Prediction Matrix                                       ║');
@@ -126,7 +126,7 @@ export class MisterMind {
       console.log('╚═══════════════════════════════════════════════════════════════╝');
       console.log('');
       
-      throw new Error('Prediction Matrix requires a Pro license. Get yours at https://mister-mind.dev/pricing');
+      throw new Error('Prediction Matrix requires a Pro license. Get yours at https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe');
     }
 
     // Pro feature implementation
@@ -144,7 +144,7 @@ export class MisterMind {
    */
   async chronos(options: any): Promise<any> {
     if (!this.isProLicense) {
-      throw new Error('Chronos Engine requires a Pro license. Get yours at https://mister-mind.dev/pricing');
+      throw new Error('Chronos Engine requires a Pro license. Get yours at https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe');
     }
     
     return { enabled: true };
@@ -156,7 +156,7 @@ export class MisterMind {
    */
   async apiSensei(config: any): Promise<any> {
     if (!this.isProLicense) {
-      throw new Error('API Sensei requires a Pro license. Get yours at https://mister-mind.dev/pricing');
+      throw new Error('API Sensei requires a Pro license. Get yours at https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe');
     }
     
     return { enabled: true };

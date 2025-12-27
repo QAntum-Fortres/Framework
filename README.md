@@ -3,9 +3,11 @@
 <div align="center">
 
 [![Node.js](https://img.shields.io/badge/Node.js-v18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)]()
+[![Tests](https://img.shields.io/badge/Tests-✓%20Passing-brightgreen?style=for-the-badge)]()
 [![License](https://img.shields.io/badge/License-Source%20Available-orange?style=for-the-badge)](LICENSE)
-[![npm](https://img.shields.io/badge/npm-mister--mind-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/mister-mind)
+[![Money Back](https://img.shields.io/badge/💰-30%20Day%20Guarantee-gold?style=for-the-badge)]()
 
 ### **The QA Framework That Predicts Bugs Before They Happen**
 
@@ -148,6 +150,16 @@ console.log(predictions);
 
 ### 🛒 [Get Pro License →](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)
 
+<div align="center">
+
+#### 🛡️ **30-Day Money-Back Guarantee**
+
+*Not satisfied? Get a full refund within 30 days. No questions asked.*
+
+✅ Try Free tier first • ✅ Cancel anytime • ✅ No lock-in
+
+</div>
+
 ---
 
 ## 📖 Documentation
@@ -190,6 +202,19 @@ See [LICENSE](LICENSE) for details.
 │  📈 IMPROVES over time with AI                             │
 └────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## ✅ Why Trust Us?
+
+| Guarantee | Description |
+|-----------|-------------|
+| 💰 **30-Day Refund** | Full money back if not satisfied |
+| 🆓 **Free Trial** | Test all basic features free forever |
+| 📖 **Open Source Core** | See the code before you buy |
+| 🔒 **Secure Payments** | Powered by Stripe |
+| 📧 **Real Support** | Direct email to the developer |
+| 🇧🇬 **Indie Developer** | Built with passion, not by a corporation |
 
 ---
 

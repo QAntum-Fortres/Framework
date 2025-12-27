@@ -1,0 +1,56 @@
+{
+  "name": "mister-mind",
+  "version": "1.0.0",
+  "description": "AI-Powered QA Automation Framework - Predicts bugs before they happen",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "qa",
+    "testing",
+    "automation",
+    "ai",
+    "machine-learning",
+    "bug-prediction",
+    "playwright",
+    "selenium",
+    "cypress",
+    "test-automation",
+    "quality-assurance",
+    "api-testing",
+    "e2e-testing",
+    "regression-testing"
+  ],
+  "author": "Dimitar Papazov <papica777.eng@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://mister-mind.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/papica777-eng/MrMindQATool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/papica777-eng/MrMindQATool/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "jest": "^29.0.0"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ]
+}

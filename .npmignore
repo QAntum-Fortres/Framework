@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output (keep for npm)
+# dist/
+
+# Source files (HIDE from npm package!)
+src/
+*.ts
+!*.d.ts
+
+# Dev files
+.git/
+.github/
+.vscode/
+.env
+.env.*
+
+# Test files
+test/
+tests/
+*.test.ts
+*.spec.ts
+coverage/
+
+# Documentation source
+docs-src/
+
+# Other
+*.log
+.DS_Store
+Thumbs.db

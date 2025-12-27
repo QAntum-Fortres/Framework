@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# Except these files
+!README.md
+!LICENSE
+!package.json
+!tsconfig.json
+!src/
+!src/**
+!.npmignore
+!.gitignore

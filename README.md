@@ -91,7 +91,7 @@ console.log(audit);
 const { MisterMind } = require('mister-mind');
 
 const mm = new MisterMind({
-  licenseKey: 'YOUR_LICENSE_KEY' // Get at: https://mister-mind.dev
+  licenseKey: 'YOUR_LICENSE_KEY' // Get at: https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe
 });
 
 // 🔮 Prediction Matrix - Predict bugs before they happen!
@@ -173,9 +173,9 @@ See [LICENSE](LICENSE) for details.
 
 ## 🤝 Support
 
-- 📧 Email: support@mister-mind.dev
-- 💬 Discord: [Join Community](https://discord.gg/mistermind)
-- 🐛 Issues: [GitHub Issues](https://github.com/papica777-eng/MrMindQATool/issues)
+- � **Issues:** [GitHub Issues](https://github.com/papica777-eng/MrMindQATool/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/papica777-eng/MrMindQATool/discussions)
+- 📧 **Email:** papica777.eng@gmail.com
 
 ---
 
@@ -197,6 +197,6 @@ See [LICENSE](LICENSE) for details.
 
 **Made with ❤️ by Dimitar Papazov**
 
-[Website](https://mister-mind.dev) • [Twitter](https://twitter.com/mistermind_qa) • [LinkedIn](https://linkedin.com/company/mistermind)
+[GitHub](https://github.com/papica777-eng) • [Buy Pro](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)
 
 </div>

@@ -1,7 +1,7 @@
 {
   "name": "mister-mind",
-  "version": "22.0.0",
-  "description": "AI-Powered QA Framework with Multimodal Commander - Voice, Video & Neural HUD for next-gen testing",
+  "version": "23.0.0",
+  "description": "AI-Powered QA Framework with Multimodal Commander - The Local Sovereign Edition with Hardware Telemetry, Swarm Orchestration & Bulgarian Voice Feedback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
@@ -24,9 +24,14 @@
     "circuit-breaker",
     "dependency-injection",
     "worker-threads",
-    "zero-defect"
+    "zero-defect",
+    "thermal-throttling",
+    "docker-orchestration",
+    "swarm-execution",
+    "real-time-dashboard",
+    "hardware-telemetry"
   ],
-  "author": "Dimitar Papazov <papica777.eng@gmail.com>",
+  "author": "Димитър Продромов (Dimitar Prodromov) <dimitar.prodromov@mistermind.dev>",
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://mister-mind.dev",
   "repository": {
@@ -41,8 +46,14 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:enterprise": "npx ts-node scripts/build-enterprise.ts",
+    "dashboard": "npx ts-node -e \"const { DashboardServer } = require('./src/enterprise/dashboard-server'); const d = new DashboardServer(); d.start().then(() => console.log('Dashboard: http://localhost:3847'));\"",
+    "license:generate": "npx ts-node -e \"const { LicenseManager } = require('./src/enterprise/license-manager'); const m = new LicenseManager(); console.log(m.displayStatus()); const l = m.generateDevLicense('Dev', 'dev@test.com'); m.saveLicense(l); console.log('License saved!');\"",
+    "license:status": "npx ts-node -e \"const { LicenseManager } = require('./src/enterprise/license-manager'); const m = new LicenseManager(); m.loadLicense(); console.log(m.displayStatus());\"",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:phase2": "vitest run tests/phase2.test.ts",
+    "test:phase3": "vitest run tests/phase3.test.ts",
     "lint": "eslint src/ --ext .ts",
     "lint:fix": "eslint src/ --ext .ts --fix",
     "prepublishOnly": "npm run build && npm run test",
@@ -59,6 +70,8 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.50.0",
+    "javascript-obfuscator": "^4.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.0",
     "vitest": "^1.2.0"
   },

@@ -6,7 +6,7 @@
  * 
  * @author Dimitar Papazov
  * @license SEE LICENSE FILE
- * @version 17.0.0
+ * @version 18.0.0
  */
 
 import { chromium, Browser, Page } from 'playwright';
@@ -31,6 +31,14 @@ import {
   ExecutionPlan,
   SwarmStats,
 } from './swarm';
+import {
+  SEGCController,
+  SEGCConfig,
+  SEGCStats,
+  GhostPath,
+  StateVersion,
+  GeneticMutation,
+} from './segc';
 
 export interface AuditResult {
   url: string;
@@ -259,6 +267,10 @@ export class MisterMind {
   private observabilityBridge: ObservabilityBridge | null = null;
   private browserPool: BrowserPoolManager | null = null;
   private swarmInitialized: boolean = false;
+  
+  // 🧬 Self-Evolving Genetic Core v18.0 components
+  private segc: SEGCController | null = null;
+  private segcInitialized: boolean = false;
 
   constructor(config: MisterMindConfig = {}) {
     // Validate config
@@ -294,6 +306,83 @@ export class MisterMind {
     if (this.config.verbose) {
       console.log('🧠 ASC: Adaptive Semantic Core initialized');
     }
+  }
+
+  /**
+   * 🧬 Initialize Self-Evolving Genetic Core
+   */
+  async initSEGC(config?: SEGCConfig): Promise<void> {
+    if (this.segcInitialized) return;
+    
+    this.segc = new SEGCController({
+      verbose: this.config.verbose,
+      ...config,
+    });
+    
+    this.segcInitialized = true;
+    
+    if (this.config.verbose) {
+      console.log('🧬 SEGC: Self-Evolving Genetic Core initialized');
+    }
+  }
+
+  /**
+   * 🧬 Get SEGC controller
+   */
+  getSEGC(): SEGCController | null {
+    return this.segc;
+  }
+
+  /**
+   * 🧬 Get SEGC statistics
+   */
+  getSEGCStats(): SEGCStats | null {
+    return this.segc?.getStats() || null;
+  }
+
+  /**
+   * 🧬 Run SEGC learning cycle
+   */
+  async runLearningCycle(): Promise<{
+    improvements: number;
+    mutations: GeneticMutation[];
+    predictions: number;
+  } | null> {
+    if (!this.segc) return null;
+    return this.segc.runLearningCycle();
+  }
+
+  /**
+   * 🧬 Test alternative selector paths
+   */
+  async testAlternativePaths(
+    currentSelector: string,
+    page: Page,
+    options?: { targetText?: string; elementType?: string }
+  ): Promise<GhostPath | null> {
+    if (!this.segc) return null;
+    return this.segc.testAlternativePaths(currentSelector, page, options);
+  }
+
+  /**
+   * 🧬 Create a new strategy version for A/B testing
+   */
+  createStrategyVersion(options: {
+    name: string;
+    description?: string;
+    strategy: object;
+    isBaseline?: boolean;
+  }): StateVersion | null {
+    if (!this.segc) return null;
+    return this.segc.createVersion(options);
+  }
+
+  /**
+   * 🧬 Start A/B experiment between versions
+   */
+  startABExperiment(versionA: string, versionB: string, trafficSplit?: number): string | null {
+    if (!this.segc) return null;
+    return this.segc.startExperiment(versionA, versionB, trafficSplit);
   }
 
   /**
@@ -2054,7 +2143,7 @@ export class MisterMind {
     this.observabilityBridge = new ObservabilityBridge({
       verbose: this.config.verbose,
       serviceName: 'mister-mind-swarm',
-      serviceVersion: '17.0.0',
+      serviceVersion: '18.0.0',
       consoleExport: this.config.verbose,
     });
 
@@ -2250,7 +2339,7 @@ export default MisterMind;
 export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(config);
 
 // Version constant
-export const VERSION = '17.0.0';
+export const VERSION = '18.0.0';
 
 // Re-export ASC types and utilities
 export { 

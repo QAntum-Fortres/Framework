@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Mister Mind - Cognitive Autonomous Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #12122a;
+            --bg-tertiary: #1a1a3a;
+            --accent: #8b5cf6;
+            --accent-hover: #7c3aed;
+            --accent-glow: rgba(139, 92, 246, 0.3);
+            --cyan: #06b6d4;
+            --green: #10b981;
+            --yellow: #f59e0b;
+            --red: #ef4444;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --border: #2d2d5a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .logo {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Memory Panel */
+        .memory-panel {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .memory-panel h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .memory-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .stat {
+            background: var(--bg-tertiary);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Thinking Panel */
+        .thinking-panel {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            display: none;
+        }
+
+        .thinking-panel.active {
+            display: block;
+        }
+
+        .thinking-panel h3 {
+            font-size: 0.85rem;
+            color: var(--cyan);
+            margin-bottom: 12px;
+        }
+
+        .thought-item {
+            background: var(--bg-tertiary);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+
+        .thought-label {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            padding: 16px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .quick-actions h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .quick-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+
+        .quick-btn:hover {
+            border-color: var(--accent);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Main Chat Area */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-secondary);
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--green);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* Chat Messages */
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .messages {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .message {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .message-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .message-text {
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .message-text p { margin-bottom: 12px; }
+
+        .message-text pre {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+
+        .message-text code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        /* Action Results */
+        .action-results {
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+        }
+
+        .action-results h4 {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .action-item:last-child { border-bottom: none; }
+
+        .action-success { color: var(--green); }
+        .action-error { color: var(--red); }
+
+        /* Thinking Display */
+        .thinking-display {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--cyan);
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        .thinking-display h4 {
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        /* Input Area */
+        .input-container {
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .input-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .input-box {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 70px 18px 24px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .send-btn {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        /* Loading Animation */
+        .cognitive-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .brain-animation {
+            font-size: 2rem;
+            animation: think 1s infinite;
+        }
+
+        @keyframes think {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); filter: brightness(1.3); }
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .loading-phases {
+            display: flex;
+            gap: 8px;
+        }
+
+        .phase {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .phase.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Welcome Screen */
+        .welcome {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .welcome-icon {
+            font-size: 5rem;
+            margin-bottom: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: 32px auto 0;
+        }
+
+        .capability {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .capability:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .capability-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .capability h3 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .capability p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>🧠 Mister Mind</h1>
+            <p>Cognitive Autonomous Partner</p>
+        </div>
+
+        <div class="memory-panel">
+            <h3>🧠 Когнитивна Памет</h3>
+            <div class="memory-stats">
+                <div class="stat">
+                    <div class="stat-value" id="shortTermCount">0</div>
+                    <div class="stat-label">Краткосрочна</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="longTermCount">0</div>
+                    <div class="stat-label">Дългосрочна</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="successCount">0</div>
+                    <div class="stat-label">Успешни</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="failedCount">0</div>
+                    <div class="stat-label">Неуспешни</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="thinking-panel" id="thinkingPanel">
+            <h3>💭 Текущо мислене</h3>
+            <div id="thinkingContent"></div>
+        </div>
+
+        <div class="quick-actions">
+            <h3>⚡ Бързи команди</h3>
+            <button class="quick-btn" onclick="sendQuick('Какво можеш да правиш? Обясни ми възможностите си.')">
+                ❓ Какво можеш?
+            </button>
+            <button class="quick-btn" onclick="sendQuick('Отвори Google в браузъра')">
+                🌐 Отвори Google
+            </button>
+            <button class="quick-btn" onclick="sendQuick('Покажи ми файловете в текущата папка')">
+                📁 Покажи файлове
+            </button>
+            <button class="quick-btn" onclick="sendQuick('Създай Selenium тест за Google търсене и го запиши')">
+                🧪 Създай тест
+            </button>
+            <button class="quick-btn" onclick="sendQuick('Запомни, че любимият ми език за програмиране е JavaScript')">
+                💾 Запомни нещо
+            </button>
+            <button class="quick-btn" onclick="clearChat()">
+                🗑️ Изчисти чата
+            </button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div>
+                <h2>💬 Когнитивен Диалог</h2>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">Автономен режим активен</span>
+            </div>
+            <div class="status">
+                <span class="status-dot"></span>
+                <span>Мисля и действам</span>
+            </div>
+        </header>
+
+        <div class="chat-container">
+            <div class="messages" id="messages">
+                <div class="welcome" id="welcome">
+                    <div class="welcome-icon">🧠</div>
+                    <h2>Здравей! Аз съм твоят Когнитивен Партньор</h2>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                        Не съм просто чатбот - аз мисля, планирам, действам и уча. 
+                        Имам памет и се развивам с всяко взаимодействие.
+                    </p>
+                    
+                    <div class="capabilities">
+                        <div class="capability">
+                            <div class="capability-icon">🧠</div>
+                            <h3>Памет</h3>
+                            <p>Помня разговорите и уча от тях</p>
+                        </div>
+                        <div class="capability">
+                            <div class="capability-icon">💭</div>
+                            <h3>Разсъждение</h3>
+                            <p>Мисля преди да действам</p>
+                        </div>
+                        <div class="capability">
+                            <div class="capability-icon">🎯</div>
+                            <h3>Планиране</h3>
+                            <p>Разбивам сложни задачи на стъпки</p>
+                        </div>
+                        <div class="capability">
+                            <div class="capability-icon">🤖</div>
+                            <h3>Автономност</h3>
+                            <p>Изпълнявам действия сам</p>
+                        </div>
+                        <div class="capability">
+                            <div class="capability-icon">🪞</div>
+                            <h3>Рефлексия</h3>
+                            <p>Анализирам резултатите си</p>
+                        </div>
+                        <div class="capability">
+                            <div class="capability-icon">📚</div>
+                            <h3>Учене</h3>
+                            <p>Подобрявам се с времето</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <div class="input-wrapper">
+                <textarea 
+                    class="input-box" 
+                    id="messageInput" 
+                    placeholder="Кажи ми какво искаш да направя... Мога да мисля и действам автономно."
+                    rows="1"
+                    onkeydown="handleKeydown(event)"
+                ></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+    <script>
+        const messagesContainer = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const welcome = document.getElementById('welcome');
+        const thinkingPanel = document.getElementById('thinkingPanel');
+
+        // Auto-resize textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        function handleKeydown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function getTime() {
+            return new Date().toLocaleTimeString('bg-BG', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function updateMemoryStats(memory) {
+            if (memory) {
+                document.getElementById('shortTermCount').textContent = memory.shortTermMessages || 0;
+                document.getElementById('longTermCount').textContent = memory.longTermFacts || 0;
+                document.getElementById('successCount').textContent = memory.successfulActions || 0;
+                document.getElementById('failedCount').textContent = memory.failedActions || 0;
+            }
+        }
+
+        function showThinking(thinking) {
+            if (thinking) {
+                thinkingPanel.classList.add('active');
+                document.getElementById('thinkingContent').innerHTML = `
+                    <div class="thought-item">
+                        <div class="thought-label">Разбиране:</div>
+                        ${thinking.understanding || 'Анализирам...'}
+                    </div>
+                    <div class="thought-item">
+                        <div class="thought-label">Намерение:</div>
+                        ${thinking.intent || 'Определям...'}
+                    </div>
+                    <div class="thought-item">
+                        <div class="thought-label">Увереност:</div>
+                        ${Math.round((thinking.confidence || 0) * 100)}%
+                    </div>
+                `;
+            }
+        }
+
+        function addMessage(content, isUser, actions = [], thinking = null) {
+            if (welcome) welcome.style.display = 'none';
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+
+            let actionsHtml = '';
+            if (actions && actions.length > 0) {
+                actionsHtml = `
+                    <div class="action-results">
+                        <h4>🤖 Изпълнени действия:</h4>
+                        ${actions.map(a => {
+                            const success = a.result?.success;
+                            const icon = success ? '✅' : '❌';
+                            const cls = success ? 'action-success' : 'action-error';
+                            const type = {
+                                'command': '💻 Команда',
+                                'createFile': '📄 Файл',
+                                'openUrl': '🌐 URL',
+                                'runScript': '▶️ Скрипт'
+                            }[a.action?.type] || a.action?.type;
+                            const msg = a.result?.message || a.result?.filepath || a.result?.output?.slice(0, 100) || a.result?.error || '';
+                            return `<div class="action-item ${cls}">${icon} ${type}: ${msg}</div>`;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            let thinkingHtml = '';
+            if (thinking && !isUser) {
+                thinkingHtml = `
+                    <div class="thinking-display">
+                        <h4>💭 Мисловен процес:</h4>
+                        <p><strong>Разбрах:</strong> ${thinking.understanding || ''}</p>
+                        <p><strong>Подход:</strong> ${thinking.approach || ''}</p>
+                    </div>
+                `;
+            }
+
+            let parsedContent = isUser ? content : marked.parse(content);
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${isUser ? '👤' : '🧠'}</div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="message-name">${isUser ? 'Ти' : 'Mister Mind'}</span>
+                        <span class="message-time">${getTime()}</span>
+                    </div>
+                    <div class="message-text">${parsedContent}</div>
+                    ${thinkingHtml}
+                    ${actionsHtml}
+                </div>
+            `;
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            if (!isUser) {
+                messageDiv.querySelectorAll('pre code').forEach(block => {
+                    hljs.highlightElement(block);
+                });
+            }
+        }
+
+        function addCognitiveLoading() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message bot';
+            loadingDiv.id = 'loading';
+            loadingDiv.innerHTML = `
+                <div class="message-avatar">🧠</div>
+                <div class="message-content">
+                    <div class="cognitive-loading">
+                        <div class="brain-animation">🧠</div>
+                        <div class="loading-text">Обработвам когнитивно...</div>
+                        <div class="loading-phases">
+                            <span class="phase active" id="phase1">Разбиране</span>
+                            <span class="phase" id="phase2">Разсъждение</span>
+                            <span class="phase" id="phase3">Действие</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(loadingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Animate phases
+            setTimeout(() => {
+                document.getElementById('phase1')?.classList.remove('active');
+                document.getElementById('phase2')?.classList.add('active');
+            }, 1000);
+            setTimeout(() => {
+                document.getElementById('phase2')?.classList.remove('active');
+                document.getElementById('phase3')?.classList.add('active');
+            }, 2000);
+        }
+
+        function removeLoading() {
+            const loading = document.getElementById('loading');
+            if (loading) loading.remove();
+        }
+
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            addCognitiveLoading();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+                removeLoading();
+
+                if (data.error) {
+                    addMessage('❌ ' + data.error, false);
+                } else {
+                    updateMemoryStats(data.memory);
+                    showThinking(data.thinking);
+                    addMessage(data.reply, false, data.actions, data.thinking);
+                }
+            } catch (error) {
+                removeLoading();
+                addMessage('❌ Грешка при връзка със сървъра.', false);
+            }
+
+            sendBtn.disabled = false;
+            messageInput.focus();
+        }
+
+        function sendQuick(text) {
+            messageInput.value = text;
+            sendMessage();
+        }
+
+        async function clearChat() {
+            await fetch('/api/clear', { method: 'POST' });
+            messagesContainer.innerHTML = '';
+            if (welcome) welcome.style.display = 'block';
+            thinkingPanel.classList.remove('active');
+        }
+
+        // Initial memory load
+        fetch('/api/test')
+            .then(r => r.json())
+            .then(data => updateMemoryStats(data.memory))
+            .catch(() => {});
+
+        messageInput.focus();
+    </script>
+</body>
+</html>

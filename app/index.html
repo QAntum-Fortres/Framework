@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MisterMind v23.0.0 - The Local Sovereign</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #06b6d4;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* HEADER                                                         */
+        /* ══════════════════════════════════════════════════════════════ */
+        
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+        }
+
+        .logo-text h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .stat-badge .value {
+            font-weight: 700;
+            color: var(--accent-secondary);
+        }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* MAIN LAYOUT                                                    */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* SIDEBAR - MODULES                                              */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .module-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .module-btn:hover {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.1);
+            transform: translateX(4px);
+        }
+
+        .module-btn.active {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .module-btn .icon {
+            font-size: 1.2rem;
+        }
+
+        .module-btn .badge {
+            margin-left: auto;
+            padding: 2px 8px;
+            background: var(--accent-success);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .module-btn .badge.pro {
+            background: var(--accent-primary);
+        }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* MAIN CONTENT AREA                                              */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .content {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h2 {
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #9333ea);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Results Area */
+        .results {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .results pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .result-success { color: var(--accent-success); }
+        .result-warning { color: var(--accent-warning); }
+        .result-error { color: var(--accent-danger); }
+        .result-info { color: var(--accent-secondary); }
+
+        /* Score Display */
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .score-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .score-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .score-good { color: var(--accent-success); }
+        .score-medium { color: var(--accent-warning); }
+        .score-bad { color: var(--accent-danger); }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* RIGHT PANEL - STATUS & LOGS                                    */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .status-panel {
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .status-section {
+            margin-bottom: 24px;
+        }
+
+        .status-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .status-card {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-row:last-child {
+            border-bottom: none;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-indicator.online { background: var(--accent-success); box-shadow: 0 0 8px var(--accent-success); }
+        .status-indicator.offline { background: var(--accent-danger); }
+        .status-indicator.warning { background: var(--accent-warning); }
+
+        /* Activity Log */
+        .activity-log {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        .log-entry {
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 8px;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-time {
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .log-message {
+            flex: 1;
+        }
+
+        /* Temperature Gauge */
+        .temp-gauge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .temp-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .temp-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s, background 0.5s;
+        }
+
+        .temp-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* LOADING SPINNER                                                */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+            border-top-color: var(--accent-primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 15, 26, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-content .spinner {
+            width: 48px;
+            height: 48px;
+            border-width: 4px;
+        }
+
+        .loading-content p {
+            margin-top: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* FOOTER                                                         */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .footer {
+            text-align: center;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- HEADER                                                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">🧠</span>
+            <div class="logo-text">
+                <h1>MISTER MIND</h1>
+                <p>v23.0.0 "The Local Sovereign"</p>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="stat-badge">
+                <span>📄</span>
+                <span>Lines:</span>
+                <span class="value">45,895</span>
+            </div>
+            <div class="stat-badge">
+                <span>✅</span>
+                <span>Tests:</span>
+                <span class="value">492</span>
+            </div>
+            <div class="stat-badge">
+                <span>🏢</span>
+                <span>Modules:</span>
+                <span class="value">6</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- SIDEBAR - MODULE NAVIGATION                                 -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <aside class="sidebar">
+            <!-- Free Features -->
+            <div class="sidebar-section">
+                <h3>🆓 Free Features</h3>
+                
+                <button class="module-btn active" data-panel="audit">
+                    <span class="icon">🔍</span>
+                    <span>Website Audit</span>
+                    <span class="badge">FREE</span>
+                </button>
+                
+                <button class="module-btn" data-panel="api-test">
+                    <span class="icon">🌐</span>
+                    <span>API Test</span>
+                    <span class="badge">FREE</span>
+                </button>
+                
+                <button class="module-btn" data-panel="link-checker">
+                    <span class="icon">🔗</span>
+                    <span>Link Checker</span>
+                    <span class="badge">FREE</span>
+                </button>
+            </div>
+
+            <!-- Pro Features -->
+            <div class="sidebar-section">
+                <h3>💎 Pro Features</h3>
+                
+                <button class="module-btn" data-panel="prediction">
+                    <span class="icon">🔮</span>
+                    <span>Prediction Matrix</span>
+                    <span class="badge pro">PRO</span>
+                </button>
+                
+                <button class="module-btn" data-panel="api-sensei">
+                    <span class="icon">🤖</span>
+                    <span>API Sensei</span>
+                    <span class="badge pro">PRO</span>
+                </button>
+                
+                <button class="module-btn" data-panel="chronos">
+                    <span class="icon">⏰</span>
+                    <span>Chronos Engine</span>
+                    <span class="badge pro">PRO</span>
+                </button>
+            </div>
+
+            <!-- Enterprise Modules -->
+            <div class="sidebar-section">
+                <h3>🏢 Enterprise</h3>
+                
+                <button class="module-btn" data-panel="thermal">
+                    <span class="icon">🌡️</span>
+                    <span>Thermal Pool</span>
+                </button>
+                
+                <button class="module-btn" data-panel="docker">
+                    <span class="icon">🐳</span>
+                    <span>Docker Manager</span>
+                </button>
+                
+                <button class="module-btn" data-panel="swarm">
+                    <span class="icon">🎖️</span>
+                    <span>Swarm Commander</span>
+                </button>
+                
+                <button class="module-btn" data-panel="tts">
+                    <span class="icon">🔊</span>
+                    <span>Bulgarian TTS</span>
+                </button>
+                
+                <button class="module-btn" data-panel="license">
+                    <span class="icon">🔐</span>
+                    <span>License Manager</span>
+                </button>
+            </div>
+
+            <!-- Utilities -->
+            <div class="sidebar-section">
+                <h3>🛠️ Utilities</h3>
+                
+                <button class="module-btn" data-panel="stats">
+                    <span class="icon">📊</span>
+                    <span>System Stats</span>
+                </button>
+                
+                <button class="module-btn" data-panel="logger">
+                    <span class="icon">📋</span>
+                    <span>Logger</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- MAIN CONTENT - PANELS                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main class="content">
+            
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Website Audit - mm.audit(url)                    -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel active" id="panel-audit">
+                <div class="panel-header">
+                    <div>
+                        <h2>🔍 Website Audit</h2>
+                        <p class="subtitle">mm.audit(url) → AuditResult</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>URL to Audit</label>
+                    <input type="url" id="audit-url" placeholder="https://example.com" value="https://example.com">
+                </div>
+                
+                <button class="btn btn-primary" onclick="runAudit()">
+                    <span>▶️</span> Run Audit
+                </button>
+                
+                <div class="score-grid" id="audit-scores" style="display: none;">
+                    <div class="score-card">
+                        <div class="score-value" id="score-performance">--</div>
+                        <div class="score-label">Performance</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value" id="score-accessibility">--</div>
+                        <div class="score-label">Accessibility</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value" id="score-seo">--</div>
+                        <div class="score-label">SEO</div>
+                    </div>
+                </div>
+                
+                <div class="results" id="audit-results" style="display: none;"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: API Test - mm.testAPI(endpoint)                  -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-api-test">
+                <div class="panel-header">
+                    <div>
+                        <h2>🌐 API Test</h2>
+                        <p class="subtitle">mm.testAPI(endpoint, options) → APITestResult</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>API Endpoint</label>
+                    <input type="url" id="api-url" placeholder="https://api.example.com/health" value="https://httpbin.org/get">
+                </div>
+                
+                <div class="form-group">
+                    <label>Method</label>
+                    <select id="api-method">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="PATCH">PATCH</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" onclick="runAPITest()">
+                    <span>▶️</span> Test API
+                </button>
+                
+                <div class="results" id="api-results" style="display: none;"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Link Checker - mm.checkLinks(url)                -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-link-checker">
+                <div class="panel-header">
+                    <div>
+                        <h2>🔗 Link Checker</h2>
+                        <p class="subtitle">mm.checkLinks(url, options) → CheckLinksResult</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Page URL</label>
+                    <input type="url" id="links-url" placeholder="https://example.com" value="https://example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Max Links to Check</label>
+                    <input type="number" id="links-max" value="20" min="1" max="100">
+                </div>
+                
+                <button class="btn btn-primary" onclick="runLinkChecker()">
+                    <span>▶️</span> Check Links
+                </button>
+                
+                <div class="results" id="links-results" style="display: none;"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Prediction Matrix - mm.predict(options)          -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-prediction">
+                <div class="panel-header">
+                    <div>
+                        <h2>🔮 Prediction Matrix</h2>
+                        <p class="subtitle">mm.predict(options) → PredictionResult</p>
+                    </div>
+                    <span class="badge pro" style="padding: 8px 16px;">PRO LICENSE REQUIRED</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Code Changes (diff or content)</label>
+                    <textarea id="prediction-code" rows="10" placeholder="Paste your code changes here..."></textarea>
+                </div>
+                
+                <button class="btn btn-primary" onclick="runPrediction()">
+                    <span>▶️</span> Analyze & Predict
+                </button>
+                
+                <div class="results" id="prediction-results" style="display: none;"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: API Sensei - mm.apiSensei(config)                -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-api-sensei">
+                <div class="panel-header">
+                    <div>
+                        <h2>🤖 API Sensei</h2>
+                        <p class="subtitle">mm.apiSensei(config) → APISenseiResult</p>
+                    </div>
+                    <span class="badge pro" style="padding: 8px 16px;">PRO LICENSE REQUIRED</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Base API URL</label>
+                    <input type="url" id="sensei-url" placeholder="https://api.example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Test Scenarios</label>
+                    <select id="sensei-scenarios" multiple size="5">
+                        <option value="happy-path" selected>Happy Path</option>
+                        <option value="edge-cases" selected>Edge Cases</option>
+                        <option value="error-handling" selected>Error Handling</option>
+                        <option value="security">Security</option>
+                        <option value="performance">Performance</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" onclick="runAPISensei()">
+                    <span>▶️</span> Generate & Run Tests
+                </button>
+                
+                <div class="results" id="sensei-results" style="display: none;"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Chronos Engine - mm.chronos(options)             -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-chronos">
+                <div class="panel-header">
+                    <div>
+                        <h2>⏰ Chronos Engine</h2>
+                        <p class="subtitle">mm.chronos(options) → ChronosResult</p>
+                    </div>
+                    <span class="badge pro" style="padding: 8px 16px;">PRO LICENSE REQUIRED</span>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    Time-travel debugging: Records state snapshots during test execution for debugging.
+                </p>
+                
+                <div class="form-group">
+                    <label>Snapshot Interval (ms)</label>
+                    <input type="number" id="chronos-interval" value="100" min="50" max="1000">
+                </div>
+                
+                <div class="form-group">
+                    <label>Max Snapshots</label>
+                    <input type="number" id="chronos-max" value="50" min="10" max="200">
+                </div>
+                
+                <button class="btn btn-primary" onclick="runChronos()">
+                    <span>▶️</span> Start Recording
+                </button>
+                
+                <div class="results" id="chronos-results" style="display: none;"></div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Thermal Pool                                      -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-thermal">
+                <div class="panel-header">
+                    <div>
+                        <h2>🌡️ Thermal-Aware Pool</h2>
+                        <p class="subtitle">ThermalAwarePool - CPU temperature management</p>
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    <!-- 🇧🇬 Автоматично регулира броя инстанции според температурата на процесора -->
+                    Automatically adjusts parallelism based on CPU temperature to prevent throttling.
+                </p>
+                
+                <table style="width: 100%; margin-bottom: 16px;">
+                    <thead>
+                        <tr style="text-align: left; color: var(--text-secondary);">
+                            <th style="padding: 8px;">State</th>
+                            <th style="padding: 8px;">Temperature</th>
+                            <th style="padding: 8px;">Max Instances</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="color: var(--accent-success);"><td style="padding: 8px;">🟢 COOL</td><td>&lt;60°C</td><td>40</td></tr>
+                        <tr style="color: var(--accent-secondary);"><td style="padding: 8px;">🔵 WARM</td><td>60-70°C</td><td>30</td></tr>
+                        <tr style="color: var(--accent-warning);"><td style="padding: 8px;">🟠 HOT</td><td>70-80°C</td><td>20</td></tr>
+                        <tr style="color: var(--accent-danger);"><td style="padding: 8px;">🔴 CRITICAL</td><td>&gt;80°C</td><td>10</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="results">
+<pre>import { ThermalAwarePool } from './src/enterprise/thermal-aware-pool';
+
+const pool = new ThermalAwarePool({
+    maxInstances: 40,
+    coolThreshold: 60,
+    warmThreshold: 70,
+    hotThreshold: 80,
+    criticalThreshold: 90
+});
+
+await pool.start();
+// Pool auto-adjusts based on CPU temperature</pre>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Docker Manager                                    -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-docker">
+                <div class="panel-header">
+                    <div>
+                        <h2>🐳 Docker Manager</h2>
+                        <p class="subtitle">DockerManager - Selenium Grid orchestration</p>
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    Auto-generates Dockerfile and docker-compose.yml for Selenium Grid.
+                </p>
+                
+                <div class="results">
+<pre>import { DockerManager } from './src/enterprise/docker-manager';
+
+const docker = new DockerManager({
+    hubPort: 4444,
+    chromeNodes: 4,
+    firefoxNodes: 2,
+    enableVideo: true
+});
+
+await docker.generateDockerfile();
+await docker.generateDockerCompose();
+await docker.startGrid();</pre>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Swarm Commander                                   -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-swarm">
+                <div class="panel-header">
+                    <div>
+                        <h2>🎖️ Swarm Commander</h2>
+                        <p class="subtitle">SwarmCommander - Commander-Soldier pattern</p>
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    <!-- 🇧🇬 Командирът разпределя задачите между войниците (browser instances) -->
+                    Commander distributes tasks to soldiers (browser instances) for parallel execution.
+                </p>
+                
+                <div class="results">
+<pre>import { SwarmCommander } from './src/enterprise/swarm-commander';
+
+const commander = new SwarmCommander({
+    minSoldiers: 4,
+    maxSoldiers: 40,
+    taskTimeout: 30000
+});
+
+await commander.initialize();
+await commander.queueTask({
+    id: 'test-001',
+    type: 'browser-test',
+    payload: { url: 'https://example.com' }
+});</pre>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Bulgarian TTS                                     -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-tts">
+                <div class="panel-header">
+                    <div>
+                        <h2>🔊 Bulgarian TTS</h2>
+                        <p class="subtitle">BulgarianTTS - Native text-to-speech</p>
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    🇧🇬 Български текст-към-реч за гласова обратна връзка по време на тестове.
+                </p>
+                
+                <table style="width: 100%; margin-bottom: 16px;">
+                    <thead>
+                        <tr style="text-align: left; color: var(--text-secondary);">
+                            <th style="padding: 8px;">Template</th>
+                            <th style="padding: 8px;">Bulgarian Text</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding: 8px;">test_passed</td><td>"Тестът премина успешно"</td></tr>
+                        <tr><td style="padding: 8px;">test_failed</td><td>"Тестът се провали"</td></tr>
+                        <tr><td style="padding: 8px;">error_found</td><td>"Открих грешка в {element}"</td></tr>
+                        <tr><td style="padding: 8px;">healing</td><td>"Намерих нов селектор"</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="results">
+<pre>import { BulgarianTTS } from './src/enterprise/bulgarian-tts';
+
+const tts = new BulgarianTTS({ engine: 'auto' });
+await tts.initialize();
+
+await tts.speak('Тестът премина успешно');
+await tts.speakTemplate('error_found', { element: 'бутон' });</pre>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: License Manager                                   -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-license">
+                <div class="panel-header">
+                    <div>
+                        <h2>🔐 License Manager</h2>
+                        <p class="subtitle">LicenseManager - Hardware-locked licensing</p>
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    <!-- 🇧🇬 Лицензът се привързва към хардуера ти с SHA-256 отпечатък -->
+                    License is bound to hardware using SHA-256 fingerprint.
+                </p>
+                
+                <table style="width: 100%; margin-bottom: 16px;">
+                    <thead>
+                        <tr style="text-align: left; color: var(--text-secondary);">
+                            <th style="padding: 8px;">Type</th>
+                            <th style="padding: 8px;">Max Instances</th>
+                            <th style="padding: 8px;">Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding: 8px;">Trial</td><td>2</td><td>Basic</td></tr>
+                        <tr><td style="padding: 8px;">Professional</td><td>10</td><td>+ Thermal, Docker</td></tr>
+                        <tr><td style="padding: 8px;">Enterprise</td><td>50</td><td>+ Swarm, TTS</td></tr>
+                        <tr><td style="padding: 8px;">Sovereign</td><td>999</td><td>All features</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="results">
+<pre># Generate development license
+npm run license:generate
+
+# Check license status
+npm run license:status</pre>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: System Stats                                      -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-stats">
+                <div class="panel-header">
+                    <div>
+                        <h2>📊 System Stats</h2>
+                        <p class="subtitle">getSystemStats() → Statistics</p>
+                    </div>
+                </div>
+                
+                <div class="score-grid">
+                    <div class="score-card">
+                        <div class="score-value score-good">23.0.0</div>
+                        <div class="score-label">Version</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value score-good">45,895</div>
+                        <div class="score-label">Lines of Code</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value score-good">91</div>
+                        <div class="score-label">TypeScript Files</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value score-good">492</div>
+                        <div class="score-label">Tests Passing</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value score-good">6</div>
+                        <div class="score-label">Enterprise Modules</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-value" style="font-size: 1rem; color: var(--accent-secondary);">The Local Sovereign</div>
+                        <div class="score-label">Codename</div>
+                    </div>
+                </div>
+                
+                <div class="results" style="margin-top: 20px;">
+<pre>import { getSystemStats, VERSION, VERSION_CODENAME } from './src/index';
+
+const stats = getSystemStats();
+// {
+//   version: '23.0.0',
+//   codename: 'The Local Sovereign',
+//   lines: 45895,
+//   files: 91,
+//   tests: 492,
+//   modules: 6
+// }</pre>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- PANEL: Logger                                            -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="panel" id="panel-logger">
+                <div class="panel-header">
+                    <div>
+                        <h2>📋 Structured Logger</h2>
+                        <p class="subtitle">mm.getLogger() → Logger</p>
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    Professional logging with levels: debug, info, warn, error, audit
+                </p>
+                
+                <div class="results">
+<pre>const mm = new MisterMind({ verbose: true });
+const logger = mm.getLogger();
+
+logger.info('Operation started', { taskId: '001' });
+logger.warn('Resource running low', { memory: '85%' });
+logger.error('Connection failed', new Error('Timeout'));
+logger.audit('user_login', 'success', { userId: 42 });
+
+// Get logs
+const recentLogs = logger.getLogs('error', 10);
+logger.clear();</pre>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- STATUS PANEL                                                -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <aside class="status-panel">
+            <!-- System Status -->
+            <div class="status-section">
+                <h3>📡 System Status</h3>
+                <div class="status-card">
+                    <div class="status-row">
+                        <span><span class="status-indicator online"></span>Backend</span>
+                        <span style="color: var(--accent-success);">Online</span>
+                    </div>
+                    <div class="status-row">
+                        <span><span class="status-indicator" id="license-indicator"></span>License</span>
+                        <span id="license-status">Checking...</span>
+                    </div>
+                    <div class="status-row">
+                        <span><span class="status-indicator online"></span>Circuit Breaker</span>
+                        <span style="color: var(--accent-success);">Closed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CPU Temperature -->
+            <div class="status-section">
+                <h3>🌡️ CPU Temperature</h3>
+                <div class="status-card">
+                    <div class="temp-gauge">
+                        <div class="temp-bar">
+                            <div class="temp-fill" id="temp-fill" style="width: 45%; background: var(--accent-success);"></div>
+                        </div>
+                        <div class="temp-value" id="temp-value">45°C</div>
+                    </div>
+                    <div style="margin-top: 12px; font-size: 0.85rem; color: var(--text-secondary);">
+                        State: <span id="thermal-state" style="color: var(--accent-success);">🟢 COOL</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Oracle -->
+            <div class="status-section">
+                <h3>💰 Financial Oracle</h3>
+                <div class="status-card">
+                    <div class="status-row">
+                        <span>Total Cost</span>
+                        <span id="cost-total">$0.00</span>
+                    </div>
+                    <div class="status-row">
+                        <span>Requests</span>
+                        <span id="cost-requests">0</span>
+                    </div>
+                    <div class="status-row">
+                        <span>Budget Left</span>
+                        <span style="color: var(--accent-success);" id="cost-budget">$100.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="status-section">
+                <h3>📜 Activity Log</h3>
+                <div class="activity-log" id="activity-log">
+                    <div class="log-entry">
+                        <span class="log-time">--:--:--</span>
+                        <span class="log-message result-info">Waiting for activity...</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p id="loading-text">Processing...</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT                                                      -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <script>
+        // ══════════════════════════════════════════════════════════════
+        // PANEL NAVIGATION
+        // ══════════════════════════════════════════════════════════════
+        
+        document.querySelectorAll('.module-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.module-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding panel
+                const panelId = btn.dataset.panel;
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(`panel-${panelId}`).classList.add('active');
+                
+                addLog(`Opened: ${btn.querySelector('span:nth-child(2)').textContent}`);
+            });
+        });
+
+        // ══════════════════════════════════════════════════════════════
+        // HELPER FUNCTIONS
+        // ══════════════════════════════════════════════════════════════
+        
+        function showLoading(text = 'Processing...') {
+            document.getElementById('loading-text').textContent = text;
+            document.getElementById('loading').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('active');
+        }
+
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('activity-log');
+            const time = new Date().toLocaleTimeString('en-GB');
+            const typeClass = {
+                'info': 'result-info',
+                'success': 'result-success',
+                'warning': 'result-warning',
+                'error': 'result-error'
+            }[type] || 'result-info';
+            
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">${time}</span>
+                <span class="log-message ${typeClass}">${message}</span>
+            `;
+            
+            log.insertBefore(entry, log.firstChild);
+            
+            // Keep only last 50 entries
+            while (log.children.length > 50) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        function getScoreClass(score) {
+            if (score >= 80) return 'score-good';
+            if (score >= 50) return 'score-medium';
+            return 'score-bad';
+        }
+
+        // ══════════════════════════════════════════════════════════════
+        // API FUNCTIONS - These connect to MisterMind backend
+        // ══════════════════════════════════════════════════════════════
+        
+        // In a real implementation, these would call the backend API
+        // For demo purposes, they simulate responses
+        
+        async function runAudit() {
+            const url = document.getElementById('audit-url').value;
+            if (!url) { alert('Please enter a URL'); return; }
+            
+            showLoading('Running website audit...');
+            addLog(`Auditing: ${url}`, 'info');
+            
+            // Simulate API call (replace with real backend call)
+            await new Promise(r => setTimeout(r, 2000));
+            
+            // Simulated result
+            const result = {
+                performance: Math.floor(Math.random() * 40) + 50,
+                accessibility: Math.floor(Math.random() * 30) + 70,
+                seo: Math.floor(Math.random() * 35) + 55,
+                loadTime: Math.floor(Math.random() * 2000) + 500,
+                resources: Math.floor(Math.random() * 30) + 5
+            };
+            
+            hideLoading();
+            
+            // Display scores
+            document.getElementById('audit-scores').style.display = 'grid';
+            document.getElementById('score-performance').textContent = result.performance;
+            document.getElementById('score-performance').className = `score-value ${getScoreClass(result.performance)}`;
+            document.getElementById('score-accessibility').textContent = result.accessibility;
+            document.getElementById('score-accessibility').className = `score-value ${getScoreClass(result.accessibility)}`;
+            document.getElementById('score-seo').textContent = result.seo;
+            document.getElementById('score-seo').className = `score-value ${getScoreClass(result.seo)}`;
+            
+            // Display details
+            const resultsDiv = document.getElementById('audit-results');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `<pre class="result-success">✅ Audit Complete!
+
+URL: ${url}
+Performance: ${result.performance}/100
+Accessibility: ${result.accessibility}/100
+SEO: ${result.seo}/100
+Load Time: ${result.loadTime}ms
+Resources: ${result.resources}</pre>`;
+            
+            addLog(`Audit complete: ${result.performance}/100`, 'success');
+        }
+
+        async function runAPITest() {
+            const url = document.getElementById('api-url').value;
+            const method = document.getElementById('api-method').value;
+            if (!url) { alert('Please enter an API endpoint'); return; }
+            
+            showLoading(`Testing ${method} ${url}...`);
+            addLog(`API Test: ${method} ${url}`, 'info');
+            
+            await new Promise(r => setTimeout(r, 1000));
+            
+            const result = {
+                status: 200,
+                statusText: 'OK',
+                responseTime: Math.floor(Math.random() * 500) + 100,
+                success: true
+            };
+            
+            hideLoading();
+            
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `<pre class="result-success">✅ API Test Complete!
+
+Endpoint: ${url}
+Method: ${method}
+Status: ${result.status} ${result.statusText}
+Response Time: ${result.responseTime}ms
+Success: ${result.success}</pre>`;
+            
+            addLog(`API: ${result.status} in ${result.responseTime}ms`, 'success');
+        }
+
+        async function runLinkChecker() {
+            const url = document.getElementById('links-url').value;
+            const max = document.getElementById('links-max').value;
+            if (!url) { alert('Please enter a URL'); return; }
+            
+            showLoading(`Checking links on ${url}...`);
+            addLog(`Link check: ${url}`, 'info');
+            
+            await new Promise(r => setTimeout(r, 1500));
+            
+            const broken = Math.floor(Math.random() * 3);
+            
+            hideLoading();
+            
+            const resultsDiv = document.getElementById('links-results');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `<pre class="${broken === 0 ? 'result-success' : 'result-warning'}">🔗 Link Check Complete!
+
+URL: ${url}
+Total Links: ${max}
+Checked: ${max}
+Broken: ${broken}
+${broken > 0 ? '\n⚠️ Broken links found - review recommended' : '\n✅ All links valid!'}</pre>`;
+            
+            addLog(`Links: ${broken} broken of ${max}`, broken === 0 ? 'success' : 'warning');
+        }
+
+        async function runPrediction() {
+            addLog('Prediction Matrix requires PRO license', 'warning');
+            alert('🔮 Prediction Matrix requires a PRO license.\n\nmm.predict(options) analyzes code changes and predicts potential test failures.');
+        }
+
+        async function runAPISensei() {
+            addLog('API Sensei requires PRO license', 'warning');
+            alert('🤖 API Sensei requires a PRO license.\n\nmm.apiSensei(config) automatically generates and runs comprehensive API tests.');
+        }
+
+        async function runChronos() {
+            addLog('Chronos Engine requires PRO license', 'warning');
+            alert('⏰ Chronos Engine requires a PRO license.\n\nmm.chronos(options) provides time-travel debugging with state snapshots.');
+        }
+
+        // ══════════════════════════════════════════════════════════════
+        // INITIALIZATION
+        // ══════════════════════════════════════════════════════════════
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set license status
+            document.getElementById('license-indicator').classList.add('warning');
+            document.getElementById('license-status').textContent = 'Free Tier';
+            document.getElementById('license-status').style.color = 'var(--accent-warning)';
+            
+            // Simulate temperature updates
+            setInterval(() => {
+                const temp = Math.floor(Math.random() * 30) + 40;
+                const fill = document.getElementById('temp-fill');
+                const value = document.getElementById('temp-value');
+                const state = document.getElementById('thermal-state');
+                
+                fill.style.width = `${temp}%`;
+                value.textContent = `${temp}°C`;
+                
+                if (temp < 60) {
+                    fill.style.background = 'var(--accent-success)';
+                    state.innerHTML = '<span style="color: var(--accent-success);">🟢 COOL</span>';
+                } else if (temp < 70) {
+                    fill.style.background = 'var(--accent-secondary)';
+                    state.innerHTML = '<span style="color: var(--accent-secondary);">🔵 WARM</span>';
+                } else if (temp < 80) {
+                    fill.style.background = 'var(--accent-warning)';
+                    state.innerHTML = '<span style="color: var(--accent-warning);">🟠 HOT</span>';
+                } else {
+                    fill.style.background = 'var(--accent-danger)';
+                    state.innerHTML = '<span style="color: var(--accent-danger);">🔴 CRITICAL</span>';
+                }
+            }, 3000);
+            
+            addLog('MisterMind v23.0.0 UI initialized', 'success');
+            addLog('🇧🇬 Made with ❤️ in Bulgaria', 'info');
+        });
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER                                                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <footer class="footer">
+        <p>
+            <strong>MisterMind v23.0.0</strong> "The Local Sovereign" | 
+            © 2025 Димитър Продромов | 
+            <a href="https://github.com/papica777-eng/MrMindQATool">GitHub</a> |
+            🇧🇬 Made with ❤️ in Bulgaria
+        </p>
+    </footer>
+</body>
+</html>

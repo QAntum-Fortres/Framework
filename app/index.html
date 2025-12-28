@@ -514,6 +514,70 @@
             color: var(--accent-primary);
             text-decoration: none;
         }
+
+        /* ══════════════════════════════════════════════════════════════ */
+        /* LANGUAGE SELECTOR                                              */
+        /* ══════════════════════════════════════════════════════════════ */
+
+        .lang-selector {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-primary));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .lang-selector h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .lang-btn {
+            padding: 10px 12px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent-secondary);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .lang-btn.active {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .lang-btn .flag {
+            font-size: 1.2rem;
+        }
+
+        .lang-btn .code {
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
 </head>
 <body>
@@ -524,24 +588,24 @@
         <div class="logo">
             <span class="logo-icon">🧠</span>
             <div class="logo-text">
-                <h1>MISTER MIND</h1>
-                <p>v23.0.0 "The Local Sovereign"</p>
+                <h1 data-i18n="header.title">MISTER MIND</h1>
+                <p data-i18n="header.codename">v23.0.0 "The Local Sovereign"</p>
             </div>
         </div>
         <div class="header-stats">
             <div class="stat-badge">
                 <span>📄</span>
-                <span>Lines:</span>
+                <span data-i18n="header.lines">Lines:</span>
                 <span class="value">45,895</span>
             </div>
             <div class="stat-badge">
                 <span>✅</span>
-                <span>Tests:</span>
+                <span data-i18n="header.tests">Tests:</span>
                 <span class="value">492</span>
             </div>
             <div class="stat-badge">
                 <span>🏢</span>
-                <span>Modules:</span>
+                <span data-i18n="header.modules">Modules:</span>
                 <span class="value">6</span>
             </div>
         </div>
@@ -552,94 +616,119 @@
         <!-- SIDEBAR - MODULE NAVIGATION                                 -->
         <!-- ═══════════════════════════════════════════════════════════ -->
         <aside class="sidebar">
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- LANGUAGE SELECTOR - 🌍 Citizen of the World             -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <div class="lang-selector">
+                <h4>🌍 <span data-i18n="language">Language</span></h4>
+                <div class="lang-buttons">
+                    <button class="lang-btn" data-lang="bg" title="Български">
+                        <span class="flag">🇧🇬</span>
+                        <span class="code">BG</span>
+                    </button>
+                    <button class="lang-btn active" data-lang="en" title="English">
+                        <span class="flag">🇬🇧</span>
+                        <span class="code">EN</span>
+                    </button>
+                    <button class="lang-btn" data-lang="de" title="Deutsch">
+                        <span class="flag">🇩🇪</span>
+                        <span class="code">DE</span>
+                    </button>
+                    <button class="lang-btn" data-lang="fr" title="Français">
+                        <span class="flag">🇫🇷</span>
+                        <span class="code">FR</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- Free Features -->
             <div class="sidebar-section">
-                <h3>🆓 Free Features</h3>
+                <h3 data-i18n="sidebar.freeFeatures">🆓 Free Features</h3>
                 
                 <button class="module-btn active" data-panel="audit">
                     <span class="icon">🔍</span>
-                    <span>Website Audit</span>
-                    <span class="badge">FREE</span>
+                    <span data-i18n="modules.websiteAudit">Website Audit</span>
+                    <span class="badge" data-i18n="badges.free">FREE</span>
                 </button>
                 
                 <button class="module-btn" data-panel="api-test">
                     <span class="icon">🌐</span>
-                    <span>API Test</span>
-                    <span class="badge">FREE</span>
+                    <span data-i18n="modules.apiTest">API Test</span>
+                    <span class="badge" data-i18n="badges.free">FREE</span>
                 </button>
                 
                 <button class="module-btn" data-panel="link-checker">
                     <span class="icon">🔗</span>
-                    <span>Link Checker</span>
-                    <span class="badge">FREE</span>
+                    <span data-i18n="modules.linkChecker">Link Checker</span>
+                    <span class="badge" data-i18n="badges.free">FREE</span>
                 </button>
             </div>
 
             <!-- Pro Features -->
             <div class="sidebar-section">
-                <h3>💎 Pro Features</h3>
+                <h3 data-i18n="sidebar.proFeatures">💎 Pro Features</h3>
                 
                 <button class="module-btn" data-panel="prediction">
                     <span class="icon">🔮</span>
-                    <span>Prediction Matrix</span>
-                    <span class="badge pro">PRO</span>
+                    <span data-i18n="modules.predictionMatrix">Prediction Matrix</span>
+                    <span class="badge pro" data-i18n="badges.pro">PRO</span>
                 </button>
                 
                 <button class="module-btn" data-panel="api-sensei">
                     <span class="icon">🤖</span>
-                    <span>API Sensei</span>
-                    <span class="badge pro">PRO</span>
+                    <span data-i18n="modules.apiSensei">API Sensei</span>
+                    <span class="badge pro" data-i18n="badges.pro">PRO</span>
                 </button>
                 
                 <button class="module-btn" data-panel="chronos">
                     <span class="icon">⏰</span>
-                    <span>Chronos Engine</span>
-                    <span class="badge pro">PRO</span>
+                    <span data-i18n="modules.chronosEngine">Chronos Engine</span>
+                    <span class="badge pro" data-i18n="badges.pro">PRO</span>
                 </button>
             </div>
 
             <!-- Enterprise Modules -->
             <div class="sidebar-section">
-                <h3>🏢 Enterprise</h3>
+                <h3 data-i18n="sidebar.enterprise">🏢 Enterprise</h3>
                 
                 <button class="module-btn" data-panel="thermal">
                     <span class="icon">🌡️</span>
-                    <span>Thermal Pool</span>
+                    <span data-i18n="modules.thermalPool">Thermal Pool</span>
                 </button>
                 
                 <button class="module-btn" data-panel="docker">
                     <span class="icon">🐳</span>
-                    <span>Docker Manager</span>
+                    <span data-i18n="modules.dockerManager">Docker Manager</span>
                 </button>
                 
                 <button class="module-btn" data-panel="swarm">
                     <span class="icon">🎖️</span>
-                    <span>Swarm Commander</span>
+                    <span data-i18n="modules.swarmCommander">Swarm Commander</span>
                 </button>
                 
                 <button class="module-btn" data-panel="tts">
                     <span class="icon">🔊</span>
-                    <span>Bulgarian TTS</span>
+                    <span data-i18n="modules.bulgarianTts">Bulgarian TTS</span>
                 </button>
                 
                 <button class="module-btn" data-panel="license">
                     <span class="icon">🔐</span>
-                    <span>License Manager</span>
+                    <span data-i18n="modules.licenseManager">License Manager</span>
                 </button>
             </div>
 
             <!-- Utilities -->
             <div class="sidebar-section">
-                <h3>🛠️ Utilities</h3>
+                <h3 data-i18n="sidebar.utilities">🛠️ Utilities</h3>
                 
                 <button class="module-btn" data-panel="stats">
                     <span class="icon">📊</span>
-                    <span>System Stats</span>
+                    <span data-i18n="modules.systemStats">System Stats</span>
                 </button>
                 
                 <button class="module-btn" data-panel="logger">
                     <span class="icon">📋</span>
-                    <span>Logger</span>
+                    <span data-i18n="modules.logger">Logger</span>
                 </button>
             </div>
         </aside>
@@ -655,32 +744,32 @@
             <div class="panel active" id="panel-audit">
                 <div class="panel-header">
                     <div>
-                        <h2>🔍 Website Audit</h2>
-                        <p class="subtitle">mm.audit(url) → AuditResult</p>
+                        <h2 data-i18n="panels.audit.title">🔍 Website Audit</h2>
+                        <p class="subtitle" data-i18n="panels.audit.subtitle">mm.audit(url) → AuditResult</p>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>URL to Audit</label>
+                    <label data-i18n="panels.audit.urlLabel">URL to Audit</label>
                     <input type="url" id="audit-url" placeholder="https://example.com" value="https://example.com">
                 </div>
                 
                 <button class="btn btn-primary" onclick="runAudit()">
-                    <span>▶️</span> Run Audit
+                    <span>▶️</span> <span data-i18n="panels.audit.runButton">Run Audit</span>
                 </button>
                 
                 <div class="score-grid" id="audit-scores" style="display: none;">
                     <div class="score-card">
                         <div class="score-value" id="score-performance">--</div>
-                        <div class="score-label">Performance</div>
+                        <div class="score-label" data-i18n="panels.audit.performance">Performance</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value" id="score-accessibility">--</div>
-                        <div class="score-label">Accessibility</div>
+                        <div class="score-label" data-i18n="panels.audit.accessibility">Accessibility</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value" id="score-seo">--</div>
-                        <div class="score-label">SEO</div>
+                        <div class="score-label" data-i18n="panels.audit.seo">SEO</div>
                     </div>
                 </div>
                 
@@ -693,18 +782,18 @@
             <div class="panel" id="panel-api-test">
                 <div class="panel-header">
                     <div>
-                        <h2>🌐 API Test</h2>
-                        <p class="subtitle">mm.testAPI(endpoint, options) → APITestResult</p>
+                        <h2 data-i18n="panels.apiTest.title">🌐 API Test</h2>
+                        <p class="subtitle" data-i18n="panels.apiTest.subtitle">mm.testAPI(endpoint, options) → APITestResult</p>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>API Endpoint</label>
+                    <label data-i18n="panels.apiTest.endpointLabel">API Endpoint</label>
                     <input type="url" id="api-url" placeholder="https://api.example.com/health" value="https://httpbin.org/get">
                 </div>
                 
                 <div class="form-group">
-                    <label>Method</label>
+                    <label data-i18n="panels.apiTest.methodLabel">Method</label>
                     <select id="api-method">
                         <option value="GET">GET</option>
                         <option value="POST">POST</option>
@@ -715,7 +804,7 @@
                 </div>
                 
                 <button class="btn btn-primary" onclick="runAPITest()">
-                    <span>▶️</span> Test API
+                    <span>▶️</span> <span data-i18n="panels.apiTest.runButton">Test API</span>
                 </button>
                 
                 <div class="results" id="api-results" style="display: none;"></div>
@@ -727,23 +816,23 @@
             <div class="panel" id="panel-link-checker">
                 <div class="panel-header">
                     <div>
-                        <h2>🔗 Link Checker</h2>
-                        <p class="subtitle">mm.checkLinks(url, options) → CheckLinksResult</p>
+                        <h2 data-i18n="panels.linkChecker.title">🔗 Link Checker</h2>
+                        <p class="subtitle" data-i18n="panels.linkChecker.subtitle">mm.checkLinks(url, options) → CheckLinksResult</p>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>Page URL</label>
+                    <label data-i18n="panels.linkChecker.urlLabel">Page URL</label>
                     <input type="url" id="links-url" placeholder="https://example.com" value="https://example.com">
                 </div>
                 
                 <div class="form-group">
-                    <label>Max Links to Check</label>
+                    <label data-i18n="panels.linkChecker.maxLinksLabel">Max Links to Check</label>
                     <input type="number" id="links-max" value="20" min="1" max="100">
                 </div>
                 
                 <button class="btn btn-primary" onclick="runLinkChecker()">
-                    <span>▶️</span> Check Links
+                    <span>▶️</span> <span data-i18n="panels.linkChecker.runButton">Check Links</span>
                 </button>
                 
                 <div class="results" id="links-results" style="display: none;"></div>
@@ -755,19 +844,19 @@
             <div class="panel" id="panel-prediction">
                 <div class="panel-header">
                     <div>
-                        <h2>🔮 Prediction Matrix</h2>
-                        <p class="subtitle">mm.predict(options) → PredictionResult</p>
+                        <h2 data-i18n="panels.prediction.title">🔮 Prediction Matrix</h2>
+                        <p class="subtitle" data-i18n="panels.prediction.subtitle">mm.predict(options) → PredictionResult</p>
                     </div>
-                    <span class="badge pro" style="padding: 8px 16px;">PRO LICENSE REQUIRED</span>
+                    <span class="badge pro" style="padding: 8px 16px;" data-i18n="badges.proRequired">PRO LICENSE REQUIRED</span>
                 </div>
                 
                 <div class="form-group">
-                    <label>Code Changes (diff or content)</label>
+                    <label data-i18n="panels.prediction.codeLabel">Code Changes (diff or content)</label>
                     <textarea id="prediction-code" rows="10" placeholder="Paste your code changes here..."></textarea>
                 </div>
                 
                 <button class="btn btn-primary" onclick="runPrediction()">
-                    <span>▶️</span> Analyze & Predict
+                    <span>▶️</span> <span data-i18n="panels.prediction.runButton">Analyze & Predict</span>
                 </button>
                 
                 <div class="results" id="prediction-results" style="display: none;"></div>
@@ -779,30 +868,30 @@
             <div class="panel" id="panel-api-sensei">
                 <div class="panel-header">
                     <div>
-                        <h2>🤖 API Sensei</h2>
-                        <p class="subtitle">mm.apiSensei(config) → APISenseiResult</p>
+                        <h2 data-i18n="panels.apiSensei.title">🤖 API Sensei</h2>
+                        <p class="subtitle" data-i18n="panels.apiSensei.subtitle">mm.apiSensei(config) → APISenseiResult</p>
                     </div>
-                    <span class="badge pro" style="padding: 8px 16px;">PRO LICENSE REQUIRED</span>
+                    <span class="badge pro" style="padding: 8px 16px;" data-i18n="badges.proRequired">PRO LICENSE REQUIRED</span>
                 </div>
                 
                 <div class="form-group">
-                    <label>Base API URL</label>
+                    <label data-i18n="panels.apiSensei.baseUrlLabel">Base API URL</label>
                     <input type="url" id="sensei-url" placeholder="https://api.example.com">
                 </div>
                 
                 <div class="form-group">
-                    <label>Test Scenarios</label>
+                    <label data-i18n="panels.apiSensei.scenariosLabel">Test Scenarios</label>
                     <select id="sensei-scenarios" multiple size="5">
-                        <option value="happy-path" selected>Happy Path</option>
-                        <option value="edge-cases" selected>Edge Cases</option>
-                        <option value="error-handling" selected>Error Handling</option>
-                        <option value="security">Security</option>
-                        <option value="performance">Performance</option>
+                        <option value="happy-path" selected data-i18n="panels.apiSensei.scenarios.happyPath">Happy Path</option>
+                        <option value="edge-cases" selected data-i18n="panels.apiSensei.scenarios.edgeCases">Edge Cases</option>
+                        <option value="error-handling" selected data-i18n="panels.apiSensei.scenarios.errorHandling">Error Handling</option>
+                        <option value="security" data-i18n="panels.apiSensei.scenarios.security">Security</option>
+                        <option value="performance" data-i18n="panels.apiSensei.scenarios.performance">Performance</option>
                     </select>
                 </div>
                 
                 <button class="btn btn-primary" onclick="runAPISensei()">
-                    <span>▶️</span> Generate & Run Tests
+                    <span>▶️</span> <span data-i18n="panels.apiSensei.runButton">Generate & Run Tests</span>
                 </button>
                 
                 <div class="results" id="sensei-results" style="display: none;"></div>
@@ -814,28 +903,28 @@
             <div class="panel" id="panel-chronos">
                 <div class="panel-header">
                     <div>
-                        <h2>⏰ Chronos Engine</h2>
-                        <p class="subtitle">mm.chronos(options) → ChronosResult</p>
+                        <h2 data-i18n="panels.chronos.title">⏰ Chronos Engine</h2>
+                        <p class="subtitle" data-i18n="panels.chronos.subtitle">mm.chronos(options) → ChronosResult</p>
                     </div>
-                    <span class="badge pro" style="padding: 8px 16px;">PRO LICENSE REQUIRED</span>
+                    <span class="badge pro" style="padding: 8px 16px;" data-i18n="badges.proRequired">PRO LICENSE REQUIRED</span>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.chronos.description">
                     Time-travel debugging: Records state snapshots during test execution for debugging.
                 </p>
                 
                 <div class="form-group">
-                    <label>Snapshot Interval (ms)</label>
+                    <label data-i18n="panels.chronos.intervalLabel">Snapshot Interval (ms)</label>
                     <input type="number" id="chronos-interval" value="100" min="50" max="1000">
                 </div>
                 
                 <div class="form-group">
-                    <label>Max Snapshots</label>
+                    <label data-i18n="panels.chronos.maxSnapshotsLabel">Max Snapshots</label>
                     <input type="number" id="chronos-max" value="50" min="10" max="200">
                 </div>
                 
                 <button class="btn btn-primary" onclick="runChronos()">
-                    <span>▶️</span> Start Recording
+                    <span>▶️</span> <span data-i18n="panels.chronos.runButton">Start Recording</span>
                 </button>
                 
                 <div class="results" id="chronos-results" style="display: none;"></div>
@@ -847,29 +936,28 @@
             <div class="panel" id="panel-thermal">
                 <div class="panel-header">
                     <div>
-                        <h2>🌡️ Thermal-Aware Pool</h2>
-                        <p class="subtitle">ThermalAwarePool - CPU temperature management</p>
+                        <h2 data-i18n="panels.thermal.title">🌡️ Thermal-Aware Pool</h2>
+                        <p class="subtitle" data-i18n="panels.thermal.subtitle">ThermalAwarePool - CPU temperature management</p>
                     </div>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                    <!-- 🇧🇬 Автоматично регулира броя инстанции според температурата на процесора -->
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.thermal.description">
                     Automatically adjusts parallelism based on CPU temperature to prevent throttling.
                 </p>
                 
                 <table style="width: 100%; margin-bottom: 16px;">
                     <thead>
                         <tr style="text-align: left; color: var(--text-secondary);">
-                            <th style="padding: 8px;">State</th>
-                            <th style="padding: 8px;">Temperature</th>
-                            <th style="padding: 8px;">Max Instances</th>
+                            <th style="padding: 8px;" data-i18n="status.state">State</th>
+                            <th style="padding: 8px;" data-i18n="panels.thermal.temperature">Temperature</th>
+                            <th style="padding: 8px;" data-i18n="panels.thermal.maxInstances">Max Instances</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="color: var(--accent-success);"><td style="padding: 8px;">🟢 COOL</td><td>&lt;60°C</td><td>40</td></tr>
-                        <tr style="color: var(--accent-secondary);"><td style="padding: 8px;">🔵 WARM</td><td>60-70°C</td><td>30</td></tr>
-                        <tr style="color: var(--accent-warning);"><td style="padding: 8px;">🟠 HOT</td><td>70-80°C</td><td>20</td></tr>
-                        <tr style="color: var(--accent-danger);"><td style="padding: 8px;">🔴 CRITICAL</td><td>&gt;80°C</td><td>10</td></tr>
+                        <tr style="color: var(--accent-success);"><td style="padding: 8px;" data-i18n="panels.thermal.states.cool">🟢 COOL</td><td>&lt;60°C</td><td>40</td></tr>
+                        <tr style="color: var(--accent-secondary);"><td style="padding: 8px;" data-i18n="panels.thermal.states.warm">🟢 WARM</td><td>60-70°C</td><td>30</td></tr>
+                        <tr style="color: var(--accent-warning);"><td style="padding: 8px;" data-i18n="panels.thermal.states.hot">🟠 HOT</td><td>70-80°C</td><td>20</td></tr>
+                        <tr style="color: var(--accent-danger);"><td style="padding: 8px;" data-i18n="panels.thermal.states.critical">🔴 CRITICAL</td><td>&gt;80°C</td><td>10</td></tr>
                     </tbody>
                 </table>
                 
@@ -895,12 +983,12 @@ await pool.start();
             <div class="panel" id="panel-docker">
                 <div class="panel-header">
                     <div>
-                        <h2>🐳 Docker Manager</h2>
-                        <p class="subtitle">DockerManager - Selenium Grid orchestration</p>
+                        <h2 data-i18n="panels.docker.title">🐳 Docker Manager</h2>
+                        <p class="subtitle" data-i18n="panels.docker.subtitle">DockerManager - Selenium Grid orchestration</p>
                     </div>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.docker.description">
                     Auto-generates Dockerfile and docker-compose.yml for Selenium Grid.
                 </p>
                 
@@ -926,13 +1014,12 @@ await docker.startGrid();</pre>
             <div class="panel" id="panel-swarm">
                 <div class="panel-header">
                     <div>
-                        <h2>🎖️ Swarm Commander</h2>
-                        <p class="subtitle">SwarmCommander - Commander-Soldier pattern</p>
+                        <h2 data-i18n="panels.swarm.title">🎖️ Swarm Commander</h2>
+                        <p class="subtitle" data-i18n="panels.swarm.subtitle">SwarmCommander - Commander-Soldier pattern</p>
                     </div>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                    <!-- 🇧🇬 Командирът разпределя задачите между войниците (browser instances) -->
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.swarm.description">
                     Commander distributes tasks to soldiers (browser instances) for parallel execution.
                 </p>
                 
@@ -960,12 +1047,12 @@ await commander.queueTask({
             <div class="panel" id="panel-tts">
                 <div class="panel-header">
                     <div>
-                        <h2>🔊 Bulgarian TTS</h2>
-                        <p class="subtitle">BulgarianTTS - Native text-to-speech</p>
+                        <h2 data-i18n="panels.tts.title">🔊 Bulgarian TTS</h2>
+                        <p class="subtitle" data-i18n="panels.tts.subtitle">BulgarianTTS - Native text-to-speech</p>
                     </div>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.tts.description">
                     🇧🇬 Български текст-към-реч за гласова обратна връзка по време на тестове.
                 </p>
                 
@@ -977,10 +1064,10 @@ await commander.queueTask({
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="padding: 8px;">test_passed</td><td>"Тестът премина успешно"</td></tr>
-                        <tr><td style="padding: 8px;">test_failed</td><td>"Тестът се провали"</td></tr>
-                        <tr><td style="padding: 8px;">error_found</td><td>"Открих грешка в {element}"</td></tr>
-                        <tr><td style="padding: 8px;">healing</td><td>"Намерих нов селектор"</td></tr>
+                        <tr><td style="padding: 8px;">test_passed</td><td data-i18n="panels.tts.templates.testPassed">"Тестът премина успешно"</td></tr>
+                        <tr><td style="padding: 8px;">test_failed</td><td data-i18n="panels.tts.templates.testFailed">"Тестът се провали"</td></tr>
+                        <tr><td style="padding: 8px;">error_found</td><td data-i18n="panels.tts.templates.errorFound">"Открих грешка в {element}"</td></tr>
+                        <tr><td style="padding: 8px;">healing</td><td data-i18n="panels.tts.templates.healing">"Намерих нов селектор"</td></tr>
                     </tbody>
                 </table>
                 
@@ -1001,13 +1088,12 @@ await tts.speakTemplate('error_found', { element: 'бутон' });</pre>
             <div class="panel" id="panel-license">
                 <div class="panel-header">
                     <div>
-                        <h2>🔐 License Manager</h2>
-                        <p class="subtitle">LicenseManager - Hardware-locked licensing</p>
+                        <h2 data-i18n="panels.license.title">🔐 License Manager</h2>
+                        <p class="subtitle" data-i18n="panels.license.subtitle">LicenseManager - Hardware-locked licensing</p>
                     </div>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                    <!-- 🇧🇬 Лицензът се привързва към хардуера ти с SHA-256 отпечатък -->
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.license.description">
                     License is bound to hardware using SHA-256 fingerprint.
                 </p>
                 
@@ -1015,15 +1101,15 @@ await tts.speakTemplate('error_found', { element: 'бутон' });</pre>
                     <thead>
                         <tr style="text-align: left; color: var(--text-secondary);">
                             <th style="padding: 8px;">Type</th>
-                            <th style="padding: 8px;">Max Instances</th>
-                            <th style="padding: 8px;">Features</th>
+                            <th style="padding: 8px;" data-i18n="panels.license.maxInstances">Max Instances</th>
+                            <th style="padding: 8px;" data-i18n="panels.license.features">Features</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="padding: 8px;">Trial</td><td>2</td><td>Basic</td></tr>
-                        <tr><td style="padding: 8px;">Professional</td><td>10</td><td>+ Thermal, Docker</td></tr>
-                        <tr><td style="padding: 8px;">Enterprise</td><td>50</td><td>+ Swarm, TTS</td></tr>
-                        <tr><td style="padding: 8px;">Sovereign</td><td>999</td><td>All features</td></tr>
+                        <tr><td style="padding: 8px;" data-i18n="panels.license.types.trial">Trial</td><td>2</td><td>Basic</td></tr>
+                        <tr><td style="padding: 8px;" data-i18n="panels.license.types.professional">Professional</td><td>10</td><td>+ Thermal, Docker</td></tr>
+                        <tr><td style="padding: 8px;" data-i18n="panels.license.types.enterprise">Enterprise</td><td>50</td><td>+ Swarm, TTS</td></tr>
+                        <tr><td style="padding: 8px;" data-i18n="panels.license.types.sovereign">Sovereign</td><td>999</td><td>All features</td></tr>
                     </tbody>
                 </table>
                 
@@ -1042,35 +1128,35 @@ npm run license:status</pre>
             <div class="panel" id="panel-stats">
                 <div class="panel-header">
                     <div>
-                        <h2>📊 System Stats</h2>
-                        <p class="subtitle">getSystemStats() → Statistics</p>
+                        <h2 data-i18n="panels.stats.title">📊 System Stats</h2>
+                        <p class="subtitle" data-i18n="panels.stats.subtitle">getSystemStats() → Statistics</p>
                     </div>
                 </div>
                 
                 <div class="score-grid">
                     <div class="score-card">
                         <div class="score-value score-good">23.0.0</div>
-                        <div class="score-label">Version</div>
+                        <div class="score-label" data-i18n="panels.stats.version">Version</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value score-good">45,895</div>
-                        <div class="score-label">Lines of Code</div>
+                        <div class="score-label" data-i18n="panels.stats.linesOfCode">Lines of Code</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value score-good">91</div>
-                        <div class="score-label">TypeScript Files</div>
+                        <div class="score-label" data-i18n="panels.stats.typescriptFiles">TypeScript Files</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value score-good">492</div>
-                        <div class="score-label">Tests Passing</div>
+                        <div class="score-label" data-i18n="panels.stats.testsPassing">Tests Passing</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value score-good">6</div>
-                        <div class="score-label">Enterprise Modules</div>
+                        <div class="score-label" data-i18n="panels.stats.enterpriseModules">Enterprise Modules</div>
                     </div>
                     <div class="score-card">
                         <div class="score-value" style="font-size: 1rem; color: var(--accent-secondary);">The Local Sovereign</div>
-                        <div class="score-label">Codename</div>
+                        <div class="score-label" data-i18n="panels.stats.codename">Codename</div>
                     </div>
                 </div>
                 
@@ -1095,12 +1181,12 @@ const stats = getSystemStats();
             <div class="panel" id="panel-logger">
                 <div class="panel-header">
                     <div>
-                        <h2>📋 Structured Logger</h2>
-                        <p class="subtitle">mm.getLogger() → Logger</p>
+                        <h2 data-i18n="panels.logger.title">📋 Structured Logger</h2>
+                        <p class="subtitle" data-i18n="panels.logger.subtitle">mm.getLogger() → Logger</p>
                     </div>
                 </div>
                 
-                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                <p style="color: var(--text-secondary); margin-bottom: 16px;" data-i18n="panels.logger.description">
                     Professional logging with levels: debug, info, warn, error, audit
                 </p>
                 
@@ -1127,26 +1213,26 @@ logger.clear();</pre>
         <aside class="status-panel">
             <!-- System Status -->
             <div class="status-section">
-                <h3>📡 System Status</h3>
+                <h3 data-i18n="status.systemStatus">📡 System Status</h3>
                 <div class="status-card">
                     <div class="status-row">
-                        <span><span class="status-indicator online"></span>Backend</span>
-                        <span style="color: var(--accent-success);">Online</span>
+                        <span><span class="status-indicator online"></span><span data-i18n="status.backend">Backend</span></span>
+                        <span style="color: var(--accent-success);" data-i18n="status.online">Online</span>
                     </div>
                     <div class="status-row">
-                        <span><span class="status-indicator" id="license-indicator"></span>License</span>
-                        <span id="license-status">Checking...</span>
+                        <span><span class="status-indicator" id="license-indicator"></span><span data-i18n="status.license">License</span></span>
+                        <span id="license-status" data-i18n="status.checking">Checking...</span>
                     </div>
                     <div class="status-row">
-                        <span><span class="status-indicator online"></span>Circuit Breaker</span>
-                        <span style="color: var(--accent-success);">Closed</span>
+                        <span><span class="status-indicator online"></span><span data-i18n="status.circuitBreaker">Circuit Breaker</span></span>
+                        <span style="color: var(--accent-success);" data-i18n="status.closed">Closed</span>
                     </div>
                 </div>
             </div>
 
             <!-- CPU Temperature -->
             <div class="status-section">
-                <h3>🌡️ CPU Temperature</h3>
+                <h3 data-i18n="status.cpuTemperature">🌡️ CPU Temperature</h3>
                 <div class="status-card">
                     <div class="temp-gauge">
                         <div class="temp-bar">
@@ -1155,25 +1241,25 @@ logger.clear();</pre>
                         <div class="temp-value" id="temp-value">45°C</div>
                     </div>
                     <div style="margin-top: 12px; font-size: 0.85rem; color: var(--text-secondary);">
-                        State: <span id="thermal-state" style="color: var(--accent-success);">🟢 COOL</span>
+                        <span data-i18n="status.state">State:</span> <span id="thermal-state" style="color: var(--accent-success);">🟢 COOL</span>
                     </div>
                 </div>
             </div>
 
             <!-- Financial Oracle -->
             <div class="status-section">
-                <h3>💰 Financial Oracle</h3>
+                <h3 data-i18n="status.financialOracle">💰 Financial Oracle</h3>
                 <div class="status-card">
                     <div class="status-row">
-                        <span>Total Cost</span>
+                        <span data-i18n="status.totalCost">Total Cost</span>
                         <span id="cost-total">$0.00</span>
                     </div>
                     <div class="status-row">
-                        <span>Requests</span>
+                        <span data-i18n="status.requests">Requests</span>
                         <span id="cost-requests">0</span>
                     </div>
                     <div class="status-row">
-                        <span>Budget Left</span>
+                        <span data-i18n="status.budgetLeft">Budget Left</span>
                         <span style="color: var(--accent-success);" id="cost-budget">$100.00</span>
                     </div>
                 </div>
@@ -1181,11 +1267,11 @@ logger.clear();</pre>
 
             <!-- Activity Log -->
             <div class="status-section">
-                <h3>📜 Activity Log</h3>
+                <h3 data-i18n="status.activityLog">📜 Activity Log</h3>
                 <div class="activity-log" id="activity-log">
                     <div class="log-entry">
                         <span class="log-time">--:--:--</span>
-                        <span class="log-message result-info">Waiting for activity...</span>
+                        <span class="log-message result-info" data-i18n="status.waitingForActivity">Waiting for activity...</span>
                     </div>
                 </div>
             </div>
@@ -1196,7 +1282,7 @@ logger.clear();</pre>
     <div class="loading-overlay" id="loading">
         <div class="loading-content">
             <div class="spinner"></div>
-            <p id="loading-text">Processing...</p>
+            <p id="loading-text" data-i18n="common.processing">Processing...</p>
         </div>
     </div>
 
@@ -1204,6 +1290,772 @@ logger.clear();</pre>
     <!-- JAVASCRIPT                                                      -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <script>
+        // ══════════════════════════════════════════════════════════════
+        // I18N TRANSLATIONS - Cached in memory for instant switching
+        // ══════════════════════════════════════════════════════════════
+        
+        let currentLang = 'en';
+        
+        const translations = {
+            // ═══════════════════════════════════════════════════════════
+            // BULGARIAN
+            // ═══════════════════════════════════════════════════════════
+            bg: {
+                language: 'Език',
+                header: {
+                    title: 'MISTER MIND',
+                    codename: 'v23.0.0 "Локалният Суверен"',
+                    lines: 'Редове:',
+                    tests: 'Тестове:',
+                    modules: 'Модули:'
+                },
+                sidebar: {
+                    freeFeatures: '🆓 Безплатни функции',
+                    proFeatures: '💎 Pro функции',
+                    enterprise: '🏢 Enterprise',
+                    utilities: '🛠️ Инструменти'
+                },
+                modules: {
+                    websiteAudit: 'Одит на сайт',
+                    apiTest: 'API Тест',
+                    linkChecker: 'Проверка линкове',
+                    predictionMatrix: 'Матрица прогнози',
+                    apiSensei: 'API Sensei',
+                    chronosEngine: 'Chronos двигател',
+                    thermalPool: 'Термален пул',
+                    dockerManager: 'Docker мениджър',
+                    swarmCommander: 'Swarm командир',
+                    bulgarianTts: 'Български TTS',
+                    licenseManager: 'Лицензен мениджър',
+                    systemStats: 'Системна статистика',
+                    logger: 'Логър'
+                },
+                badges: {
+                    free: 'БЕЗПЛ.',
+                    pro: 'PRO',
+                    proRequired: 'ИЗИСКВА PRO ЛИЦЕНЗ'
+                },
+                panels: {
+                    audit: {
+                        title: '🔍 Одит на уебсайт',
+                        subtitle: 'mm.audit(url) → AuditResult',
+                        urlLabel: 'URL за одит',
+                        runButton: 'Стартирай одит',
+                        performance: 'Производителност',
+                        accessibility: 'Достъпност',
+                        seo: 'SEO'
+                    },
+                    apiTest: {
+                        title: '🌐 API Тест',
+                        subtitle: 'mm.testAPI(endpoint, options) → APITestResult',
+                        endpointLabel: 'API Endpoint',
+                        methodLabel: 'Метод',
+                        runButton: 'Тествай API'
+                    },
+                    linkChecker: {
+                        title: '🔗 Проверка на линкове',
+                        subtitle: 'mm.checkLinks(url, options) → CheckLinksResult',
+                        urlLabel: 'URL на страница',
+                        maxLinksLabel: 'Макс. линкове за проверка',
+                        runButton: 'Провери линкове'
+                    },
+                    prediction: {
+                        title: '🔮 Матрица за прогнози',
+                        subtitle: 'mm.predict(options) → PredictionResult',
+                        codeLabel: 'Промени в кода (diff или съдържание)',
+                        runButton: 'Анализирай и предскажи'
+                    },
+                    apiSensei: {
+                        title: '🤖 API Sensei',
+                        subtitle: 'mm.apiSensei(config) → APISenseiResult',
+                        baseUrlLabel: 'Базов API URL',
+                        scenariosLabel: 'Тестови сценарии',
+                        runButton: 'Генерирай и изпълни тестове',
+                        scenarios: {
+                            happyPath: 'Щастлив път',
+                            edgeCases: 'Гранични случаи',
+                            errorHandling: 'Обработка грешки',
+                            security: 'Сигурност',
+                            performance: 'Производителност'
+                        }
+                    },
+                    chronos: {
+                        title: '⏰ Chronos двигател',
+                        subtitle: 'mm.chronos(options) → ChronosResult',
+                        description: 'Дебъгване с пътуване във времето: Записва моментни снимки по време на изпълнение.',
+                        intervalLabel: 'Интервал на снимки (ms)',
+                        maxSnapshotsLabel: 'Макс. снимки',
+                        runButton: 'Започни запис'
+                    },
+                    thermal: {
+                        title: '🌡️ Термален пул',
+                        subtitle: 'ThermalAwarePool - Управление на CPU температура',
+                        description: 'Автоматично регулира паралелизма според температурата на процесора.',
+                        states: { cool: '🟢 ХЛАДНО', warm: '🔵 ТОПЛО', hot: '🟠 ГОРЕЩО', critical: '🔴 КРИТИЧНО' },
+                        temperature: 'Температура',
+                        maxInstances: 'Макс. инстанции'
+                    },
+                    docker: {
+                        title: '🐳 Docker мениджър',
+                        subtitle: 'DockerManager - Selenium Grid оркестрация',
+                        description: 'Автоматично генерира Dockerfile и docker-compose.yml за Selenium Grid.'
+                    },
+                    swarm: {
+                        title: '🎖️ Swarm командир',
+                        subtitle: 'SwarmCommander - Commander-Soldier шаблон',
+                        description: 'Командирът разпределя задачите между войниците (browser instances) за паралелно изпълнение.'
+                    },
+                    tts: {
+                        title: '🔊 Български TTS',
+                        subtitle: 'BulgarianTTS - Роден текст-към-реч',
+                        description: '🇧🇬 Български текст-към-реч за гласова обратна връзка по време на тестове.',
+                        templates: { testPassed: '"Тестът премина успешно"', testFailed: '"Тестът се провали"', errorFound: '"Открих грешка в {element}"', healing: '"Намерих нов селектор"' }
+                    },
+                    license: {
+                        title: '🔐 Лицензен мениджър',
+                        subtitle: 'LicenseManager - Хардуерно заключен лиценз',
+                        description: 'Лицензът се привързва към хардуера с SHA-256 отпечатък.',
+                        types: { trial: 'Пробен', professional: 'Професионален', enterprise: 'Ентърпрайз', sovereign: 'Суверен' },
+                        maxInstances: 'Макс. инстанции',
+                        features: 'Функции'
+                    },
+                    stats: {
+                        title: '📊 Системна статистика',
+                        subtitle: 'getSystemStats() → Statistics',
+                        version: 'Версия',
+                        linesOfCode: 'Редове код',
+                        typescriptFiles: 'TypeScript файлове',
+                        testsPassing: 'Минаващи тестове',
+                        enterpriseModules: 'Enterprise модули',
+                        codename: 'Кодово име'
+                    },
+                    logger: {
+                        title: '📋 Структуриран логър',
+                        subtitle: 'mm.getLogger() → Logger',
+                        description: 'Професионално логване с нива: debug, info, warn, error, audit'
+                    }
+                },
+                status: {
+                    systemStatus: '📡 Системен статус',
+                    backend: 'Backend',
+                    license: 'Лиценз',
+                    circuitBreaker: 'Circuit Breaker',
+                    online: 'Онлайн',
+                    offline: 'Офлайн',
+                    closed: 'Затворен',
+                    open: 'Отворен',
+                    cpuTemperature: '🌡️ CPU температура',
+                    state: 'Състояние:',
+                    financialOracle: '💰 Финансов оракул',
+                    totalCost: 'Общи разходи',
+                    requests: 'Заявки',
+                    budgetLeft: 'Оставащ бюджет',
+                    activityLog: '📜 Дневник на активността',
+                    waitingForActivity: 'Изчакване на активност...',
+                    checking: 'Проверка...',
+                    freeTier: 'Безплатен план'
+                },
+                common: {
+                    loading: 'Зареждане...',
+                    processing: 'Обработка...',
+                    complete: 'Завършено!',
+                    error: 'Грешка',
+                    success: 'Успех',
+                    warning: 'Предупреждение',
+                    opened: 'Отворено:',
+                    initialized: 'MisterMind v23.0.0 UI инициализиран',
+                    madeInBulgaria: '🇧🇬 Направено с ❤️ в България'
+                },
+                footer: { copyright: '© 2025 Димитър Продромов' }
+            },
+            
+            // ═══════════════════════════════════════════════════════════
+            // ENGLISH
+            // ═══════════════════════════════════════════════════════════
+            en: {
+                language: 'Language',
+                header: {
+                    title: 'MISTER MIND',
+                    codename: 'v23.0.0 "The Local Sovereign"',
+                    lines: 'Lines:',
+                    tests: 'Tests:',
+                    modules: 'Modules:'
+                },
+                sidebar: {
+                    freeFeatures: '🆓 Free Features',
+                    proFeatures: '💎 Pro Features',
+                    enterprise: '🏢 Enterprise',
+                    utilities: '🛠️ Utilities'
+                },
+                modules: {
+                    websiteAudit: 'Website Audit',
+                    apiTest: 'API Test',
+                    linkChecker: 'Link Checker',
+                    predictionMatrix: 'Prediction Matrix',
+                    apiSensei: 'API Sensei',
+                    chronosEngine: 'Chronos Engine',
+                    thermalPool: 'Thermal Pool',
+                    dockerManager: 'Docker Manager',
+                    swarmCommander: 'Swarm Commander',
+                    bulgarianTts: 'Bulgarian TTS',
+                    licenseManager: 'License Manager',
+                    systemStats: 'System Stats',
+                    logger: 'Logger'
+                },
+                badges: {
+                    free: 'FREE',
+                    pro: 'PRO',
+                    proRequired: 'PRO LICENSE REQUIRED'
+                },
+                panels: {
+                    audit: {
+                        title: '🔍 Website Audit',
+                        subtitle: 'mm.audit(url) → AuditResult',
+                        urlLabel: 'URL to Audit',
+                        runButton: 'Run Audit',
+                        performance: 'Performance',
+                        accessibility: 'Accessibility',
+                        seo: 'SEO'
+                    },
+                    apiTest: {
+                        title: '🌐 API Test',
+                        subtitle: 'mm.testAPI(endpoint, options) → APITestResult',
+                        endpointLabel: 'API Endpoint',
+                        methodLabel: 'Method',
+                        runButton: 'Test API'
+                    },
+                    linkChecker: {
+                        title: '🔗 Link Checker',
+                        subtitle: 'mm.checkLinks(url, options) → CheckLinksResult',
+                        urlLabel: 'Page URL',
+                        maxLinksLabel: 'Max Links to Check',
+                        runButton: 'Check Links'
+                    },
+                    prediction: {
+                        title: '🔮 Prediction Matrix',
+                        subtitle: 'mm.predict(options) → PredictionResult',
+                        codeLabel: 'Code Changes (diff or content)',
+                        runButton: 'Analyze & Predict'
+                    },
+                    apiSensei: {
+                        title: '🤖 API Sensei',
+                        subtitle: 'mm.apiSensei(config) → APISenseiResult',
+                        baseUrlLabel: 'Base API URL',
+                        scenariosLabel: 'Test Scenarios',
+                        runButton: 'Generate & Run Tests',
+                        scenarios: {
+                            happyPath: 'Happy Path',
+                            edgeCases: 'Edge Cases',
+                            errorHandling: 'Error Handling',
+                            security: 'Security',
+                            performance: 'Performance'
+                        }
+                    },
+                    chronos: {
+                        title: '⏰ Chronos Engine',
+                        subtitle: 'mm.chronos(options) → ChronosResult',
+                        description: 'Time-travel debugging: Records state snapshots during test execution.',
+                        intervalLabel: 'Snapshot Interval (ms)',
+                        maxSnapshotsLabel: 'Max Snapshots',
+                        runButton: 'Start Recording'
+                    },
+                    thermal: {
+                        title: '🌡️ Thermal-Aware Pool',
+                        subtitle: 'ThermalAwarePool - CPU temperature management',
+                        description: 'Automatically adjusts parallelism based on CPU temperature to prevent throttling.',
+                        states: { cool: '🟢 COOL', warm: '🔵 WARM', hot: '🟠 HOT', critical: '🔴 CRITICAL' },
+                        temperature: 'Temperature',
+                        maxInstances: 'Max Instances'
+                    },
+                    docker: {
+                        title: '🐳 Docker Manager',
+                        subtitle: 'DockerManager - Selenium Grid orchestration',
+                        description: 'Auto-generates Dockerfile and docker-compose.yml for Selenium Grid.'
+                    },
+                    swarm: {
+                        title: '🎖️ Swarm Commander',
+                        subtitle: 'SwarmCommander - Commander-Soldier pattern',
+                        description: 'Commander distributes tasks to soldiers (browser instances) for parallel execution.'
+                    },
+                    tts: {
+                        title: '🔊 Bulgarian TTS',
+                        subtitle: 'BulgarianTTS - Native text-to-speech',
+                        description: '🇧🇬 Български текст-към-реч за гласова обратна връзка по време на тестове.',
+                        templates: { testPassed: '"Тестът премина успешно"', testFailed: '"Тестът се провали"', errorFound: '"Открих грешка в {element}"', healing: '"Намерих нов селектор"' }
+                    },
+                    license: {
+                        title: '🔐 License Manager',
+                        subtitle: 'LicenseManager - Hardware-locked licensing',
+                        description: 'License is bound to hardware using SHA-256 fingerprint.',
+                        types: { trial: 'Trial', professional: 'Professional', enterprise: 'Enterprise', sovereign: 'Sovereign' },
+                        maxInstances: 'Max Instances',
+                        features: 'Features'
+                    },
+                    stats: {
+                        title: '📊 System Stats',
+                        subtitle: 'getSystemStats() → Statistics',
+                        version: 'Version',
+                        linesOfCode: 'Lines of Code',
+                        typescriptFiles: 'TypeScript Files',
+                        testsPassing: 'Tests Passing',
+                        enterpriseModules: 'Enterprise Modules',
+                        codename: 'Codename'
+                    },
+                    logger: {
+                        title: '📋 Structured Logger',
+                        subtitle: 'mm.getLogger() → Logger',
+                        description: 'Professional logging with levels: debug, info, warn, error, audit'
+                    }
+                },
+                status: {
+                    systemStatus: '📡 System Status',
+                    backend: 'Backend',
+                    license: 'License',
+                    circuitBreaker: 'Circuit Breaker',
+                    online: 'Online',
+                    offline: 'Offline',
+                    closed: 'Closed',
+                    open: 'Open',
+                    cpuTemperature: '🌡️ CPU Temperature',
+                    state: 'State:',
+                    financialOracle: '💰 Financial Oracle',
+                    totalCost: 'Total Cost',
+                    requests: 'Requests',
+                    budgetLeft: 'Budget Left',
+                    activityLog: '📜 Activity Log',
+                    waitingForActivity: 'Waiting for activity...',
+                    checking: 'Checking...',
+                    freeTier: 'Free Tier'
+                },
+                common: {
+                    loading: 'Loading...',
+                    processing: 'Processing...',
+                    complete: 'Complete!',
+                    error: 'Error',
+                    success: 'Success',
+                    warning: 'Warning',
+                    opened: 'Opened:',
+                    initialized: 'MisterMind v23.0.0 UI initialized',
+                    madeInBulgaria: '🇧🇬 Made with ❤️ in Bulgaria'
+                },
+                footer: { copyright: '© 2025 Dimitar Prodromov' }
+            },
+            
+            // ═══════════════════════════════════════════════════════════
+            // GERMAN
+            // ═══════════════════════════════════════════════════════════
+            de: {
+                language: 'Sprache',
+                header: {
+                    title: 'MISTER MIND',
+                    codename: 'v23.0.0 "Der Lokale Souverän"',
+                    lines: 'Zeilen:',
+                    tests: 'Tests:',
+                    modules: 'Module:'
+                },
+                sidebar: {
+                    freeFeatures: '🆓 Kostenlose Funktionen',
+                    proFeatures: '💎 Pro-Funktionen',
+                    enterprise: '🏢 Unternehmen',
+                    utilities: '🛠️ Werkzeuge'
+                },
+                modules: {
+                    websiteAudit: 'Website-Audit',
+                    apiTest: 'API-Test',
+                    linkChecker: 'Link-Prüfer',
+                    predictionMatrix: 'Vorhersage-Matrix',
+                    apiSensei: 'API Sensei',
+                    chronosEngine: 'Chronos-Motor',
+                    thermalPool: 'Thermal-Pool',
+                    dockerManager: 'Docker-Manager',
+                    swarmCommander: 'Schwarm-Kommandant',
+                    bulgarianTts: 'Bulgarische TTS',
+                    licenseManager: 'Lizenz-Manager',
+                    systemStats: 'Systemstatistik',
+                    logger: 'Logger'
+                },
+                badges: {
+                    free: 'KOSTENLOS',
+                    pro: 'PRO',
+                    proRequired: 'PRO-LIZENZ ERFORDERLICH'
+                },
+                panels: {
+                    audit: {
+                        title: '🔍 Website-Audit',
+                        subtitle: 'mm.audit(url) → AuditResult',
+                        urlLabel: 'URL zum Prüfen',
+                        runButton: 'Audit starten',
+                        performance: 'Leistung',
+                        accessibility: 'Barrierefreiheit',
+                        seo: 'SEO'
+                    },
+                    apiTest: {
+                        title: '🌐 API-Test',
+                        subtitle: 'mm.testAPI(endpoint, options) → APITestResult',
+                        endpointLabel: 'API-Endpunkt',
+                        methodLabel: 'Methode',
+                        runButton: 'API testen'
+                    },
+                    linkChecker: {
+                        title: '🔗 Link-Prüfer',
+                        subtitle: 'mm.checkLinks(url, options) → CheckLinksResult',
+                        urlLabel: 'Seiten-URL',
+                        maxLinksLabel: 'Max. zu prüfende Links',
+                        runButton: 'Links prüfen'
+                    },
+                    prediction: {
+                        title: '🔮 Vorhersage-Matrix',
+                        subtitle: 'mm.predict(options) → PredictionResult',
+                        codeLabel: 'Code-Änderungen (Diff oder Inhalt)',
+                        runButton: 'Analysieren & Vorhersagen'
+                    },
+                    apiSensei: {
+                        title: '🤖 API Sensei',
+                        subtitle: 'mm.apiSensei(config) → APISenseiResult',
+                        baseUrlLabel: 'Basis-API-URL',
+                        scenariosLabel: 'Testszenarien',
+                        runButton: 'Tests generieren & ausführen',
+                        scenarios: {
+                            happyPath: 'Idealer Pfad',
+                            edgeCases: 'Grenzfälle',
+                            errorHandling: 'Fehlerbehandlung',
+                            security: 'Sicherheit',
+                            performance: 'Leistung'
+                        }
+                    },
+                    chronos: {
+                        title: '⏰ Chronos-Motor',
+                        subtitle: 'mm.chronos(options) → ChronosResult',
+                        description: 'Zeitreise-Debugging: Zeichnet Zustandsschnappschüsse während der Testausführung auf.',
+                        intervalLabel: 'Schnappschuss-Intervall (ms)',
+                        maxSnapshotsLabel: 'Max. Schnappschüsse',
+                        runButton: 'Aufnahme starten'
+                    },
+                    thermal: {
+                        title: '🌡️ Thermalbewusster Pool',
+                        subtitle: 'ThermalAwarePool - CPU-Temperaturverwaltung',
+                        description: 'Passt die Parallelität automatisch basierend auf der CPU-Temperatur an.',
+                        states: { cool: '🟢 KÜHL', warm: '🔵 WARM', hot: '🟠 HEIß', critical: '🔴 KRITISCH' },
+                        temperature: 'Temperatur',
+                        maxInstances: 'Max. Instanzen'
+                    },
+                    docker: {
+                        title: '🐳 Docker-Manager',
+                        subtitle: 'DockerManager - Selenium Grid-Orchestrierung',
+                        description: 'Generiert automatisch Dockerfile und docker-compose.yml für Selenium Grid.'
+                    },
+                    swarm: {
+                        title: '🎖️ Schwarm-Kommandant',
+                        subtitle: 'SwarmCommander - Kommandant-Soldat-Muster',
+                        description: 'Der Kommandant verteilt Aufgaben an Soldaten (Browser-Instanzen) zur parallelen Ausführung.'
+                    },
+                    tts: {
+                        title: '🔊 Bulgarische TTS',
+                        subtitle: 'BulgarianTTS - Native Sprachsynthese',
+                        description: '🇧🇬 Български текст-към-реч за гласова обратна връзка по време на тестове.',
+                        templates: { testPassed: '"Тестът премина успешно"', testFailed: '"Тестът се провали"', errorFound: '"Открих грешка в {element}"', healing: '"Намерих нов селектор"' }
+                    },
+                    license: {
+                        title: '🔐 Lizenz-Manager',
+                        subtitle: 'LicenseManager - Hardware-gebundene Lizenzierung',
+                        description: 'Lizenz ist mit SHA-256-Fingerabdruck an Hardware gebunden.',
+                        types: { trial: 'Testversion', professional: 'Professionell', enterprise: 'Unternehmen', sovereign: 'Souverän' },
+                        maxInstances: 'Max. Instanzen',
+                        features: 'Funktionen'
+                    },
+                    stats: {
+                        title: '📊 Systemstatistik',
+                        subtitle: 'getSystemStats() → Statistics',
+                        version: 'Version',
+                        linesOfCode: 'Codezeilen',
+                        typescriptFiles: 'TypeScript-Dateien',
+                        testsPassing: 'Erfolgreiche Tests',
+                        enterpriseModules: 'Enterprise-Module',
+                        codename: 'Codename'
+                    },
+                    logger: {
+                        title: '📋 Strukturierter Logger',
+                        subtitle: 'mm.getLogger() → Logger',
+                        description: 'Professionelles Logging mit Stufen: debug, info, warn, error, audit'
+                    }
+                },
+                status: {
+                    systemStatus: '📡 Systemstatus',
+                    backend: 'Backend',
+                    license: 'Lizenz',
+                    circuitBreaker: 'Circuit Breaker',
+                    online: 'Online',
+                    offline: 'Offline',
+                    closed: 'Geschlossen',
+                    open: 'Offen',
+                    cpuTemperature: '🌡️ CPU-Temperatur',
+                    state: 'Zustand:',
+                    financialOracle: '💰 Finanz-Orakel',
+                    totalCost: 'Gesamtkosten',
+                    requests: 'Anfragen',
+                    budgetLeft: 'Restbudget',
+                    activityLog: '📜 Aktivitätsprotokoll',
+                    waitingForActivity: 'Warte auf Aktivität...',
+                    checking: 'Prüfe...',
+                    freeTier: 'Kostenlose Stufe'
+                },
+                common: {
+                    loading: 'Lädt...',
+                    processing: 'Verarbeitung...',
+                    complete: 'Abgeschlossen!',
+                    error: 'Fehler',
+                    success: 'Erfolg',
+                    warning: 'Warnung',
+                    opened: 'Geöffnet:',
+                    initialized: 'MisterMind v23.0.0 UI initialisiert',
+                    madeInBulgaria: '🇧🇬 Mit ❤️ in Bulgarien hergestellt'
+                },
+                footer: { copyright: '© 2025 Dimitar Prodromow' }
+            },
+            
+            // ═══════════════════════════════════════════════════════════
+            // FRENCH
+            // ═══════════════════════════════════════════════════════════
+            fr: {
+                language: 'Langue',
+                header: {
+                    title: 'MISTER MIND',
+                    codename: 'v23.0.0 "Le Souverain Local"',
+                    lines: 'Lignes:',
+                    tests: 'Tests:',
+                    modules: 'Modules:'
+                },
+                sidebar: {
+                    freeFeatures: '🆓 Fonctionnalités gratuites',
+                    proFeatures: '💎 Fonctionnalités Pro',
+                    enterprise: '🏢 Entreprise',
+                    utilities: '🛠️ Utilitaires'
+                },
+                modules: {
+                    websiteAudit: 'Audit de site',
+                    apiTest: 'Test API',
+                    linkChecker: 'Vérificateur de liens',
+                    predictionMatrix: 'Matrice de prédiction',
+                    apiSensei: 'API Sensei',
+                    chronosEngine: 'Moteur Chronos',
+                    thermalPool: 'Pool thermique',
+                    dockerManager: 'Gestionnaire Docker',
+                    swarmCommander: "Commandant d'essaim",
+                    bulgarianTts: 'TTS Bulgare',
+                    licenseManager: 'Gestionnaire de licence',
+                    systemStats: 'Statistiques système',
+                    logger: 'Journal'
+                },
+                badges: {
+                    free: 'GRATUIT',
+                    pro: 'PRO',
+                    proRequired: 'LICENCE PRO REQUISE'
+                },
+                panels: {
+                    audit: {
+                        title: '🔍 Audit de site web',
+                        subtitle: 'mm.audit(url) → AuditResult',
+                        urlLabel: 'URL à auditer',
+                        runButton: "Lancer l'audit",
+                        performance: 'Performance',
+                        accessibility: 'Accessibilité',
+                        seo: 'SEO'
+                    },
+                    apiTest: {
+                        title: '🌐 Test API',
+                        subtitle: 'mm.testAPI(endpoint, options) → APITestResult',
+                        endpointLabel: 'Point de terminaison API',
+                        methodLabel: 'Méthode',
+                        runButton: "Tester l'API"
+                    },
+                    linkChecker: {
+                        title: '🔗 Vérificateur de liens',
+                        subtitle: 'mm.checkLinks(url, options) → CheckLinksResult',
+                        urlLabel: 'URL de la page',
+                        maxLinksLabel: 'Liens max. à vérifier',
+                        runButton: 'Vérifier les liens'
+                    },
+                    prediction: {
+                        title: '🔮 Matrice de prédiction',
+                        subtitle: 'mm.predict(options) → PredictionResult',
+                        codeLabel: 'Modifications de code (diff ou contenu)',
+                        runButton: 'Analyser et prédire'
+                    },
+                    apiSensei: {
+                        title: '🤖 API Sensei',
+                        subtitle: 'mm.apiSensei(config) → APISenseiResult',
+                        baseUrlLabel: 'URL API de base',
+                        scenariosLabel: 'Scénarios de test',
+                        runButton: 'Générer et exécuter les tests',
+                        scenarios: {
+                            happyPath: 'Chemin idéal',
+                            edgeCases: 'Cas limites',
+                            errorHandling: 'Gestion des erreurs',
+                            security: 'Sécurité',
+                            performance: 'Performance'
+                        }
+                    },
+                    chronos: {
+                        title: '⏰ Moteur Chronos',
+                        subtitle: 'mm.chronos(options) → ChronosResult',
+                        description: "Débogage temporel: Enregistre des instantanés d'état pendant l'exécution des tests.",
+                        intervalLabel: "Intervalle d'instantané (ms)",
+                        maxSnapshotsLabel: 'Instantanés max.',
+                        runButton: "Démarrer l'enregistrement"
+                    },
+                    thermal: {
+                        title: '🌡️ Pool thermique',
+                        subtitle: 'ThermalAwarePool - Gestion de la température CPU',
+                        description: 'Ajuste automatiquement le parallélisme en fonction de la température du processeur.',
+                        states: { cool: '🟢 FRAIS', warm: '🔵 TIÈDE', hot: '🟠 CHAUD', critical: '🔴 CRITIQUE' },
+                        temperature: 'Température',
+                        maxInstances: 'Instances max.'
+                    },
+                    docker: {
+                        title: '🐳 Gestionnaire Docker',
+                        subtitle: 'DockerManager - Orchestration Selenium Grid',
+                        description: 'Génère automatiquement Dockerfile et docker-compose.yml pour Selenium Grid.'
+                    },
+                    swarm: {
+                        title: "🎖️ Commandant d'essaim",
+                        subtitle: 'SwarmCommander - Modèle Commandant-Soldat',
+                        description: "Le commandant distribue les tâches aux soldats (instances de navigateur) pour l'exécution parallèle."
+                    },
+                    tts: {
+                        title: '🔊 TTS Bulgare',
+                        subtitle: 'BulgarianTTS - Synthèse vocale native',
+                        description: '🇧🇬 Български текст-към-реч за гласова обратна връзка по време на тестове.',
+                        templates: { testPassed: '"Тестът премина успешно"', testFailed: '"Тестът се провали"', errorFound: '"Открих грешка в {element}"', healing: '"Намерих нов селектор"' }
+                    },
+                    license: {
+                        title: '🔐 Gestionnaire de licence',
+                        subtitle: 'LicenseManager - Licence liée au matériel',
+                        description: 'La licence est liée au matériel avec une empreinte SHA-256.',
+                        types: { trial: 'Essai', professional: 'Professionnel', enterprise: 'Entreprise', sovereign: 'Souverain' },
+                        maxInstances: 'Instances max.',
+                        features: 'Fonctionnalités'
+                    },
+                    stats: {
+                        title: '📊 Statistiques système',
+                        subtitle: 'getSystemStats() → Statistics',
+                        version: 'Version',
+                        linesOfCode: 'Lignes de code',
+                        typescriptFiles: 'Fichiers TypeScript',
+                        testsPassing: 'Tests réussis',
+                        enterpriseModules: 'Modules Enterprise',
+                        codename: 'Nom de code'
+                    },
+                    logger: {
+                        title: '📋 Journal structuré',
+                        subtitle: 'mm.getLogger() → Logger',
+                        description: 'Journalisation professionnelle avec niveaux: debug, info, warn, error, audit'
+                    }
+                },
+                status: {
+                    systemStatus: '📡 État du système',
+                    backend: 'Backend',
+                    license: 'Licence',
+                    circuitBreaker: 'Disjoncteur',
+                    online: 'En ligne',
+                    offline: 'Hors ligne',
+                    closed: 'Fermé',
+                    open: 'Ouvert',
+                    cpuTemperature: '🌡️ Température CPU',
+                    state: 'État:',
+                    financialOracle: '💰 Oracle financier',
+                    totalCost: 'Coût total',
+                    requests: 'Requêtes',
+                    budgetLeft: 'Budget restant',
+                    activityLog: "📜 Journal d'activité",
+                    waitingForActivity: "En attente d'activité...",
+                    checking: 'Vérification...',
+                    freeTier: 'Niveau gratuit'
+                },
+                common: {
+                    loading: 'Chargement...',
+                    processing: 'Traitement...',
+                    complete: 'Terminé!',
+                    error: 'Erreur',
+                    success: 'Succès',
+                    warning: 'Avertissement',
+                    opened: 'Ouvert:',
+                    initialized: 'MisterMind v23.0.0 UI initialisé',
+                    madeInBulgaria: '🇧🇬 Fait avec ❤️ en Bulgarie'
+                },
+                footer: { copyright: '© 2025 Dimitar Prodromov' }
+            }
+        };
+        
+        // ══════════════════════════════════════════════════════════════
+        // I18N ENGINE - Instant language switching without page reload
+        // ══════════════════════════════════════════════════════════════
+        
+        function initI18n() {
+            // Load saved language or detect from browser
+            const savedLang = localStorage.getItem('misterMindLang');
+            if (savedLang && translations[savedLang]) {
+                currentLang = savedLang;
+            } else {
+                const browserLang = navigator.language.slice(0, 2).toLowerCase();
+                if (translations[browserLang]) {
+                    currentLang = browserLang;
+                }
+            }
+            
+            // Set up language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === currentLang) {
+                    btn.classList.add('active');
+                }
+                
+                btn.addEventListener('click', () => {
+                    setLanguage(btn.dataset.lang);
+                });
+            });
+            
+            // Apply translations
+            applyTranslations();
+        }
+        
+        function setLanguage(lang) {
+            if (!translations[lang]) return;
+            
+            currentLang = lang;
+            localStorage.setItem('misterMindLang', lang);
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Apply translations
+            applyTranslations();
+            updateLicenseStatus();
+            
+            addLog(`🌍 Language: ${lang.toUpperCase()}`, 'info');
+        }
+        
+        function applyTranslations() {
+            const t = translations[currentLang];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const value = getNestedValue(t, key);
+                if (value) {
+                    el.textContent = value;
+                }
+            });
+        }
+        
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((current, key) => 
+                current && current[key] !== undefined ? current[key] : null, obj);
+        }
+        
         // ══════════════════════════════════════════════════════════════
         // PANEL NAVIGATION
         // ══════════════════════════════════════════════════════════════
@@ -1219,7 +2071,8 @@ logger.clear();</pre>
                 document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
                 document.getElementById(`panel-${panelId}`).classList.add('active');
                 
-                addLog(`Opened: ${btn.querySelector('span:nth-child(2)').textContent}`);
+                const t = translations[currentLang];
+                addLog(`${t.common.opened} ${btn.querySelector('[data-i18n]')?.textContent || btn.textContent}`);
             });
         });
 
@@ -1398,10 +2251,12 @@ ${broken > 0 ? '\n⚠️ Broken links found - review recommended' : '\n✅ All l
         // ══════════════════════════════════════════════════════════════
         
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize i18n
+            initI18n();
+            
             // Set license status
             document.getElementById('license-indicator').classList.add('warning');
-            document.getElementById('license-status').textContent = 'Free Tier';
-            document.getElementById('license-status').style.color = 'var(--accent-warning)';
+            updateLicenseStatus();
             
             // Simulate temperature updates
             setInterval(() => {
@@ -1413,24 +2268,31 @@ ${broken > 0 ? '\n⚠️ Broken links found - review recommended' : '\n✅ All l
                 fill.style.width = `${temp}%`;
                 value.textContent = `${temp}°C`;
                 
+                const t = translations[currentLang];
                 if (temp < 60) {
                     fill.style.background = 'var(--accent-success)';
-                    state.innerHTML = '<span style="color: var(--accent-success);">🟢 COOL</span>';
+                    state.innerHTML = `<span style="color: var(--accent-success);">${t.panels.thermal.states.cool}</span>`;
                 } else if (temp < 70) {
                     fill.style.background = 'var(--accent-secondary)';
-                    state.innerHTML = '<span style="color: var(--accent-secondary);">🔵 WARM</span>';
+                    state.innerHTML = `<span style="color: var(--accent-secondary);">${t.panels.thermal.states.warm}</span>`;
                 } else if (temp < 80) {
                     fill.style.background = 'var(--accent-warning)';
-                    state.innerHTML = '<span style="color: var(--accent-warning);">🟠 HOT</span>';
+                    state.innerHTML = `<span style="color: var(--accent-warning);">${t.panels.thermal.states.hot}</span>`;
                 } else {
                     fill.style.background = 'var(--accent-danger)';
-                    state.innerHTML = '<span style="color: var(--accent-danger);">🔴 CRITICAL</span>';
+                    state.innerHTML = `<span style="color: var(--accent-danger);">${t.panels.thermal.states.critical}</span>`;
                 }
             }, 3000);
             
-            addLog('MisterMind v23.0.0 UI initialized', 'success');
-            addLog('🇧🇬 Made with ❤️ in Bulgaria', 'info');
+            addLog(translations[currentLang].common.initialized, 'success');
+            addLog(translations[currentLang].common.madeInBulgaria, 'info');
         });
+        
+        function updateLicenseStatus() {
+            const t = translations[currentLang];
+            document.getElementById('license-status').textContent = t.status.freeTier;
+            document.getElementById('license-status').style.color = 'var(--accent-warning)';
+        }
     </script>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -1439,9 +2301,9 @@ ${broken > 0 ? '\n⚠️ Broken links found - review recommended' : '\n✅ All l
     <footer class="footer">
         <p>
             <strong>MisterMind v23.0.0</strong> "The Local Sovereign" | 
-            © 2025 Димитър Продромов | 
+            <span data-i18n="footer.copyright">© 2025 Димитър Продромов</span> | 
             <a href="https://github.com/papica777-eng/MrMindQATool">GitHub</a> |
-            🇧🇬 Made with ❤️ in Bulgaria
+            <span data-i18n="common.madeInBulgaria">🇧🇬 Made with ❤️ in Bulgaria</span>
         </p>
     </footer>
 </body>

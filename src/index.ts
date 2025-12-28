@@ -411,7 +411,65 @@ export class BrowserFactory {
 }
 
 /**
- * Main MISTER MIND class - v20.0 "The Sovereign Singularity"
+ * # MisterMind v23.3.0 "Type-Safe Sovereign"
+ * 
+ * The ultimate AI-powered QA automation framework with autonomous test execution,
+ * self-healing selectors, bug prediction, and enterprise-grade security.
+ * 
+ * ## 🚀 Features
+ * 
+ * ### 🆓 FREE Tier
+ * - **Website Audit** - Performance, accessibility, SEO analysis
+ * - **Link Checker** - Crawl and validate all links on a page
+ * - **API Testing** - Basic HTTP endpoint testing (10/day limit)
+ * 
+ * ### 💎 PRO Tier ($29/month)
+ * - **Prediction Matrix** - ML-powered bug prediction before they happen
+ * - **API Sensei** - Intelligent API test generation from OpenAPI specs
+ * - **Chronos Engine** - Time-travel debugging with state snapshots
+ * - **Adaptive Semantic Core** - Intent-based element finding
+ * - **Sovereign Swarm** - Multi-agent parallel test execution
+ * 
+ * ### 🏢 ENTERPRISE Tier
+ * - **Thermal-Aware Pool** - CPU temperature-based throttling
+ * - **Docker Manager** - Selenium Grid orchestration
+ * - **Swarm Commander** - Commander-Soldier parallelism pattern
+ * - **Bulgarian TTS** - Native text-to-speech feedback
+ * - **Security Bastion** - Encrypted vault, sandbox execution
+ * 
+ * ## 📚 Quick Start
+ * 
+ * ```typescript
+ * import { MisterMind } from 'mister-mind';
+ * 
+ * // Initialize with Pro license
+ * const mm = new MisterMind({ 
+ *   licenseKey: 'MM-XXXX-XXXX-XXXX',
+ *   verbose: true 
+ * });
+ * 
+ * // Run a website audit
+ * const audit = await mm.audit('https://example.com');
+ * console.log(audit.performance); // 85
+ * 
+ * // Predict bugs before deployment
+ * const prediction = await mm.predict({ 
+ *   codeChanges: gitDiff 
+ * });
+ * console.log(prediction.riskScore); // 42
+ * ```
+ * 
+ * @author Димитър Продромов (Dimitar Prodromov) <dimitar@mistermind.bg>
+ * @copyright 2025 MisterMind. All Rights Reserved.
+ * @license PROPRIETARY - See LICENSE file
+ * @see {@link https://mister-mind.dev} Official Documentation
+ * @see {@link https://github.com/papica777-eng/MrMindQATool} GitHub Repository
+ * 
+ * @example
+ * // Smart element finding with semantic search
+ * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+ * await mm.smartClick(page, ['login', 'sign in', 'вход']);
+ * await mm.smartFill(page, ['email', 'username'], 'user@example.com');
  */
 export class MisterMind {
   private config: MisterMindConfig;
@@ -599,6 +657,34 @@ export class MisterMind {
 
   /**
    * 💰 Get Financial Oracle statistics
+   * 
+   * Returns comprehensive cost tracking data for AI model usage.
+   * The Financial Oracle monitors API costs and helps optimize between
+   * cloud (GPT-4/Claude) and local (Ollama/Gemma) AI providers.
+   * 
+   * @returns Financial statistics object containing:
+   *   - `totalCost`: Total USD spent on AI APIs this billing period
+   *   - `requestCount`: Number of AI requests made
+   *   - `remainingBudget`: USD remaining from monthly budget
+   *   - `averageCostPerRequest`: Mean cost per AI operation
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * // After running some AI operations
+   * const stats = mm.getFinancialStats();
+   * console.log(`💰 Spent: $${stats.totalCost.toFixed(2)}`);
+   * console.log(`📊 Requests: ${stats.requestCount}`);
+   * console.log(`💵 Remaining: $${stats.remainingBudget.toFixed(2)}`);
+   * 
+   * if (stats.remainingBudget < 10) {
+   *   console.warn('⚠️ Low budget - switching to local models');
+   * }
+   * ```
+   * 
+   * @since v20.0 "The Sovereign Singularity"
+   * @see {@link MisterMindConfig.financialOracle} for budget configuration
    */
   getFinancialStats(): {
     totalCost: number;
@@ -649,6 +735,38 @@ export class MisterMind {
 
   /**
    * 📊 Get structured logger for external access
+   * 
+   * Provides access to MisterMind's internal logging system.
+   * Use this to integrate with external log aggregators (DataDog, Splunk, ELK)
+   * or to inspect logs during debugging.
+   * 
+   * @returns Logger object with methods:
+   *   - `debug(msg, meta?)` - Debug-level messages
+   *   - `info(msg, meta?)` - Informational messages  
+   *   - `warn(msg, meta?)` - Warning messages
+   *   - `error(msg, error?, meta?)` - Error messages with stack traces
+   *   - `audit(action, status, meta?)` - Audit trail entries
+   *   - `getLogs(level?, limit?)` - Retrieve log entries
+   *   - `clear()` - Clear all log entries
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ verbose: true });
+   * const logger = mm.getLogger();
+   * 
+   * // Add custom log entries
+   * logger.info('Starting test suite', { testCount: 42 });
+   * 
+   * // Get all errors
+   * const errors = logger.getLogs('error');
+   * console.log(`Found ${errors.length} errors`);
+   * 
+   * // Export to external system
+   * const allLogs = logger.getLogs();
+   * await sendToDataDog(allLogs);
+   * ```
+   * 
+   * @since v20.0 "The Sovereign Singularity"
    */
   getLogger() {
     return this.logger;
@@ -680,6 +798,25 @@ export class MisterMind {
 
   /**
    * 🧹 Get tracked browsers count
+   * 
+   * Returns the number of browser instances currently tracked for GC cleanup.
+   * Memory Hardening uses WeakRef + FinalizationRegistry to auto-close
+   * abandoned browser instances, preventing memory leaks.
+   * 
+   * @returns Number of actively tracked browser instances
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ enableMemoryHardening: true });
+   * 
+   * await mm.audit('https://site1.com');
+   * await mm.audit('https://site2.com');
+   * 
+   * console.log(`Active browsers: ${mm.getTrackedBrowsersCount()}`);
+   * // Output: Active browsers: 0 (auto-closed after audit)
+   * ```
+   * 
+   * @since v20.0 "The Sovereign Singularity"
    */
   getTrackedBrowsersCount(): number {
     let count = 0;
@@ -706,6 +843,43 @@ export class MisterMind {
 
   /**
    * 🧬 Initialize Self-Evolving Genetic Core
+   * 
+   * SEGC is MisterMind's machine learning engine that continuously improves
+   * test strategies through genetic algorithms. It learns from test failures
+   * and successes to evolve better selectors and test patterns.
+   * 
+   * **Features:**
+   * - Ghost Knowledge: Learns alternative selectors for flaky elements
+   * - Mutation Engine: Generates test variations using genetic algorithms
+   * - A/B Experiments: Compare strategy versions with statistical significance
+   * - Predictions: Forecast test outcomes before execution
+   * 
+   * @param config - Optional SEGC configuration
+   * @param config.populationSize - Number of selector variants (default: 50)
+   * @param config.mutationRate - Probability of mutation (0-1, default: 0.1)
+   * @param config.fitnessThreshold - Minimum fitness to keep (default: 0.7)
+   * 
+   * @returns Promise that resolves when SEGC is initialized
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * await mm.initSEGC({
+   *   populationSize: 100,
+   *   mutationRate: 0.15,
+   *   fitnessThreshold: 0.8
+   * });
+   * 
+   * // SEGC now learns from every test execution
+   * const alternatives = await mm.testAlternativePaths('#login-btn', page);
+   * console.log(`Found ${alternatives?.paths.length} alternative selectors`);
+   * ```
+   * 
+   * @requires PRO license or higher
+   * @since v18.0 "Genetic Core"
+   * @see {@link getSEGC} to access the SEGC controller directly
+   * @see {@link runLearningCycle} to trigger evolution
    */
   async initSEGC(config?: SEGCConfig): Promise<void> {
     if (this.segcInitialized) return;
@@ -724,6 +898,26 @@ export class MisterMind {
 
   /**
    * 🧬 Get SEGC controller
+   * 
+   * Returns the raw SEGC controller for advanced genetic algorithm operations.
+   * Use this for direct access to low-level SEGC APIs not exposed by MisterMind.
+   * 
+   * @returns SEGCController instance or null if SEGC not initialized
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * await mm.initSEGC();
+   * 
+   * const segc = mm.getSEGC();
+   * if (segc) {
+   *   // Direct access to genetic operations
+   *   segc.evolvePopulation();
+   *   segc.selectFittest(0.9);
+   * }
+   * ```
+   * 
+   * @since v18.0 "Genetic Core"
    */
   getSEGC(): SEGCController | null {
     return this.segc;
@@ -731,6 +925,30 @@ export class MisterMind {
 
   /**
    * 🧬 Get SEGC statistics
+   * 
+   * Returns comprehensive statistics about SEGC's learning and evolution progress.
+   * 
+   * @returns SEGCStats object or null if SEGC not initialized
+   *   - `totalMutations`: Count of selector mutations generated
+   *   - `successfulMutations`: Mutations that improved test stability
+   *   - `populationSize`: Current genetic population size
+   *   - `averageFitness`: Mean fitness score across population
+   *   - `generationCount`: Number of evolution cycles completed
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * await mm.initSEGC();
+   * 
+   * // After running tests
+   * const stats = mm.getSEGCStats();
+   * if (stats) {
+   *   console.log(`🧬 Generation: ${stats.generationCount}`);
+   *   console.log(`🎯 Fitness: ${(stats.averageFitness * 100).toFixed(1)}%`);
+   * }
+   * ```
+   * 
+   * @since v18.0 "Genetic Core"
    */
   getSEGCStats(): SEGCStats | null {
     return this.segc?.getStats() || null;
@@ -738,6 +956,37 @@ export class MisterMind {
 
   /**
    * 🧬 Run SEGC learning cycle
+   * 
+   * Triggers one evolution cycle of the genetic algorithm.
+   * This analyzes recent test results, generates mutations,
+   * and evolves the selector population toward higher fitness.
+   * 
+   * **Process:**
+   * 1. Evaluate fitness of current population
+   * 2. Select top performers (tournament selection)
+   * 3. Generate mutations and crossovers
+   * 4. Replace weak individuals with offspring
+   * 5. Update predictions for next cycle
+   * 
+   * @returns Object with evolution results or null if SEGC not initialized
+   *   - `improvements`: Number of selectors that improved
+   *   - `mutations`: Array of generated GeneticMutation objects
+   *   - `predictions`: Count of outcome predictions made
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * await mm.initSEGC();
+   * 
+   * // Run evolution after test suite
+   * const result = await mm.runLearningCycle();
+   * if (result) {
+   *   console.log(`🧬 Improved ${result.improvements} selectors`);
+   *   console.log(`🔬 Generated ${result.mutations.length} mutations`);
+   * }
+   * ```
+   * 
+   * @since v18.0 "Genetic Core"
    */
   async runLearningCycle(): Promise<{
     improvements: number;
@@ -750,6 +999,43 @@ export class MisterMind {
 
   /**
    * 🧬 Test alternative selector paths
+   * 
+   * Uses Ghost Knowledge to find alternative selectors for an element.
+   * Essential for creating self-healing tests that survive DOM changes.
+   * 
+   * **How it works:**
+   * 1. Analyzes current selector structure
+   * 2. Generates alternatives using genetic mutations
+   * 3. Validates each alternative against the page
+   * 4. Ranks by stability and specificity
+   * 
+   * @param currentSelector - The CSS/XPath selector to find alternatives for
+   * @param page - Playwright Page instance for validation
+   * @param options - Optional configuration
+   * @param options.targetText - Expected text content of element
+   * @param options.elementType - HTML tag type (button, input, etc.)
+   * 
+   * @returns GhostPath with alternative selectors or null
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * await mm.initSEGC();
+   * 
+   * // Find alternatives for a flaky selector
+   * const ghost = await mm.testAlternativePaths(
+   *   '#dynamic-login-btn',
+   *   page,
+   *   { targetText: 'Sign In', elementType: 'button' }
+   * );
+   * 
+   * if (ghost?.paths.length) {
+   *   console.log('Alternative selectors:');
+   *   ghost.paths.forEach(p => console.log(`  - ${p.selector} (${p.stability}%)`));
+   * }
+   * ```
+   * 
+   * @since v18.0 "Genetic Core"
    */
   async testAlternativePaths(
     currentSelector: string,
@@ -762,6 +1048,43 @@ export class MisterMind {
 
   /**
    * 🧬 Create a new strategy version for A/B testing
+   * 
+   * Creates a versioned snapshot of a test strategy for controlled experiments.
+   * Compare different approaches (selectors, waits, assertions) with statistical rigor.
+   * 
+   * @param options - Version configuration
+   * @param options.name - Unique version identifier (e.g., "v1.2-faster-waits")
+   * @param options.description - Human-readable description
+   * @param options.strategy - Strategy configuration object
+   * @param options.isBaseline - Mark as baseline for comparison (default: false)
+   * 
+   * @returns Created StateVersion or null if SEGC not initialized
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * await mm.initSEGC();
+   * 
+   * // Create baseline
+   * const baseline = mm.createStrategyVersion({
+   *   name: 'v1.0-baseline',
+   *   description: 'Current production strategy',
+   *   strategy: { waitTime: 1000, retries: 3 },
+   *   isBaseline: true
+   * });
+   * 
+   * // Create challenger
+   * const challenger = mm.createStrategyVersion({
+   *   name: 'v1.1-faster',
+   *   description: 'Reduced waits experiment',
+   *   strategy: { waitTime: 500, retries: 5 }
+   * });
+   * 
+   * // Start experiment
+   * mm.startABExperiment(baseline.id, challenger.id, 0.5);
+   * ```
+   * 
+   * @since v18.0 "Genetic Core"
    */
   createStrategyVersion(options: {
     name: string;
@@ -775,6 +1098,31 @@ export class MisterMind {
 
   /**
    * 🧬 Start A/B experiment between versions
+   * 
+   * Initiates a controlled experiment comparing two strategy versions.
+   * Traffic is split according to `trafficSplit` ratio, and statistical
+   * significance is calculated automatically.
+   * 
+   * @param versionA - ID of first version (typically baseline)
+   * @param versionB - ID of second version (challenger)
+   * @param trafficSplit - Ratio of traffic to versionA (0-1, default: 0.5)
+   * 
+   * @returns Experiment ID or null if SEGC not initialized
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * await mm.initSEGC();
+   * 
+   * // 50/50 split
+   * const expId = mm.startABExperiment('v1.0', 'v1.1', 0.5);
+   * console.log(`🧪 Experiment started: ${expId}`);
+   * 
+   * // 80/20 split favoring baseline
+   * mm.startABExperiment('production', 'experimental', 0.8);
+   * ```
+   * 
+   * @since v18.0 "Genetic Core"
    */
   startABExperiment(versionA: string, versionB: string, trafficSplit?: number): string | null {
     if (!this.segc) return null;
@@ -787,8 +1135,48 @@ export class MisterMind {
 
   /**
    * 🏰 Initialize Security Bastion & Neural Grid
+   * 
+   * Activates enterprise-grade security features for sensitive test operations.
+   * **Required for ENTERPRISE tier** to handle PII, financial data, or regulated industries.
+   * 
+   * **Security Features:**
+   * - **Encrypted Vault**: AES-256-GCM encryption for secrets and credentials
+   * - **Sandbox Execution**: Isolated V8 context for untrusted code
+   * - **Circuit Breaker**: Automatic fallback on service failures
+   * - **Worker Pool**: Thread pool for CPU-intensive operations
+   * - **Audit Trail**: Immutable log of all security-relevant actions
+   * 
    * @param config - Bastion configuration
-   * @param vaultPassword - Password for encrypted vault (required)
+   * @param config.sandboxTimeout - Max execution time in sandbox (default: 5000ms)
+   * @param config.workerPoolSize - Number of worker threads (default: CPU cores)
+   * @param config.circuitBreakerThreshold - Failures before opening (default: 5)
+   * @param vaultPassword - Master password for encrypted vault (**required**)
+   * 
+   * @returns Promise that resolves when Bastion is ready
+   * 
+   * @throws {Error} If vaultPassword is empty or weak
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-ENTERPRISE-KEY' });
+   * 
+   * await mm.initBastion({
+   *   sandboxTimeout: 10000,
+   *   workerPoolSize: 8,
+   *   circuitBreakerThreshold: 3
+   * }, process.env.VAULT_PASSWORD!);
+   * 
+   * // Store sensitive credentials
+   * await mm.storeSecure('db-password', 'ghost_knowledge', {
+   *   host: 'prod.db.internal',
+   *   password: 'super-secret'
+   * });
+   * ```
+   * 
+   * @requires ENTERPRISE license
+   * @since v19.0 "Security Bastion"
+   * @see {@link storeSecure} for vault operations
+   * @see {@link validateMutationSecure} for sandbox execution
    */
   async initBastion(config: BastionConfig = {}, vaultPassword: string): Promise<void> {
     if (this.bastionInitialized) return;
@@ -808,6 +1196,20 @@ export class MisterMind {
 
   /**
    * 🏰 Get Bastion controller
+   * 
+   * Returns the raw BastionController for advanced security operations.
+   * 
+   * @returns BastionController instance or null if not initialized
+   * 
+   * @example
+   * ```typescript
+   * const bastion = mm.getBastion();
+   * if (bastion) {
+   *   await bastion.rotateVaultKey('new-password');
+   * }
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   getBastion(): BastionController | null {
     return this.bastion;
@@ -815,6 +1217,16 @@ export class MisterMind {
 
   /**
    * 🏰 Get Bastion statistics
+   * 
+   * Returns security and worker pool statistics.
+   * 
+   * @returns BastionStats or null if not initialized
+   *   - `vaultEntries`: Number of encrypted entries
+   *   - `sandboxExecutions`: Total sandbox runs
+   *   - `circuitBreakerTrips`: Times circuit opened
+   *   - `workerPoolUtilization`: Current worker usage %
+   * 
+   * @since v19.0 "Security Bastion"
    */
   getBastionStats(): BastionStats | null {
     return this.bastion?.getStats() || null;
@@ -822,6 +1234,33 @@ export class MisterMind {
 
   /**
    * 🏰 Validate a mutation in secure sandbox
+   * 
+   * Executes code in an isolated V8 sandbox to safely validate genetic mutations.
+   * The sandbox has no filesystem/network access and strict memory limits.
+   * 
+   * @param mutationId - Unique mutation identifier
+   * @param mutationCode - JavaScript code to execute
+   * @param context - Variables available in sandbox (frozen, read-only)
+   * 
+   * @returns MutationValidation result or null
+   *   - `isValid`: Whether mutation passes validation
+   *   - `errors`: Array of validation errors
+   *   - `executionTime`: Time taken in milliseconds
+   * 
+   * @example
+   * ```typescript
+   * const result = await mm.validateMutationSecure(
+   *   'mut-001',
+   *   `return context.selector.includes('#') ? true : false`,
+   *   { selector: '#login-btn' }
+   * );
+   * 
+   * if (result?.isValid) {
+   *   console.log('✅ Mutation is safe to apply');
+   * }
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async validateMutationSecure(
     mutationId: string,
@@ -834,6 +1273,31 @@ export class MisterMind {
 
   /**
    * 🏰 Submit task to worker pool
+   * 
+   * Offloads CPU-intensive work to the worker thread pool.
+   * Ideal for parallel test data generation, report building, etc.
+   * 
+   * @typeParam T - Input payload type
+   * @typeParam R - Return type
+   * @param type - Task type identifier
+   * @param payload - Task payload
+   * @param options - Execution options
+   * @param options.priority - Task priority (higher = sooner)
+   * @param options.timeout - Max execution time in ms
+   * 
+   * @returns Task result or null
+   * 
+   * @example
+   * ```typescript
+   * // Generate test data in worker
+   * const testData = await mm.submitWorkerTask<GenerateConfig, TestData[]>(
+   *   'generate-test-data',
+   *   { count: 10000, schema: 'users' },
+   *   { priority: 10, timeout: 30000 }
+   * );
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async submitWorkerTask<T = unknown, R = unknown>(
     type: string,
@@ -846,6 +1310,29 @@ export class MisterMind {
 
   /**
    * 🏰 Store data in encrypted vault
+   * 
+   * Encrypts and stores sensitive data using AES-256-GCM.
+   * Data is categorized by type for organized retrieval.
+   * 
+   * @param id - Unique identifier for the entry
+   * @param type - Data category for organization
+   * @param data - Data to encrypt and store (will be JSON serialized)
+   * 
+   * @returns true if stored successfully, false if Bastion not initialized
+   * 
+   * @example
+   * ```typescript
+   * // Store API credentials
+   * await mm.storeSecure('openai-key', 'ghost_knowledge', {
+   *   apiKey: process.env.OPENAI_API_KEY,
+   *   org: 'org-xxx'
+   * });
+   * 
+   * // Store prediction model
+   * await mm.storeSecure('risk-model-v2', 'predictions', trainedModel);
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async storeSecure(
     id: string,
@@ -859,6 +1346,25 @@ export class MisterMind {
 
   /**
    * 🏰 Retrieve data from encrypted vault
+   * 
+   * Decrypts and returns previously stored data.
+   * 
+   * @typeParam T - Expected return type
+   * @param id - Entry identifier
+   * 
+   * @returns Decrypted data or null if not found/Bastion not initialized
+   * 
+   * @example
+   * ```typescript
+   * interface Credentials { apiKey: string; org: string; }
+   * 
+   * const creds = await mm.retrieveSecure<Credentials>('openai-key');
+   * if (creds) {
+   *   const openai = new OpenAI({ apiKey: creds.apiKey });
+   * }
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async retrieveSecure<T = any>(id: string): Promise<T | null> {
     if (!this.bastion) return null;
@@ -867,6 +1373,29 @@ export class MisterMind {
 
   /**
    * 🏰 Execute with circuit breaker and fallback
+   * 
+   * Wraps an operation with circuit breaker pattern for resilience.
+   * Automatically falls back to alternative providers on repeated failures.
+   * 
+   * @typeParam T - Return type
+   * @param requestFn - Function to execute with service provider
+   * @param options - Execution options
+   * @param options.service - Preferred service provider
+   * @param options.timeout - Request timeout in ms
+   * 
+   * @returns Operation result or null if all providers fail
+   * 
+   * @example
+   * ```typescript
+   * const result = await mm.executeWithFallback(
+   *   async (service) => {
+   *     return await service.predict(codeChanges);
+   *   },
+   *   { service: 'openai', timeout: 10000 }
+   * );
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async executeWithFallback<T>(
     requestFn: (service: ServiceProvider) => Promise<T>,
@@ -878,6 +1407,24 @@ export class MisterMind {
 
   /**
    * 🏰 Get system health
+   * 
+   * Returns comprehensive health status of all Bastion components.
+   * 
+   * @returns SystemHealth object or null
+   *   - `overall`: 'healthy' | 'degraded' | 'unhealthy'
+   *   - `components`: Status of vault, sandbox, workers, circuits
+   *   - `uptime`: System uptime in seconds
+   *   - `lastHealthCheck`: ISO timestamp
+   * 
+   * @example
+   * ```typescript
+   * const health = await mm.getSystemHealth();
+   * if (health?.overall === 'unhealthy') {
+   *   await alertOps('MisterMind Bastion unhealthy', health);
+   * }
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async getSystemHealth(): Promise<SystemHealth | null> {
     if (!this.bastion) return null;
@@ -886,6 +1433,22 @@ export class MisterMind {
 
   /**
    * 🏰 Track browser for GC-friendly cleanup
+   * 
+   * Registers a browser instance for automatic cleanup via FinalizationRegistry.
+   * Use this when manually launching browsers outside MisterMind's control.
+   * 
+   * @param browser - Browser instance (Playwright or Selenium)
+   * @param instanceId - Unique identifier for tracking
+   * 
+   * @example
+   * ```typescript
+   * const browser = await chromium.launch();
+   * mm.trackBrowser(browser, `custom-${Date.now()}`);
+   * 
+   * // Browser will be auto-closed on GC if forgotten
+   * ```
+   * 
+   * @since v19.0 "Security Bastion"
    */
   trackBrowser(browser: object, instanceId: string): void {
     this.bastion?.trackBrowser(browser, instanceId);
@@ -893,7 +1456,41 @@ export class MisterMind {
 
   /**
    * 🆓 FREE: Basic website audit
-   * Uses Playwright to perform real performance, accessibility, and SEO analysis
+   * 
+   * Performs comprehensive analysis of a website's performance, accessibility,
+   * and SEO metrics using real browser automation.
+   * 
+   * **Metrics Analyzed:**
+   * - **Performance**: Load time, DOM ready, First Contentful Paint
+   * - **Accessibility**: ARIA labels, color contrast, keyboard navigation
+   * - **SEO**: Meta tags, headings structure, image alt texts
+   * - **Resources**: Total size, request count, resource breakdown
+   * 
+   * @param url - Website URL to audit (must be valid HTTP/HTTPS)
+   * 
+   * @returns AuditResult containing all metrics
+   * 
+   * @throws {Error} If URL is invalid or unreachable
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind();
+   * 
+   * const audit = await mm.audit('https://example.com');
+   * 
+   * console.log(`⚡ Performance: ${audit.performance}/100`);
+   * console.log(`♿ Accessibility: ${audit.accessibility}/100`);
+   * console.log(`🔍 SEO: ${audit.seo}/100`);
+   * console.log(`📊 Load Time: ${audit.loadTime}ms`);
+   * 
+   * if (audit.performance < 50) {
+   *   console.warn('⚠️ Performance needs improvement!');
+   *   audit.recommendations.forEach(r => console.log(`  - ${r}`));
+   * }
+   * ```
+   * 
+   * @since v1.0
+   * @see {@link checkLinks} for dead link detection
    */
   async audit(url: string): Promise<AuditResult> {
     const startTime = Date.now();
@@ -1243,7 +1840,49 @@ export class MisterMind {
 
   /**
    * 🆓 FREE: Check for broken links
-   * Crawls the page and checks all links for validity
+   * 
+   * Crawls a webpage and validates all hyperlinks for accessibility.
+   * Detects 404s, redirects, timeouts, and malformed URLs.
+   * 
+   * **Features:**
+   * - Parallel link checking with configurable concurrency
+   * - Internal vs external link classification
+   * - Redirect chain detection
+   * - Response code analysis
+   * 
+   * @param url - Target page URL to crawl for links
+   * @param options - Crawling options
+   * @param options.maxLinks - Maximum links to check (default: 50)
+   * @param options.followExternal - Check external domain links (default: false)
+   * 
+   * @returns CheckLinksResult containing:
+   *   - `total`: Total links found
+   *   - `valid`: Working links
+   *   - `broken`: Broken link details with status codes
+   *   - `redirects`: Links with redirects
+   *   - `external`: External domain links (if not followed)
+   * 
+   * @throws {Error} If URL is invalid
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind();
+   * 
+   * const result = await mm.checkLinks('https://example.com', {
+   *   maxLinks: 100,
+   *   followExternal: true
+   * });
+   * 
+   * console.log(`✅ Valid: ${result.valid.length}`);
+   * console.log(`❌ Broken: ${result.broken.length}`);
+   * 
+   * result.broken.forEach(link => {
+   *   console.log(`  - ${link.url} (${link.statusCode})`);
+   * });
+   * ```
+   * 
+   * @since v1.0
+   * @see {@link audit} for comprehensive site analysis
    */
   async checkLinks(url: string, options: { maxLinks?: number; followExternal?: boolean } = {}): Promise<CheckLinksResult> {
     const { maxLinks = 50, followExternal = false } = options;
@@ -1408,7 +2047,48 @@ export class MisterMind {
 
   /**
    * 🆓 FREE: Basic API test (limited to 10/day without license)
-   * Makes real HTTP requests and measures response time
+   * 
+   * Executes HTTP requests against API endpoints with full metrics collection.
+   * Free tier includes 10 requests/day; PRO tier has unlimited access.
+   * 
+   * **Metrics Collected:**
+   * - Response time (DNS, TCP, TLS, TTFB, download)
+   * - Status codes and headers
+   * - Response body validation
+   * - Certificate information (HTTPS)
+   * 
+   * @param endpoint - API URL to test
+   * @param options - Request configuration
+   * @param options.method - HTTP method (default: 'GET')
+   * @param options.headers - Request headers
+   * @param options.body - Request body (for POST/PUT/PATCH)
+   * @param options.timeout - Request timeout in ms
+   * @param options.validateStatus - Custom status validator function
+   * @param options.validateBody - Body schema validator
+   * 
+   * @returns APITestResultFull with all metrics
+   * 
+   * @throws {Error} If daily limit exceeded (free tier)
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind();
+   * 
+   * // GET request
+   * const result = await mm.testAPI('https://api.example.com/users');
+   * console.log(`Status: ${result.status}`);
+   * console.log(`Time: ${result.responseTime}ms`);
+   * 
+   * // POST with body
+   * const createResult = await mm.testAPI('https://api.example.com/users', {
+   *   method: 'POST',
+   *   headers: { 'Content-Type': 'application/json' },
+   *   body: JSON.stringify({ name: 'John', email: 'john@example.com' })
+   * });
+   * ```
+   * 
+   * @since v1.0
+   * @see {@link apiSensei} for AI-powered API testing (PRO)
    */
   async testAPI(
     endpoint: string, 
@@ -1517,6 +2197,21 @@ export class MisterMind {
 
   /**
    * 🆓 FREE: Batch API testing - test multiple endpoints
+   * 
+   * Sequentially tests multiple API endpoints and aggregates results.
+   * 
+   * @param endpoints - Array of endpoint configurations
+   * @returns Array of APITestResultFull for each endpoint
+   * 
+   * @example
+   * ```typescript
+   * const results = await mm.testAPIs([
+   *   { url: 'https://api.example.com/users' },
+   *   { url: 'https://api.example.com/orders', options: { method: 'POST' } }
+   * ]);
+   * ```
+   * 
+   * @since v1.0
    */
   async testAPIs(endpoints: Array<{ url: string; options?: APITestOptions }>): Promise<APITestResultFull[]> {
     const results: APITestResultFull[] = [];
@@ -1531,8 +2226,56 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Prediction Matrix - Predicts bugs before they happen
-   * Analyzes code changes and test history to predict potential failures
-   * Requires Pro license
+   * 
+   * Uses ML algorithms to analyze code changes and test history,
+   * predicting potential failures before deployment.
+   * 
+   * **Analysis Factors:**
+   * - Cyclomatic complexity of changed code
+   * - Test failure history patterns
+   * - Code coverage gaps
+   * - Dependency risk assessment
+   * - Historical bug hotspots
+   * 
+   * @param options - Prediction configuration
+   * @param options.codeChanges - Git diff or code string to analyze
+   * @param options.testHistory - Array of previous test results
+   * @param options.complexityThreshold - Max acceptable complexity (default: 10)
+   * 
+   * @returns PredictionResult containing:
+   *   - `riskScore`: 0-100 risk assessment
+   *   - `predictedFailures`: Array of predicted failure points
+   *   - `riskFactors`: Contributing risk factors
+   *   - `confidence`: Prediction confidence level
+   *   - `recommendation`: Action recommendation
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * const gitDiff = await exec('git diff HEAD~1');
+   * const testHistory = await loadTestResults('./reports/*.json');
+   * 
+   * const prediction = await mm.predict({
+   *   codeChanges: gitDiff.stdout,
+   *   testHistory,
+   *   complexityThreshold: 15
+   * });
+   * 
+   * console.log(`🎯 Risk Score: ${prediction.riskScore}/100`);
+   * console.log(`📈 Confidence: ${prediction.confidence}%`);
+   * 
+   * if (prediction.riskScore > 70) {
+   *   console.error('⚠️ HIGH RISK - Review before merge!');
+   *   prediction.predictedFailures.forEach(f => console.log(`  - ${f}`));
+   * }
+   * ```
+   * 
+   * @requires PRO license
+   * @since v5.0 "Prediction Matrix"
+   * @see {@link chronos} for time-travel debugging
    */
   async predict(options: PredictionOptions = {}): Promise<PredictionResult> {
     if (!this.isProLicense) {
@@ -1961,8 +2704,68 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Chronos Engine - Time-travel debugging
-   * Records state snapshots during test execution for debugging
-   * Requires Pro license
+   * 
+   * Records state snapshots during test execution, enabling time-travel debugging.
+   * Navigate backwards through test state to identify exactly when and why failures occurred.
+   * 
+   * **Features:**
+   * - Automatic periodic snapshots
+   * - Manual snapshot API for critical points
+   * - State diffing between snapshots
+   * - Timeline visualization support
+   * - Replay capability
+   * 
+   * @param options - Chronos configuration
+   * @param options.testFn - Async test function to execute with Chronos context
+   * @param options.autoSnapshot - Enable automatic snapshots (default: true)
+   * @param options.snapshotInterval - Ms between auto-snapshots (default: 100)
+   * @param options.maxSnapshots - Maximum snapshots to retain (default: 50)
+   * 
+   * @returns ChronosResult containing:
+   *   - `success`: Whether test passed
+   *   - `duration`: Total execution time in ms
+   *   - `snapshots`: Array of StateSnapshot objects
+   *   - `timeline`: Array of TimelineEvent objects
+   *   - `error`: Error message if failed
+   * 
+   * @throws {Error} If PRO license not active
+   * @throws {Error} If testFn is not a function
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * const result = await mm.chronos({
+   *   autoSnapshot: true,
+   *   snapshotInterval: 50,
+   *   maxSnapshots: 100,
+   *   
+   *   testFn: async (ctx) => {
+   *     const page = await browser.newPage();
+   *     
+   *     // Manual snapshot at critical point
+   *     ctx.snapshot('before-login', { url: page.url() });
+   *     
+   *     await page.click('#login');
+   *     ctx.snapshot('after-login', { url: page.url() });
+   *     
+   *     expect(page.url()).toContain('/dashboard');
+   *   }
+   * });
+   * 
+   * if (!result.success) {
+   *   console.log('❌ Test failed - reviewing timeline:');
+   *   result.timeline.forEach(e => console.log(`  ${e.timestamp}: ${e.description}`));
+   *   
+   *   // Find last good state
+   *   const lastGood = result.snapshots.findLast(s => s.label?.includes('before'));
+   *   console.log('🕐 Last good state:', lastGood?.state);
+   * }
+   * ```
+   * 
+   * @requires PRO license
+   * @since v8.0 "Chronos Engine"
+   * @see {@link predict} for pre-execution prediction
    */
   async chronos(options: ChronosOptions): Promise<ChronosResult> {
     if (!this.isProLicense) {
@@ -2080,8 +2883,61 @@ export class MisterMind {
 
   /**
    * 💎 PRO: API Sensei - Intelligent API testing
-   * Automatically generates and runs API tests based on configuration
-   * Requires Pro license
+   * 
+   * AI-powered API test generation and execution. Analyzes your OpenAPI specs
+   * or endpoint configurations to automatically create comprehensive test suites.
+   * 
+   * **Capabilities:**
+   * - Automatic test case generation from OpenAPI/Swagger
+   * - Boundary value analysis
+   * - Error condition testing
+   * - Response schema validation
+   * - Performance benchmarking
+   * - Security testing (injection, auth bypass)
+   * 
+   * @param config - API Sensei configuration
+   * @param config.baseUrl - Base URL for API endpoints
+   * @param config.endpoints - Array of endpoint definitions
+   * @param config.openApiSpec - OpenAPI/Swagger spec (URL or object)
+   * @param config.authConfig - Authentication configuration
+   * @param config.generateEdgeCases - Auto-generate boundary tests (default: true)
+   * @param config.runSecurityTests - Enable security testing (default: false)
+   * 
+   * @returns APISenseiResult containing:
+   *   - `totalTests`: Number of tests generated
+   *   - `passed`: Passing tests count
+   *   - `failed`: Failing tests count
+   *   - `results`: Detailed results per endpoint
+   *   - `coverage`: API coverage metrics
+   *   - `suggestions`: AI-generated improvement suggestions
+   * 
+   * @throws {Error} If PRO license not active
+   * @throws {Error} If Circuit Breaker is open (too many failures)
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * // From OpenAPI spec
+   * const result = await mm.apiSensei({
+   *   openApiSpec: 'https://api.example.com/openapi.json',
+   *   authConfig: {
+   *     type: 'bearer',
+   *     token: process.env.API_TOKEN
+   *   },
+   *   generateEdgeCases: true,
+   *   runSecurityTests: true
+   * });
+   * 
+   * console.log(`📊 Coverage: ${result.coverage.percentage}%`);
+   * console.log(`✅ Passed: ${result.passed}/${result.totalTests}`);
+   * 
+   * result.suggestions.forEach(s => console.log(`💡 ${s}`));
+   * ```
+   * 
+   * @requires PRO license
+   * @since v10.0 "API Sensei"
+   * @see {@link testAPI} for basic API testing (FREE)
    */
   async apiSensei(config: APISenseiConfig): Promise<APISenseiResult> {
     if (!this.isProLicense) {
@@ -2730,7 +3586,22 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Get Adaptive Semantic Core instance
-   * Returns null if not initialized
+   * 
+   * Returns the raw ASC controller for advanced semantic operations.
+   * ASC enables intent-based element finding using natural language.
+   * 
+   * @returns AdaptiveSemanticCore instance or null if not initialized
+   * 
+   * @example
+   * ```typescript
+   * const asc = mm.getASC();
+   * if (asc) {
+   *   const map = await asc.createSemanticMap(page);
+   *   console.log(`Found ${map.elements.length} interactive elements`);
+   * }
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   getASC(): AdaptiveSemanticCore | null {
     return this.asc;
@@ -2738,7 +3609,29 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Create semantic map of a page
-   * Extracts all interactive elements with semantic meaning
+   * 
+   * Analyzes a page and extracts all interactive elements with their
+   * semantic meaning, enabling natural language queries.
+   * 
+   * @param page - Playwright Page instance
+   * 
+   * @returns SemanticMap containing all interactive elements with:
+   *   - `elements`: Array of semantic elements
+   *   - `forms`: Detected form structures
+   *   - `navigation`: Navigation patterns
+   *   - `actions`: Available user actions
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * const map = await mm.createSemanticMap(page);
+   * map.elements.forEach(el => {
+   *   console.log(`${el.type}: ${el.semanticLabel} [${el.selector}]`);
+   * });
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   async createSemanticMap(page: Page): Promise<SemanticMap> {
     if (!this.isProLicense) {
@@ -2754,7 +3647,34 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Find element by intent (semantic search)
-   * Searches for element by meaning, not by selector
+   * 
+   * Searches for page elements by meaning rather than CSS selectors.
+   * Uses NLP to understand your intent and find matching elements.
+   * 
+   * @param page - Playwright Page instance
+   * @param intent - Intent object describing what to find
+   * @param intent.action - Action name (e.g., 'LOGIN', 'SUBMIT')
+   * @param intent.keywords - Array of keywords to match
+   * @param intent.expectedType - Expected element type
+   * 
+   * @returns IntentMatch with element details or null if not found
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * const match = await mm.findByIntent(page, {
+   *   action: 'SUBMIT_FORM',
+   *   keywords: ['submit', 'send', 'confirm'],
+   *   expectedType: 'button'
+   * });
+   * 
+   * if (match) {
+   *   await page.click(match.selector);
+   * }
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   async findByIntent(page: Page, intent: Intent): Promise<IntentMatch | null> {
     if (!this.isProLicense) {
@@ -2770,7 +3690,29 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Execute action by intent
-   * Click, fill, or hover on element found by semantic meaning
+   * 
+   * Finds element by semantic meaning and performs action.
+   * Combines `findByIntent` and action execution in one call.
+   * 
+   * @param page - Playwright Page instance
+   * @param intent - Intent describing target element
+   * @param action - Action to perform: 'click' | 'fill' | 'hover'
+   * @param value - Value for 'fill' action
+   * 
+   * @returns true if action succeeded, false otherwise
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * await mm.executeIntent(page, {
+   *   action: 'LOGIN',
+   *   keywords: ['login', 'sign in', 'вход'],
+   *   expectedType: 'button'
+   * }, 'click');
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   async executeIntent(
     page: Page,
@@ -2791,7 +3733,29 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Quick semantic search for element
-   * Shorthand for finding elements by keywords
+   * 
+   * Shorthand for finding elements by keywords with type hints.
+   * Simpler API for common use cases.
+   * 
+   * @param page - Playwright Page instance
+   * @param keywords - Array of keywords to search for
+   * @param options - Search options
+   * @param options.expectedType - Element type filter
+   * @param options.positionHint - Position hint (e.g., 'top-right')
+   * 
+   * @returns IntentMatch or null if not found
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * const btn = await mm.findElement(page, ['submit', 'send'], {
+   *   expectedType: 'button',
+   *   positionHint: 'bottom'
+   * });
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   async findElement(
     page: Page,
@@ -2811,7 +3775,27 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Smart click - click by meaning
-   * Example: await mm.smartClick(page, ['login', 'sign in'])
+   * 
+   * Clicks on an element found by semantic keywords. The ultimate DX
+   * for test automation - no more brittle selectors!
+   * 
+   * @param page - Playwright Page instance
+   * @param keywords - Array of keywords describing the button/link
+   * 
+   * @returns true if click succeeded
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * // Works with multiple languages!
+   * await mm.smartClick(page, ['login', 'sign in', 'вход', '登录']);
+   * await mm.smartClick(page, ['add to cart', 'buy now']);
+   * await mm.smartClick(page, ['next', 'continue', 'proceed']);
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
+   * @see {@link smartFill} for input fields
    */
   async smartClick(page: Page, keywords: string[]): Promise<boolean> {
     const intent: Intent = {
@@ -2824,7 +3808,27 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Smart fill - fill input by meaning
-   * Example: await mm.smartFill(page, ['email', 'e-mail'], 'user@example.com')
+   * 
+   * Fills an input field found by semantic keywords. No more hunting
+   * for `name="email"` vs `id="user-email"` vs `data-testid="email-input"`.
+   * 
+   * @param page - Playwright Page instance
+   * @param keywords - Array of keywords describing the input
+   * @param value - Value to fill
+   * 
+   * @returns true if fill succeeded
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * await mm.smartFill(page, ['email', 'e-mail', 'имейл'], 'user@example.com');
+   * await mm.smartFill(page, ['password', 'парола', '密码'], 'secret123');
+   * await mm.smartFill(page, ['search', 'търси', '搜索'], 'playwright tutorial');
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
+   * @see {@link smartClick} for buttons
    */
   async smartFill(page: Page, keywords: string[], value: string): Promise<boolean> {
     const intent: Intent = {
@@ -2837,7 +3841,40 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Execute common intent
-   * Uses pre-defined intents: LOGIN, LOGOUT, SUBMIT, SEARCH, ADD_TO_CART, CHECKOUT, NEXT, CLOSE
+   * 
+   * Uses pre-defined intents for common user actions. No need to specify
+   * keywords - MisterMind knows what "LOGIN" means across all websites.
+   * 
+   * **Available Actions:**
+   * - `LOGIN` - Find and click login button
+   * - `LOGOUT` - Find and click logout button
+   * - `SUBMIT` - Submit active form
+   * - `SEARCH` - Fill and submit search
+   * - `ADD_TO_CART` - E-commerce add to cart
+   * - `CHECKOUT` - Proceed to checkout
+   * - `NEXT` - Navigation next/continue
+   * - `CLOSE` - Close modal/dialog
+   * 
+   * @param page - Playwright Page instance
+   * @param action - Action name from CommonIntents
+   * @param value - Optional value for fill actions (e.g., search query)
+   * 
+   * @returns true if action succeeded
+   * 
+   * @throws {Error} If PRO license not active
+   * @throws {Error} If action is unknown
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * await mm.doAction(page, 'SEARCH', 'playwright testing');
+   * await mm.doAction(page, 'LOGIN');
+   * await mm.doAction(page, 'ADD_TO_CART');
+   * await mm.doAction(page, 'CHECKOUT');
+   * ```
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   async doAction(
     page: Page, 
@@ -2862,7 +3899,15 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Get ASC statistics
-   * Returns knowledge base stats and success rates
+   * 
+   * Returns knowledge base statistics and success rates for semantic matching.
+   * 
+   * @returns Stats object or null if ASC not initialized
+   *   - `totalEntries`: Number of learned selectors
+   *   - `successRate`: Match success percentage
+   *   - `mostUsed`: Top 10 most frequently matched keywords
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   getASCStats(): { totalEntries: number; successRate: number; mostUsed: string[] } | null {
     if (!this.asc) return null;
@@ -2871,6 +3916,11 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Save ASC knowledge to file
+   * 
+   * Persists learned semantic mappings to disk for reuse across sessions.
+   * Knowledge file is saved to `./asc-knowledge.json` by default.
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   saveASCKnowledge(): void {
     if (this.asc) {
@@ -2880,6 +3930,11 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Clear ASC cache
+   * 
+   * Clears in-memory semantic caches. Use when testing on new
+   * websites to prevent stale matches.
+   * 
+   * @since v16.0 "Adaptive Semantic Core"
    */
   clearASCCache(): void {
     if (this.asc) {
@@ -2893,7 +3948,54 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Initialize Sovereign Swarm
-   * Sets up multi-agent orchestration with distillation and observability
+   * 
+   * Activates multi-agent parallel test execution architecture.
+   * The Swarm enables distributed testing with Commander-Soldier pattern.
+   * 
+   * **Components Initialized:**
+   * - **Agentic Orchestrator**: Coordinates agent tasks
+   * - **Distillation Logger**: Fine-tuning data collection
+   * - **Observability Bridge**: OpenTelemetry tracing
+   * - **Browser Pool**: Playwright browser lifecycle
+   * 
+   * **Benefits:**
+   * - 10x faster test execution via parallelism
+   * - Thermal-aware CPU throttling
+   * - Automatic load balancing
+   * - Cross-agent state sharing
+   * 
+   * @param config - Optional swarm configuration
+   * @param config.maxAgents - Maximum concurrent agents (default: CPU cores)
+   * @param config.strategy - 'parallel' | 'sequential' | 'adaptive'
+   * @param config.enableThermalThrottling - CPU temp-based throttling
+   * 
+   * @returns Promise that resolves when swarm is ready
+   * 
+   * @throws {Error} If PRO license not active
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * await mm.initSwarm({
+   *   maxAgents: 8,
+   *   strategy: 'adaptive',
+   *   enableThermalThrottling: true
+   * });
+   * 
+   * // Run tests in parallel
+   * const result = await mm.executeSwarmTest(testSuite, {
+   *   parallel: true,
+   *   retries: 2
+   * });
+   * 
+   * console.log(`Completed ${result.total} tests in ${result.duration}ms`);
+   * ```
+   * 
+   * @requires PRO license
+   * @since v17.0 "Sovereign Swarm"
+   * @see {@link getSwarmStats} for monitoring
+   * @see {@link shutdown} to cleanly terminate
    */
   async initSwarm(config?: SwarmConfig): Promise<void> {
     if (!this.isProLicense) {
@@ -3034,6 +4136,17 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Get Swarm statistics
+   * 
+   * Returns real-time statistics about swarm operation.
+   * 
+   * @returns SwarmStats or null if swarm not initialized
+   *   - `activeAgents`: Currently running agents
+   *   - `completedTasks`: Total tasks completed
+   *   - `failedTasks`: Total failed tasks
+   *   - `avgTaskDuration`: Mean task execution time
+   *   - `thermalState`: CPU thermal status
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   getSwarmStats(): SwarmStats | null {
     if (!this.orchestrator) return null;
@@ -3042,6 +4155,16 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Get distillation statistics
+   * 
+   * Returns statistics about fine-tuning data collection.
+   * 
+   * @returns Distillation stats or null if not initialized
+   *   - `accepted`: Entries meeting quality threshold
+   *   - `rejected`: Entries below threshold
+   *   - `totalEntries`: Total collected
+   *   - `acceptanceRate`: Percentage accepted
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   getDistillationStats(): {
     accepted: number;
@@ -3055,6 +4178,15 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Get observability statistics
+   * 
+   * Returns OpenTelemetry tracing statistics.
+   * 
+   * @returns Observability stats or null if not initialized
+   *   - `spansCreated`: Total trace spans created
+   *   - `spansExported`: Spans successfully exported
+   *   - `errors`: Export errors encountered
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   getObservabilityStats(): {
     spansCreated: number;
@@ -3067,6 +4199,19 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Get current trace ID
+   * 
+   * Returns the active OpenTelemetry trace ID for correlation
+   * with external observability systems.
+   * 
+   * @returns Trace ID string or null if not tracing
+   * 
+   * @example
+   * ```typescript
+   * const traceId = mm.getCurrentTraceId();
+   * console.log(`View in Jaeger: http://jaeger:16686/trace/${traceId}`);
+   * ```
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   getCurrentTraceId(): string | null {
     return this.observabilityBridge?.getCurrentTraceId() || null;
@@ -3074,6 +4219,25 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Export distillation data
+   * 
+   * Exports collected fine-tuning data in specified format.
+   * Use for training custom models on your test patterns.
+   * 
+   * @param format - Export format: 'jsonl' or 'csv'
+   * @param path - Output file path
+   * 
+   * @throws {Error} If distillation logger not initialized
+   * 
+   * @example
+   * ```typescript
+   * // Export for fine-tuning
+   * await mm.exportDistillationData('jsonl', './fine-tune-data.jsonl');
+   * 
+   * // Export for analysis
+   * await mm.exportDistillationData('csv', './analysis.csv');
+   * ```
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   async exportDistillationData(format: 'jsonl' | 'csv', path: string): Promise<void> {
     if (!this.distillationLogger) {
@@ -3084,6 +4248,27 @@ export class MisterMind {
 
   /**
    * 💎 PRO: Shutdown Swarm gracefully
+   * 
+   * Cleanly terminates all swarm components, ensuring no orphaned
+   * browser processes or pending tasks.
+   * 
+   * **Shutdown Order:**
+   * 1. Browser Pool - close all browsers
+   * 2. Orchestrator - stop task distribution
+   * 3. Distillation Logger - flush pending writes
+   * 4. Observability Bridge - export final spans
+   * 
+   * @returns Promise that resolves when shutdown complete
+   * 
+   * @example
+   * ```typescript
+   * process.on('SIGTERM', async () => {
+   *   await mm.shutdownSwarm();
+   *   process.exit(0);
+   * });
+   * ```
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   async shutdownSwarm(): Promise<void> {
     if (!this.swarmInitialized) return;
@@ -3118,6 +4303,12 @@ export class MisterMind {
 
   /**
    * 🏰 Shutdown Bastion gracefully
+   * 
+   * Cleanly terminates Security Bastion components.
+   * 
+   * @returns Promise that resolves when shutdown complete
+   * 
+   * @since v19.0 "Security Bastion"
    */
   async shutdownBastion(): Promise<void> {
     if (!this.bastionInitialized || !this.bastion) return;
@@ -3135,7 +4326,39 @@ export class MisterMind {
   }
 
   /**
-   * Shutdown all components
+   * 🔌 Shutdown all components
+   * 
+   * Master shutdown method that gracefully terminates all MisterMind
+   * subsystems. **Always call this before process exit.**
+   * 
+   * **Components Shutdown:**
+   * - Security Bastion (vault, sandbox, workers)
+   * - Sovereign Swarm (browsers, orchestrator, telemetry)
+   * - Adaptive Semantic Core (knowledge persistence)
+   * - Self-Evolving Genetic Core (state snapshot)
+   * 
+   * @returns Promise that resolves when all components stopped
+   * 
+   * @example
+   * ```typescript
+   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * 
+   * try {
+   *   await mm.initSwarm();
+   *   await runTests();
+   * } finally {
+   *   await mm.shutdown(); // Always cleanup!
+   * }
+   * 
+   * // Or with signal handlers
+   * process.on('SIGINT', async () => {
+   *   console.log('Graceful shutdown...');
+   *   await mm.shutdown();
+   *   process.exit(0);
+   * });
+   * ```
+   * 
+   * @since v17.0 "Sovereign Swarm"
    */
   async shutdown(): Promise<void> {
     await this.shutdownBastion();
@@ -3158,10 +4381,10 @@ export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(co
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /** Current version */
-export const VERSION = '23.0.0';
+export const VERSION = '23.3.0';
 
 /** Version codename */
-export const VERSION_CODENAME = 'The Local Sovereign';
+export const VERSION_CODENAME = 'Type-Safe Sovereign';
 
 /** Full version string */
 export const VERSION_FULL = `MisterMind v${VERSION} "${VERSION_CODENAME}"`;

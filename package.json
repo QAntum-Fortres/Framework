@@ -1,8 +1,9 @@
 {
   "name": "mister-mind",
-  "version": "23.2.0",
-  "description": "AI-Powered QA Framework with Multimodal Commander - The Local Sovereign Edition with Strict TypeScript, Hardware Telemetry, Swarm Orchestration & Bulgarian Voice Feedback",
+  "version": "23.3.0",
+  "description": "AI-Powered QA Framework with Multimodal Commander - Type-Safe Sovereign Edition with Strict TypeScript, Hardware Telemetry, Swarm Orchestration & Bulgarian Voice Feedback",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "keywords": [
     "qa",
@@ -46,7 +47,9 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:prod": "npx ts-node scripts/build-prod.ts",
     "build:enterprise": "npx ts-node scripts/build-enterprise.ts",
+    "build:watch": "tsc --watch",
     "dashboard": "npx ts-node -e \"const { DashboardServer } = require('./src/enterprise/dashboard-server'); const d = new DashboardServer(); d.start().then(() => console.log('Dashboard: http://localhost:3847'));\"",
     "license:generate": "npx ts-node -e \"const { LicenseManager } = require('./src/enterprise/license-manager'); const m = new LicenseManager(); console.log(m.displayStatus()); const l = m.generateDevLicense('Dev', 'dev@test.com'); m.saveLicense(l); console.log('License saved!');\"",
     "license:status": "npx ts-node -e \"const { LicenseManager } = require('./src/enterprise/license-manager'); const m = new LicenseManager(); m.loadLicense(); console.log(m.displayStatus());\"",
@@ -69,6 +72,7 @@
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "esbuild": "^0.24.2",
     "eslint": "^8.50.0",
     "javascript-obfuscator": "^4.1.0",
     "ts-node": "^10.9.2",

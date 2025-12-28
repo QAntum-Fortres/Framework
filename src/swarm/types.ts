@@ -1,15 +1,17 @@
 /**
- * 🐝 SOVEREIGN SWARM - Mister Mind v17.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Multi-agent architecture with local intelligence distillation
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Architecture:
- * - Planner (Cloud): High-level strategy (Claude/GPT)
- * - Executor (Local): Heavy lifting (Gemma/Llama on RTX)
- * - Critic (Cloud): Observes and corrects (Gemini Flash)
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 17.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 // ═══════════════════════════════════════════════════════════════════════════

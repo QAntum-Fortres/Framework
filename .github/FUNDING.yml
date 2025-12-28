@@ -1,2 +1,16 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# MisterMind
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+# @license PROPRIETARY AND CONFIDENTIAL
+#
+# This file is part of MisterMind.
+# Unauthorized copying, modification, distribution, or use of this file,
+# via any medium, is strictly prohibited without express written permission.
+#
+# For licensing inquiries: dimitar.papazov@mistermind.dev
+# ═══════════════════════════════════════════════════════════════════════════════
+
 polar: MrMindQATool
 custom: ["https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe"]

@@ -1,14 +1,17 @@
 /**
- * 🏰 SECURITY BASTION & NEURAL GRID - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Enterprise-grade security and distributed intelligence
- * - Sandboxed Mutation Execution
- * - Worker Pool with 16-core utilization
- * - AES-256-GCM Encrypted Knowledge Sync
- * - Circuit Breaker with Graceful Degradation
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
+ * 
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 // ═══════════════════════════════════════════════════════════════════════════

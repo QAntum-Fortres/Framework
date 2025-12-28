@@ -1,20 +1,17 @@
 /**
- * 🔴 CHAOS ENGINEERING: FLAKY INFRASTRUCTURE TEST
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Simulates unreliable external dependencies:
- * - 5000ms network delays
- * - Random HTTP 500 errors
- * - Connection timeouts
- * - DNS failures
- * - SSL certificate errors
- * - Rate limiting (429 responses)
- * - Circuit breaker activation
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Target: API Sensei, Circuit Breaker, Retry Logic, Timeout Handling
- * Expected: Graceful degradation, proper error handling, circuit breaker activation
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 20.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { describe, it, expect, beforeAll, afterAll, beforeEach, vi } from 'vitest';

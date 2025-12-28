@@ -1,18 +1,17 @@
 /**
- * 🔐 NEURAL VAULT - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * AES-256-GCM encrypted storage for knowledge.json and sensitive data.
- * Uses PBKDF2 for password-based key derivation.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Features:
- * - AES-256-GCM authenticated encryption
- * - PBKDF2 key derivation (100,000 iterations)
- * - SHA-256 checksums for integrity verification
- * - Automatic compression with gzip
- * - Versioned payloads for forward compatibility
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import * as crypto from 'node:crypto';

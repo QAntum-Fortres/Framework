@@ -1,11 +1,17 @@
 /**
- * ⚙️ Executor Agent
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Local execution agent (runs on RTX with Gemma/Llama)
- * Handles heavy lifting and browser automation
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * @author Dimitar Papazov
- * @version 17.0.0
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
+ * 
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { BaseAgent } from './base-agent';

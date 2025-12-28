@@ -1,12 +1,17 @@
 /**
- * 💎 DEPENDENCY INJECTION CONTAINER - Mister Mind v20.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * The Flawless Diamond Protocol: Zero hardcoded dependencies.
- * Every service is injectable, testable, and swappable.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * @author Dimitar Papazov
- * @version 20.0.0
- * @license SEE LICENSE IN LICENSE
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
+ * 
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { EventEmitter } from 'node:events';

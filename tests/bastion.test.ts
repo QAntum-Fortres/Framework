@@ -1,18 +1,17 @@
 /**
- * 🏰 SECURITY BASTION & NEURAL GRID v19.0 - Test Suite
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Comprehensive tests for all v19.0 components:
- * - Sandboxed Mutation Executor
- * - Worker Pool Manager
- * - Memory Hardening Manager
- * - Neural Vault (AES-256-GCM)
- * - Checksum Validator
- * - Circuit Breaker
- * - Health Check System
- * - Bastion Controller
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
+ * 
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';

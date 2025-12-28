@@ -1,17 +1,17 @@
 /**
- * 🧵 WORKER POOL MANAGER - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Multi-threaded execution using node:worker_threads
- * Optimized for 16-core Ryzen 7000 series processors.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Features:
- * - Dynamic worker scaling
- * - Work stealing for load balancing
- * - Priority queue for task scheduling
- * - Automatic worker recycling
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { Worker, parentPort, workerData, isMainThread } from 'node:worker_threads';

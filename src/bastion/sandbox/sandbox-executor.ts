@@ -1,15 +1,17 @@
 /**
- * 🔒 SANDBOXED MUTATION EXECUTOR - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Isolated execution environment using Node.js vm module for secure mutation testing.
- * Blocks unauthorized access to:
- * - File system (except allowed paths)
- * - Network (except allowed hosts)
- * - Process (completely blocked)
- * - Dangerous globals (eval, Function)
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
+ * 
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import * as vm from 'node:vm';

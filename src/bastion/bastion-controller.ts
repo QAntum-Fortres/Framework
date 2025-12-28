@@ -1,20 +1,17 @@
 /**
- * 🏰 BASTION CONTROLLER - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Central orchestrator for Security Bastion & Neural Grid.
- * Integrates all v19.0 security and infrastructure components.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Components managed:
- * - Sandboxed Mutation Executor
- * - Worker Pool Manager
- * - Memory Hardening Manager
- * - Neural Vault (Encrypted Storage)
- * - Checksum Validator
- * - Circuit Breaker Manager
- * - Health Check System
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { EventEmitter } from 'node:events';

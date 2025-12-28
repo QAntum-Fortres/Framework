@@ -1,3 +1,9 @@
+<!-- 
+═══════════════════════════════════════════════════════════════════════════════
+MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+═══════════════════════════════════════════════════════════════════════════════
+-->
+
 # Pro Features Guide
 
 Unlock the full power of MISTER MIND with a Pro license.

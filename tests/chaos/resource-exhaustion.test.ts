@@ -1,18 +1,17 @@
 /**
- * 🟠 CHAOS ENGINEERING: RESOURCE EXHAUSTION TEST
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Simulates extreme resource pressure:
- * - 50 parallel Ghost threads doing heavy computation
- * - Memory allocation spikes
- * - CPU saturation attacks
- * - Event loop blocking
- * - File descriptor exhaustion
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Target: WorkerPoolManager, HeavyTaskDelegator, Memory Hardening
- * Expected: Graceful degradation, no crashes
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 20.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';

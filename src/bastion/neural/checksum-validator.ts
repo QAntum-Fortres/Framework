@@ -1,18 +1,17 @@
 /**
- * 🔍 CHECKSUM VALIDATOR - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * SHA-256 hash generation and verification for data integrity.
- * Supports file, stream, and buffer hashing.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Features:
- * - SHA-256 checksum generation
- * - Incremental hashing for large files
- * - Manifest generation for directories
- * - Integrity verification
- * - Hash comparison utilities
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import * as crypto from 'node:crypto';

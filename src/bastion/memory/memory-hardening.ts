@@ -1,18 +1,17 @@
 /**
- * 🧠 MEMORY HARDENING - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * GC-friendly resource management using WeakMap and WeakRef.
- * Prevents memory leaks from browser instances, ghost simulations,
- * and other long-lived objects.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Features:
- * - WeakMap-based metadata storage
- * - Automatic cleanup on GC
- * - Resource tracking with FinalizationRegistry
- * - Memory pressure monitoring
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { EventEmitter } from 'node:events';

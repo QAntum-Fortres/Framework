@@ -1,13 +1,17 @@
 /**
- * 🧵 HEAVY TASK DELEGATOR - Mister Mind v20.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Offloads CPU-intensive operations to Worker Threads.
- * Keeps the main Node.js thread free for coordination only.
- * Optimized for 16-core Ryzen 7000 processors.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * @author Dimitar Papazov
- * @version 20.0.0
- * @license SEE LICENSE IN LICENSE
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
+ * 
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { Worker, isMainThread, parentPort, workerData } from 'node:worker_threads';

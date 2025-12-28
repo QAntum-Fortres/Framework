@@ -1,16 +1,17 @@
 /**
- * 🧠 ADAPTIVE SEMANTIC CORE (ASC) - Mister Mind v16.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * The brain that makes Mister Mind "indestructible"
- * Instead of searching for elements, we search for MEANING.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Components:
- * 1. SAL - Semantic Abstraction Layer (DOM → Semantic Map)
- * 2. HIM - Heuristic Intent Matcher (Intent → Best Element)
- * 3. VCB - Visual-to-Code Bridge (Self-Healing 2.0)
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 16.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { Page, ElementHandle, Browser, chromium } from 'playwright';

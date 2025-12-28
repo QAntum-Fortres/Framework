@@ -1,24 +1,17 @@
 /**
- * 🧠 MISTER MIND - AI-Powered QA Automation
- * 
  * ═══════════════════════════════════════════════════════════════════════════════
- * v20.0 "THE SOVEREIGN SINGULARITY" - Enterprise Grade Edition
+ * MisterMind
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * 🔥 20 Levels of Evolution:
- * - v1-15: Core QA Framework
- * - v16.0: Adaptive Semantic Core (ASC)
- * - v17.0: Sovereign Swarm Multi-Agent
- * - v18.0: Self-Evolving Genetic Core (SEGC)
- * - v19.0: Security Bastion & Neural Grid
- * - v20.0: The Sovereign Singularity (Financial Oracle + Memory Hardening)
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Free Tier: Basic testing functionality
- * Pro Tier: Full AI features (requires license)
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @license SEE LICENSE FILE
- * @version 20.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { chromium, firefox, webkit, Browser, Page, BrowserType as PlaywrightBrowserType } from 'playwright';

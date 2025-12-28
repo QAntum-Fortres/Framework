@@ -1,3 +1,9 @@
+<!-- 
+═══════════════════════════════════════════════════════════════════════════════
+MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+═══════════════════════════════════════════════════════════════════════════════
+-->
+
 # Enterprise Setup
 
 For large organizations requiring custom deployments, advanced integrations, and dedicated support.

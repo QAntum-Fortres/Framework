@@ -1,18 +1,17 @@
 /**
- * 💓 HEALTH CHECK SYSTEM - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Comprehensive health monitoring for all Mister Mind modules.
- * 30-second interval checks with alerting and recovery.
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Features:
- * - Module health monitoring
- * - Memory and CPU tracking
- * - Alert thresholds and notifications
- * - Automatic recovery triggers
- * - Health history and trends
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { EventEmitter } from 'node:events';

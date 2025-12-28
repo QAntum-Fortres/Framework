@@ -1,18 +1,17 @@
 /**
- * 🔴 CHAOS ENGINEERING: MALICIOUS INTENT TEST
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Simulates AI prompt injection attacks attempting:
- * - Privilege Escalation
- * - System File Deletion
- * - Environment Variable Theft
- * - Code Injection
- * - Sandbox Escape
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Target: Bastion Security + AI Logic Gate
- * Expected: ALL attacks MUST be blocked
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 20.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';

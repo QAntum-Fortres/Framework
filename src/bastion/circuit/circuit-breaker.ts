@@ -1,19 +1,17 @@
 /**
- * ⚡ CIRCUIT BREAKER - Mister Mind v19.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * MisterMind
+ * ═══════════════════════════════════════════════════════════════════════════════
  * 
- * Graceful degradation pattern for AI service failover.
- * Primary: Cloud APIs (Gemini, Claude, OpenAI)
- * Fallback: Local Ollama instance
+ * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+ * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * Features:
- * - Three-state circuit (closed, open, half-open)
- * - Automatic failover with state preservation
- * - Health check monitoring
- * - Exponential backoff for retries
- * - Metrics and alerting
+ * This file is part of MisterMind.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without express written permission.
  * 
- * @author Dimitar Papazov
- * @version 19.0.0
+ * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 import { EventEmitter } from 'node:events';

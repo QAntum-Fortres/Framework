@@ -10,3 +10,29 @@
 !src/**
 !.npmignore
 !.gitignore
+
+# Include app directory (user auth pages)
+!app/
+!app/**
+
+# Include examples
+!examples/
+!examples/**
+
+# Include docs
+!docs/
+!docs/**
+
+# Include GitHub config
+!.github/
+!.github/**
+
+# Include landing page
+!index.html
+
+# Include documentation
+!SECURITY.md
+!CONTRIBUTING.md
+!CHANGELOG.md
+!.eslintrc.json
+!test-all.js

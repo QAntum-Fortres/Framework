@@ -2,6 +2,8 @@
 
 <div align="center">
 
+[![CI](https://github.com/papica777-eng/MrMindQATool/actions/workflows/ci.yml/badge.svg)](https://github.com/papica777-eng/MrMindQATool/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/mister-mind?color=CB3837&logo=npm)](https://www.npmjs.com/package/mister-mind)
 [![Node.js](https://img.shields.io/badge/Node.js-v18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)]()

@@ -271,6 +271,84 @@ async function runTests() {
   });
 
   // ═══════════════════════════════════════════════════════════════
+  // ASC (Adaptive Semantic Core) TESTS
+  // ═══════════════════════════════════════════════════════════════
+  console.log('\n📦 ASC (Adaptive Semantic Core) Tests:');
+
+  await test('ASC requires PRO license for createSemanticMap', async () => {
+    const mm = new MisterMind();
+    try {
+      await mm.createSemanticMap({});
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Pro license')) throw e;
+    }
+  });
+
+  await test('ASC requires PRO license for findByIntent', async () => {
+    const mm = new MisterMind();
+    try {
+      await mm.findByIntent({}, { action: 'TEST', keywords: ['test'] });
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Pro license')) throw e;
+    }
+  });
+
+  await test('ASC requires PRO license for smartClick', async () => {
+    const mm = new MisterMind();
+    try {
+      await mm.smartClick({}, ['login']);
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Pro license')) throw e;
+    }
+  });
+
+  await test('ASC initializes with PRO license', () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const asc = mm.getASC();
+    if (!asc) throw new Error('ASC should be initialized with PRO license');
+  });
+
+  await test('ASC getStats returns null without init', () => {
+    const mm = new MisterMind();
+    const stats = mm.getASCStats();
+    if (stats !== null) throw new Error('Should return null without ASC');
+  });
+
+  await test('ASC getStats returns object with PRO', () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const stats = mm.getASCStats();
+    if (!stats) throw new Error('Should return stats');
+    if (typeof stats.totalEntries !== 'number') throw new Error('Missing totalEntries');
+    if (typeof stats.successRate !== 'number') throw new Error('Missing successRate');
+  });
+
+  await test('doAction throws on unknown action', async () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    try {
+      await mm.doAction({}, 'UNKNOWN_ACTION');
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Unknown action')) throw e;
+    }
+  });
+
+  await test('CommonIntents are exported', () => {
+    const { CommonIntents } = require('../dist/index.js');
+    if (!CommonIntents) throw new Error('CommonIntents not exported');
+    if (!CommonIntents.LOGIN) throw new Error('LOGIN intent missing');
+    if (!CommonIntents.SUBMIT) throw new Error('SUBMIT intent missing');
+    if (!CommonIntents.ADD_TO_CART) throw new Error('ADD_TO_CART intent missing');
+  });
+
+  await test('VERSION is 16.0.0', () => {
+    const { VERSION } = require('../dist/index.js');
+    if (VERSION !== '16.0.0') throw new Error(`Expected 16.0.0, got ${VERSION}`);
+  });
+
+  // ═══════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════
   console.log('');

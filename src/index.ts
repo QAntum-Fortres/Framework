@@ -6,11 +6,20 @@
  * 
  * @author Dimitar Papazov
  * @license SEE LICENSE FILE
- * @version 1.0.0
+ * @version 16.0.0
  */
 
 import { chromium, Browser, Page } from 'playwright';
 import axios, { AxiosError } from 'axios';
+import { 
+  AdaptiveSemanticCore, 
+  ASCConfig, 
+  Intent, 
+  IntentMatch, 
+  SemanticMap,
+  SemanticElement,
+  CommonIntents 
+} from './asc/semantic-core';
 
 export interface AuditResult {
   url: string;
@@ -37,6 +46,8 @@ export interface MisterMindConfig {
   timeout?: number;
   /** Enable verbose logging (default: false) */
   verbose?: boolean;
+  /** Adaptive Semantic Core configuration */
+  asc?: ASCConfig;
 }
 
 export interface PredictionOptions {
@@ -229,6 +240,7 @@ const CHECKOUT_URL = 'https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qo
 export class MisterMind {
   private config: MisterMindConfig;
   private isProLicense: boolean = false;
+  private asc: AdaptiveSemanticCore | null = null;
 
   constructor(config: MisterMindConfig = {}) {
     // Validate config
@@ -244,6 +256,25 @@ export class MisterMind {
 
     if (config.licenseKey) {
       this.validateLicense(config.licenseKey);
+    }
+
+    // Initialize ASC if config provided or PRO license
+    if (config.asc || this.isProLicense) {
+      this.initASC(config.asc);
+    }
+  }
+
+  /**
+   * Initialize Adaptive Semantic Core
+   */
+  private initASC(config?: ASCConfig): void {
+    this.asc = new AdaptiveSemanticCore({
+      verbose: this.config.verbose,
+      ...config
+    });
+    
+    if (this.config.verbose) {
+      console.log('🧠 ASC: Adaptive Semantic Core initialized');
     }
   }
 
@@ -1800,6 +1831,169 @@ export class MisterMind {
       tier: this.isProLicense ? 'pro' : 'free'
     };
   }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // 🧠 ADAPTIVE SEMANTIC CORE (ASC) - v16.0 Features
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * 💎 PRO: Get Adaptive Semantic Core instance
+   * Returns null if not initialized
+   */
+  getASC(): AdaptiveSemanticCore | null {
+    return this.asc;
+  }
+
+  /**
+   * 💎 PRO: Create semantic map of a page
+   * Extracts all interactive elements with semantic meaning
+   */
+  async createSemanticMap(page: Page): Promise<SemanticMap> {
+    if (!this.isProLicense) {
+      throw new Error('Semantic Map requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (!this.asc) {
+      this.initASC();
+    }
+
+    return this.asc!.createSemanticMap(page);
+  }
+
+  /**
+   * 💎 PRO: Find element by intent (semantic search)
+   * Searches for element by meaning, not by selector
+   */
+  async findByIntent(page: Page, intent: Intent): Promise<IntentMatch | null> {
+    if (!this.isProLicense) {
+      throw new Error('Intent Matching requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (!this.asc) {
+      this.initASC();
+    }
+
+    return this.asc!.matchIntent(page, intent);
+  }
+
+  /**
+   * 💎 PRO: Execute action by intent
+   * Click, fill, or hover on element found by semantic meaning
+   */
+  async executeIntent(
+    page: Page,
+    intent: Intent,
+    action: 'click' | 'fill' | 'hover' = 'click',
+    value?: string
+  ): Promise<boolean> {
+    if (!this.isProLicense) {
+      throw new Error('Intent Execution requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (!this.asc) {
+      this.initASC();
+    }
+
+    return this.asc!.executeIntent(page, intent, action, value);
+  }
+
+  /**
+   * 💎 PRO: Quick semantic search for element
+   * Shorthand for finding elements by keywords
+   */
+  async findElement(
+    page: Page,
+    keywords: string[],
+    options?: { expectedType?: 'button' | 'link' | 'input' | 'form' | 'any'; positionHint?: string }
+  ): Promise<IntentMatch | null> {
+    if (!this.isProLicense) {
+      throw new Error('Semantic Search requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (!this.asc) {
+      this.initASC();
+    }
+
+    return this.asc!.findElement(page, keywords, options as any);
+  }
+
+  /**
+   * 💎 PRO: Smart click - click by meaning
+   * Example: await mm.smartClick(page, ['login', 'sign in'])
+   */
+  async smartClick(page: Page, keywords: string[]): Promise<boolean> {
+    const intent: Intent = {
+      action: `CLICK_${keywords.join('_').toUpperCase()}`,
+      keywords,
+      expectedType: 'button'
+    };
+    return this.executeIntent(page, intent, 'click');
+  }
+
+  /**
+   * 💎 PRO: Smart fill - fill input by meaning
+   * Example: await mm.smartFill(page, ['email', 'e-mail'], 'user@example.com')
+   */
+  async smartFill(page: Page, keywords: string[], value: string): Promise<boolean> {
+    const intent: Intent = {
+      action: `FILL_${keywords.join('_').toUpperCase()}`,
+      keywords,
+      expectedType: 'input'
+    };
+    return this.executeIntent(page, intent, 'fill', value);
+  }
+
+  /**
+   * 💎 PRO: Execute common intent
+   * Uses pre-defined intents: LOGIN, LOGOUT, SUBMIT, SEARCH, ADD_TO_CART, CHECKOUT, NEXT, CLOSE
+   */
+  async doAction(
+    page: Page, 
+    action: keyof typeof CommonIntents,
+    value?: string
+  ): Promise<boolean> {
+    if (!this.isProLicense) {
+      throw new Error('Smart Actions require a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    const intent = CommonIntents[action];
+    if (!intent) {
+      throw new Error(`Unknown action: ${action}. Available: ${Object.keys(CommonIntents).join(', ')}`);
+    }
+
+    const execAction = intent.keywords.some(k => 
+      k.includes('search') || k.includes('email') || k.includes('password')
+    ) ? 'fill' : 'click';
+
+    return this.executeIntent(page, intent, execAction, value);
+  }
+
+  /**
+   * 💎 PRO: Get ASC statistics
+   * Returns knowledge base stats and success rates
+   */
+  getASCStats(): { totalEntries: number; successRate: number; mostUsed: string[] } | null {
+    if (!this.asc) return null;
+    return this.asc.getStats();
+  }
+
+  /**
+   * 💎 PRO: Save ASC knowledge to file
+   */
+  saveASCKnowledge(): void {
+    if (this.asc) {
+      this.asc.saveKnowledge();
+    }
+  }
+
+  /**
+   * 💎 PRO: Clear ASC cache
+   */
+  clearASCCache(): void {
+    if (this.asc) {
+      this.asc.clearCache();
+    }
+  }
 }
 
 // Default export
@@ -1809,4 +2003,15 @@ export default MisterMind;
 export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(config);
 
 // Version constant
-export const VERSION = '1.0.0';
+export const VERSION = '16.0.0';
+
+// Re-export ASC types and utilities
+export { 
+  AdaptiveSemanticCore, 
+  CommonIntents,
+  Intent,
+  IntentMatch,
+  SemanticMap,
+  SemanticElement,
+  ASCConfig
+} from './asc/semantic-core';

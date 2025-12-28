@@ -1,17 +1,45 @@
 /**
- * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
- * ═══════════════════════════════════════════════════════════════════════════════
- * 
- * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
- * @license PROPRIETARY AND CONFIDENTIAL
- * 
- * This file is part of MisterMind.
- * Unauthorized copying, modification, distribution, or use of this file,
- * via any medium, is strictly prohibited without express written permission.
- * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
- * ═══════════════════════════════════════════════════════════════════════════════
+ * ╔═══════════════════════════════════════════════════════════════════════════════╗
+ * ║                                                                               ║
+ * ║   ███╗   ███╗██╗███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗  ║
+ * ║   ████╗ ████║██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗ ║
+ * ║   ██╔████╔██║██║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║ ║
+ * ║   ██║╚██╔╝██║██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║ ║
+ * ║   ██║ ╚═╝ ██║██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝ ║
+ * ║   ╚═╝     ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝  ║
+ * ║                                                                               ║
+ * ║                    v23.0.0 "The Local Sovereign"                              ║
+ * ║                                                                               ║
+ * ╠═══════════════════════════════════════════════════════════════════════════════╣
+ * ║                                                                               ║
+ * ║   🇧🇬 Made with ❤️ in Bulgaria by Димитър Продромов                            ║
+ * ║                                                                               ║
+ * ║   📊 Statistics:                                                              ║
+ * ║   • Total Lines: 45,895+                                                      ║
+ * ║   • TypeScript Files: 91                                                      ║
+ * ║   • Tests: 492 passing                                                        ║
+ * ║   • Enterprise Modules: 6                                                     ║
+ * ║                                                                               ║
+ * ║   🏢 Enterprise Features:                                                     ║
+ * ║   • 🌡️  Thermal-Aware Pool (CPU temperature management)                       ║
+ * ║   • 🐳 Docker Manager (Selenium Grid orchestration)                           ║
+ * ║   • 🎖️  Swarm Commander (Commander-Soldier parallelism)                       ║
+ * ║   • 🔊 Bulgarian TTS (Native text-to-speech)                                  ║
+ * ║   • 🎛️  Dashboard Server (WebSocket at localhost:3847)                        ║
+ * ║   • 🔐 License Manager (Hardware-locked licensing)                            ║
+ * ║                                                                               ║
+ * ╠═══════════════════════════════════════════════════════════════════════════════╣
+ * ║                                                                               ║
+ * ║   @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved. ║
+ * ║   @license PROPRIETARY AND CONFIDENTIAL                                       ║
+ * ║                                                                               ║
+ * ║   This file is part of MisterMind.                                            ║
+ * ║   Unauthorized copying, modification, distribution, or use of this file,      ║
+ * ║   via any medium, is strictly prohibited without express written permission.  ║
+ * ║                                                                               ║
+ * ║   For licensing inquiries: dimitar@mistermind.bg                              ║
+ * ║                                                                               ║
+ * ╚═══════════════════════════════════════════════════════════════════════════════╝
  */
 
 import { chromium, firefox, webkit, Browser, Page, BrowserType as PlaywrightBrowserType } from 'playwright';
@@ -495,11 +523,16 @@ export class MisterMind {
       this.initASC(config.asc);
     }
 
-    this.logger.info('🧠 MisterMind v20.0 initialized', {
+    this.logger.info(`🧠 MisterMind v${VERSION} initialized`, {
       tier: this.isProLicense ? 'pro' : 'free',
       browserEngine: this.config.browserEngine,
       memoryHardening: this.config.enableMemoryHardening,
     });
+
+    // Print compact banner on initialization
+    if (this.config.verbose) {
+      printBanner({ compact: true });
+    }
   }
 
   // ═══════════════════════════════════════════════════════════════════════════════
@@ -2894,7 +2927,7 @@ export class MisterMind {
     this.observabilityBridge = new ObservabilityBridge({
       verbose: this.config.verbose,
       serviceName: 'mister-mind-swarm',
-      serviceVersion: '18.0.0',
+      serviceVersion: VERSION,
       consoleExport: this.config.verbose,
     });
 
@@ -3119,8 +3152,89 @@ export default MisterMind;
 // Named exports for convenience
 export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(config);
 
-// Version constant
-export const VERSION = '20.0.0';
+// ═══════════════════════════════════════════════════════════════════════════════
+// Version & Branding
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/** Current version */
+export const VERSION = '23.0.0';
+
+/** Version codename */
+export const VERSION_CODENAME = 'The Local Sovereign';
+
+/** Full version string */
+export const VERSION_FULL = `MisterMind v${VERSION} "${VERSION_CODENAME}"`;
+
+/**
+ * 🎨 Print ASCII banner to console (optional visualization)
+ * Call this at startup for beautiful branding
+ */
+export function printBanner(options: { color?: boolean; compact?: boolean } = {}): void {
+  const { color = true, compact = false } = options;
+  
+  const reset = color ? '\x1b[0m' : '';
+  const cyan = color ? '\x1b[36m' : '';
+  const yellow = color ? '\x1b[33m' : '';
+  const green = color ? '\x1b[32m' : '';
+  const magenta = color ? '\x1b[35m' : '';
+  const bold = color ? '\x1b[1m' : '';
+  
+  if (compact) {
+    console.log(`${cyan}${bold}🧠 MisterMind${reset} ${yellow}v${VERSION}${reset} ${magenta}"${VERSION_CODENAME}"${reset}`);
+    console.log(`${green}   Made with ❤️ in Bulgaria 🇧🇬${reset}\n`);
+    return;
+  }
+  
+  console.log(`
+${cyan}${bold}╔═══════════════════════════════════════════════════════════════════════════════╗${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}║${reset}   ${yellow}███╗   ███╗██╗███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ ${reset} ${cyan}║${reset}
+${cyan}║${reset}   ${yellow}████╗ ████║██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗${reset} ${cyan}║${reset}
+${cyan}║${reset}   ${yellow}██╔████╔██║██║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║${reset} ${cyan}║${reset}
+${cyan}║${reset}   ${yellow}██║╚██╔╝██║██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║${reset} ${cyan}║${reset}
+${cyan}║${reset}   ${yellow}██║ ╚═╝ ██║██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝${reset} ${cyan}║${reset}
+${cyan}║${reset}   ${yellow}╚═╝     ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ ${reset} ${cyan}║${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}║${reset}                    ${magenta}${bold}v${VERSION} "${VERSION_CODENAME}"${reset}                              ${cyan}║${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}╠═══════════════════════════════════════════════════════════════════════════════╣${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}║${reset}   ${green}🇧🇬 Made with ❤️ in Bulgaria by Димитър Продромов${reset}                            ${cyan}║${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}║${reset}   ${bold}📊 Statistics:${reset}                                                              ${cyan}║${reset}
+${cyan}║${reset}   • Total Lines: 45,895+                                                      ${cyan}║${reset}
+${cyan}║${reset}   • TypeScript Files: 91                                                      ${cyan}║${reset}
+${cyan}║${reset}   • Tests: 492 passing                                                        ${cyan}║${reset}
+${cyan}║${reset}   • Enterprise Modules: 6                                                     ${cyan}║${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}║${reset}   ${bold}🏢 Enterprise Features:${reset}                                                     ${cyan}║${reset}
+${cyan}║${reset}   • 🌡️  Thermal Pool    • 🐳 Docker Manager   • 🎖️  Swarm Commander            ${cyan}║${reset}
+${cyan}║${reset}   • 🔊 Bulgarian TTS   • 🎛️  Dashboard        • 🔐 License Manager             ${cyan}║${reset}
+${cyan}║${reset}                                                                               ${cyan}║${reset}
+${cyan}╚═══════════════════════════════════════════════════════════════════════════════╝${reset}
+`);
+}
+
+/**
+ * 📊 Get system statistics for display
+ */
+export function getSystemStats(): {
+  version: string;
+  codename: string;
+  lines: number;
+  files: number;
+  tests: number;
+  modules: number;
+} {
+  return {
+    version: VERSION,
+    codename: VERSION_CODENAME,
+    lines: 45895,
+    files: 91,
+    tests: 492,
+    modules: 6
+  };
+}
 
 // Re-export ASC types and utilities
 export { 

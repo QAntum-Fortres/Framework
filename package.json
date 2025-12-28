@@ -1,6 +1,6 @@
 {
   "name": "mister-mind",
-  "version": "19.0.0",
+  "version": "20.0.0",
   "description": "AI-Powered QA Automation Framework - Predicts bugs before they happen",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,10 @@
     "regression-testing",
     "security",
     "encryption",
-    "circuit-breaker"
+    "circuit-breaker",
+    "dependency-injection",
+    "worker-threads",
+    "zero-defect"
   ],
   "author": "Dimitar Papazov <papica777.eng@gmail.com>",
   "license": "SEE LICENSE IN LICENSE",

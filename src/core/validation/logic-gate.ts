@@ -509,6 +509,17 @@ export class AILogicGate extends EventEmitter {
         });
       }
 
+      // v20.0: Handle dynamic import attempts (sandbox escape vector)
+      if (err.message.includes('dynamic import') || 
+          (err as any).code === 'ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING') {
+        violations.push({
+          type: 'code-injection',
+          operation: 'dynamic-import',
+          blocked: true,
+          timestamp: new Date()
+        });
+      }
+
       return {
         success: false,
         error: err.message,

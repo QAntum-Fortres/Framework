@@ -8,15 +8,16 @@
  * ║   ██║ ╚═╝ ██║██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝ ║
  * ║   ╚═╝     ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝  ║
  * ║                                                                               ║
- * ║                    v23.0.0 "The Local Sovereign"                              ║
+ * ║                    v23.2.0 "The Local Sovereign"                              ║
+ * ║                 🎯 STRICT TYPESCRIPT - ZERO `any` TYPES 🎯                     ║
  * ║                                                                               ║
  * ╠═══════════════════════════════════════════════════════════════════════════════╣
  * ║                                                                               ║
  * ║   🇧🇬 Made with ❤️ in Bulgaria by Димитър Продромов                            ║
  * ║                                                                               ║
  * ║   📊 Statistics:                                                              ║
- * ║   • Total Lines: 45,895+                                                      ║
- * ║   • TypeScript Files: 91                                                      ║
+ * ║   • Total Lines: 46,500+                                                      ║
+ * ║   • TypeScript Files: 93                                                      ║
  * ║   • Tests: 492 passing                                                        ║
  * ║   • Enterprise Modules: 6                                                     ║
  * ║                                                                               ║
@@ -160,7 +161,7 @@ export interface LogEntry {
   message: string;
   timestamp: Date;
   component: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   traceId?: string;
 }
 
@@ -273,8 +274,8 @@ export interface APISenseiTestResult {
 export interface AssertionResult {
   assertion: string;
   passed: boolean;
-  expected?: any;
-  actual?: any;
+  expected?: unknown;
+  actual?: unknown;
 }
 
 export interface APICoverage {
@@ -305,7 +306,7 @@ export interface ChronosResult {
 export interface StateSnapshot {
   id: string;
   timestamp: Date;
-  state: Record<string, any>;
+  state: Record<string, unknown>;
   label?: string;
 }
 
@@ -313,7 +314,7 @@ export interface TimelineEvent {
   timestamp: Date;
   type: 'snapshot' | 'action' | 'error' | 'assertion';
   description: string;
-  data?: any;
+  data?: unknown;
 }
 
 export interface APITestResult {
@@ -325,7 +326,7 @@ export interface APITestResult {
 export interface APITestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
   headers?: Record<string, string>;
-  body?: any;
+  body?: unknown;
   timeout?: number;
   validateStatus?: boolean;
 }
@@ -451,10 +452,10 @@ export class MisterMind {
   private logger = {
     logs: [] as LogEntry[],
     
-    debug: (msg: string, meta?: Record<string, any>) => this.logMessage('debug', msg, meta),
-    info: (msg: string, meta?: Record<string, any>) => this.logMessage('info', msg, meta),
-    warn: (msg: string, meta?: Record<string, any>) => this.logMessage('warn', msg, meta),
-    error: (msg: string, error?: Error, meta?: Record<string, any>) => {
+    debug: (msg: string, meta?: Record<string, unknown>) => this.logMessage('debug', msg, meta),
+    info: (msg: string, meta?: Record<string, unknown>) => this.logMessage('info', msg, meta),
+    warn: (msg: string, meta?: Record<string, unknown>) => this.logMessage('warn', msg, meta),
+    error: (msg: string, error?: Error, meta?: Record<string, unknown>) => {
       const entry = this.logMessage('error', msg, {
         ...meta,
         errorMessage: error?.message,
@@ -462,7 +463,7 @@ export class MisterMind {
       });
       return entry;
     },
-    audit: (action: string, status: 'success' | 'failure', meta?: Record<string, any>) => {
+    audit: (action: string, status: 'success' | 'failure', meta?: Record<string, unknown>) => {
       return this.logMessage('audit', `${action}: ${status}`, { action, status, ...meta });
     },
     
@@ -623,7 +624,7 @@ export class MisterMind {
   /**
    * 📊 Internal log message handler
    */
-  private logMessage(level: LogLevel, message: string, meta?: Record<string, any>): LogEntry {
+  private logMessage(level: LogLevel, message: string, meta?: Record<string, unknown>): LogEntry {
     const entry: LogEntry = {
       level,
       message,
@@ -825,7 +826,7 @@ export class MisterMind {
   async validateMutationSecure(
     mutationId: string,
     mutationCode: string,
-    context?: Record<string, any>
+    context?: Record<string, unknown>
   ): Promise<MutationValidation | null> {
     if (!this.bastion) return null;
     return this.bastion.validateMutation(mutationId, mutationCode, context || {});
@@ -834,7 +835,7 @@ export class MisterMind {
   /**
    * 🏰 Submit task to worker pool
    */
-  async submitWorkerTask<T = any, R = any>(
+  async submitWorkerTask<T = unknown, R = unknown>(
     type: string,
     payload: T,
     options?: { priority?: number; timeout?: number }
@@ -849,7 +850,7 @@ export class MisterMind {
   async storeSecure(
     id: string,
     type: 'ghost_knowledge' | 'predictions' | 'mutations' | 'versions' | 'metrics',
-    data: any
+    data: unknown
   ): Promise<boolean> {
     if (!this.bastion) return false;
     await this.bastion.storeSecure(id, type, data);
@@ -2214,7 +2215,7 @@ export class MisterMind {
     endpoint: string;
     method: string;
     scenario: string;
-    body?: any;
+    body?: unknown;
     expectedStatus?: number;
     assertions: string[];
   }> {
@@ -2223,7 +2224,7 @@ export class MisterMind {
       endpoint: string;
       method: string;
       scenario: string;
-      body?: any;
+      body?: unknown;
       expectedStatus?: number;
       assertions: string[];
     }> = [];
@@ -2395,7 +2396,7 @@ export class MisterMind {
       endpoint: string;
       method: string;
       scenario: string;
-      body?: any;
+      body?: unknown;
       expectedStatus?: number;
       assertions: string[];
     },
@@ -2805,7 +2806,7 @@ export class MisterMind {
       this.initASC();
     }
 
-    return this.asc!.findElement(page, keywords, options as any);
+    return this.asc!.findElement(page, keywords, options);
   }
 
   /**
@@ -2940,7 +2941,7 @@ export class MisterMind {
     await this.orchestrator.initialize();
 
     // Connect distillation to orchestrator
-    this.orchestrator.on('successfulExecution', async (data: any) => {
+    this.orchestrator.on('successfulExecution', async (data: { task: SwarmTask; result: TaskResult }) => {
       if (this.distillationLogger) {
         await this.distillationLogger.record(data.task, data.result);
         this.orchestrator?.incrementDistillationCount();

@@ -176,7 +176,7 @@ export class SEGCController extends EventEmitter {
    */
   async testAlternativePaths(
     currentSelector: string,
-    page: any,
+    page: unknown,
     options?: {
       targetText?: string;
       elementType?: string;
@@ -359,7 +359,7 @@ export class SEGCController extends EventEmitter {
   /**
    * Log message
    */
-  private log(message: string, data?: any): void {
+  private log(message: string, data?: unknown): void {
     if (this.config.verbose) {
       console.log(`[SEGC] ${message}`, data || '');
     }

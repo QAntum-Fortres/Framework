@@ -141,7 +141,7 @@ export class NeuralVault extends EventEmitter {
    * Encrypt data using AES-256-GCM
    * @param data - Data to encrypt
    */
-  async encrypt(data: any): Promise<EncryptedPayload> {
+  async encrypt(data: unknown): Promise<EncryptedPayload> {
     if (!this.derivedKey || !this.salt) {
       throw new Error('Vault not initialized');
     }
@@ -189,7 +189,7 @@ export class NeuralVault extends EventEmitter {
    * Decrypt data using AES-256-GCM
    * @param payload - Encrypted payload
    */
-  async decrypt<T = any>(payload: EncryptedPayload): Promise<T> {
+  async decrypt<T = unknown>(payload: EncryptedPayload): Promise<T> {
     if (!this.derivedKey) {
       throw new Error('Vault not initialized');
     }
@@ -240,7 +240,7 @@ export class NeuralVault extends EventEmitter {
   async store(
     id: string,
     type: VaultEntry['type'],
-    data: any
+    data: unknown
   ): Promise<VaultEntry> {
     const originalData = JSON.stringify(data);
     const checksum = this.calculateChecksum(originalData);
@@ -267,7 +267,7 @@ export class NeuralVault extends EventEmitter {
    * Retrieve data from the vault
    * @param id - Entry ID
    */
-  async retrieve<T = any>(id: string): Promise<T | null> {
+  async retrieve<T = unknown>(id: string): Promise<T | null> {
     const entry = this.entries.get(id);
     if (!entry) return null;
 
@@ -422,7 +422,7 @@ export class NeuralVault extends EventEmitter {
     }
 
     // Decrypt all entries
-    const decryptedEntries: Array<{ entry: VaultEntry; data: any }> = [];
+    const decryptedEntries: Array<{ entry: VaultEntry; data: unknown }> = [];
     for (const [id, entry] of this.entries) {
       const data = await this.decrypt(entry.payload);
       decryptedEntries.push({ entry, data });

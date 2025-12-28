@@ -157,7 +157,7 @@ export abstract class BaseAgent {
   protected createMessage(
     to: string,
     type: SwarmMessage['type'],
-    payload: any,
+    payload: unknown,
     traceId: string,
     parentSpanId?: string,
     priority: MessagePriority = 'normal'
@@ -242,7 +242,7 @@ export abstract class BaseAgent {
   /**
    * Emit an event
    */
-  protected emit(event: string, data: any): void {
+  protected emit(event: string, data: unknown): void {
     const callbacks = this.listeners.get(event);
     if (callbacks) {
       for (const callback of callbacks) {
@@ -281,7 +281,7 @@ export abstract class BaseAgent {
   /**
    * Log if verbose mode
    */
-  protected log(message: string, ...args: any[]): void {
+  protected log(message: string, ...args: unknown[]): void {
     if (this.config.verbose) {
       console.log(`[${this.id}] ${message}`, ...args);
     }

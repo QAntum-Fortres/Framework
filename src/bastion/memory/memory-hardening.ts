@@ -44,7 +44,7 @@ export class MemoryHardeningManager extends EventEmitter {
   private browserMetadata: WeakMap<object, BrowserMetadata> = new WeakMap();
   
   /** WeakMap for general resource metadata */
-  private resourceMetadata: WeakMap<object, Record<string, any>> = new WeakMap();
+  private resourceMetadata: WeakMap<object, Record<string, unknown>> = new WeakMap();
   
   /** WeakRef registry for tracking live objects */
   private weakRefs: Map<string, WeakRef<object>> = new Map();
@@ -221,7 +221,7 @@ export class MemoryHardeningManager extends EventEmitter {
    * @param object - Object to attach metadata to
    * @param metadata - Metadata to attach
    */
-  attachMetadata<T extends object>(object: T, metadata: Record<string, any>): void {
+  attachMetadata<T extends object>(object: T, metadata: Record<string, unknown>): void {
     const existing = this.resourceMetadata.get(object) || {};
     this.resourceMetadata.set(object, { ...existing, ...metadata });
   }
@@ -230,7 +230,7 @@ export class MemoryHardeningManager extends EventEmitter {
    * Get metadata from an object
    * @param object - Object to get metadata from
    */
-  getMetadata<T extends object>(object: T): Record<string, any> | undefined {
+  getMetadata<T extends object>(object: T): Record<string, unknown> | undefined {
     return this.resourceMetadata.get(object);
   }
 

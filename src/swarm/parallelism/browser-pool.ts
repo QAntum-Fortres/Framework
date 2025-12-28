@@ -15,6 +15,7 @@
  */
 
 import { EventEmitter } from 'events';
+import type { Browser as PlaywrightBrowser, BrowserContext as PlaywrightBrowserContext, Page } from 'playwright';
 import { BrowserContext } from '../types';
 import { generateContextId } from '../utils/id-generator';
 
@@ -45,7 +46,7 @@ export interface BrowserPoolConfig {
 /** Browser instance */
 interface BrowserInstance {
   id: string;
-  browser: any; // playwright.Browser
+  browser: PlaywrightBrowser;
   contexts: Map<string, BrowserContextWrapper>;
   createdAt: Date;
 }
@@ -54,8 +55,8 @@ interface BrowserInstance {
 interface BrowserContextWrapper {
   id: string;
   browserId: string;
-  context: any; // playwright.BrowserContext
-  page: any; // playwright.Page
+  context: PlaywrightBrowserContext;
+  page: Page;
   status: 'available' | 'busy' | 'error';
   assignedAgent?: string;
   currentUrl?: string;
@@ -87,14 +88,14 @@ export class BrowserPoolManager extends EventEmitter {
   private waitingQueue: Array<{
     resolve: (ctx: BrowserContextWrapper) => void;
     reject: (err: Error) => void;
-    timeout: any;
+    timeout: ReturnType<typeof setTimeout>;
   }> = [];
   
   /** Cleanup timer */
-  private cleanupTimer: any = null;
+  private cleanupTimer: ReturnType<typeof setInterval> | null = null;
   
   /** Playwright instance (set externally) */
-  private playwright: any = null;
+  private playwright: Record<string, { launch: (options: { headless?: boolean }) => Promise<PlaywrightBrowser> }> | null = null;
   
   /** Statistics */
   private stats = {
@@ -143,7 +144,7 @@ export class BrowserPoolManager extends EventEmitter {
   /**
    * Initialize the pool with Playwright
    */
-  async initialize(playwright: any): Promise<void> {
+  async initialize(playwright: Record<string, { launch: (options: { headless?: boolean }) => Promise<PlaywrightBrowser> }>): Promise<void> {
     this.playwright = playwright;
     
     // Create initial browser(s)
@@ -204,8 +205,9 @@ export class BrowserPoolManager extends EventEmitter {
       
       return instance;
       
-    } catch (error: any) {
-      this.log(`Failed to create browser: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Failed to create browser: ${message}`);
       this.emit('error', { type: 'browserCreation', error });
       return null;
     }
@@ -322,8 +324,9 @@ export class BrowserPoolManager extends EventEmitter {
       
       return wrapper;
       
-    } catch (error: any) {
-      this.log(`Failed to create context: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Failed to create context: ${message}`);
       this.emit('error', { type: 'contextCreation', error });
       return null;
     }
@@ -388,8 +391,9 @@ export class BrowserPoolManager extends EventEmitter {
     try {
       await context.page.close();
       await context.context.close();
-    } catch (error: any) {
-      this.log(`Error closing context: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Error closing context: ${message}`);
     }
     
     const browser = this.browsers.get(context.browserId);
@@ -418,8 +422,9 @@ export class BrowserPoolManager extends EventEmitter {
     
     try {
       await browser.browser.close();
-    } catch (error: any) {
-      this.log(`Error closing browser: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Error closing browser: ${message}`);
     }
     
     this.browsers.delete(browserId);
@@ -492,7 +497,7 @@ export class BrowserPoolManager extends EventEmitter {
    * Execute task in parallel across multiple contexts
    */
   async executeParallel<T>(
-    tasks: Array<(page: any) => Promise<T>>,
+    tasks: Array<(page: Page) => Promise<T>>,
     agentId?: string
   ): Promise<Array<{ success: boolean; result?: T; error?: string }>> {
     const results: Array<{ success: boolean; result?: T; error?: string }> = [];
@@ -508,8 +513,9 @@ export class BrowserPoolManager extends EventEmitter {
         try {
           const result = await task(context.page);
           return { success: true, result };
-        } catch (error: any) {
-          return { success: false, error: error.message };
+        } catch (error: unknown) {
+          const message = error instanceof Error ? error.message : String(error);
+          return { success: false, error: message };
         }
       });
       
@@ -599,7 +605,7 @@ export class BrowserPoolManager extends EventEmitter {
   /**
    * Log if verbose
    */
-  private log(message: string, ...args: any[]): void {
+  private log(message: string, ...args: unknown[]): void {
     if (this.config.verbose) {
       console.log(`[BrowserPool] ${message}`, ...args);
     }

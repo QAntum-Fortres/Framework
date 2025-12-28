@@ -123,7 +123,7 @@ export class BastionController extends EventEmitter {
   async validateMutation(
     mutationId: string,
     mutationCode: string,
-    context: Record<string, any> = {}
+    context: Record<string, unknown> = {}
   ): Promise<MutationValidation> {
     this.ensureInitialized();
     
@@ -157,7 +157,7 @@ export class BastionController extends EventEmitter {
    * @param payload - Task payload
    * @param options - Task options
    */
-  async submitTask<T = any, R = any>(
+  async submitTask<T = unknown, R = unknown>(
     type: string,
     payload: T,
     options?: { priority?: number; timeout?: number }
@@ -229,7 +229,7 @@ export class BastionController extends EventEmitter {
   async storeSecure(
     id: string,
     type: 'ghost_knowledge' | 'predictions' | 'mutations' | 'versions' | 'metrics',
-    data: any
+    data: unknown
   ) {
     this.ensureInitialized();
     return this.vault.store(id, type, data);
@@ -239,7 +239,7 @@ export class BastionController extends EventEmitter {
    * Retrieve data from vault
    * @param id - Entry ID
    */
-  async retrieveSecure<T = any>(id: string): Promise<T | null> {
+  async retrieveSecure<T = unknown>(id: string): Promise<T | null> {
     this.ensureInitialized();
     return this.vault.retrieve<T>(id);
   }
@@ -259,7 +259,7 @@ export class BastionController extends EventEmitter {
    * Generate checksum for data
    * @param data - Data to hash
    */
-  generateChecksum(data: any): string {
+  generateChecksum(data: unknown): string {
     return this.checksum.hashString(JSON.stringify(data));
   }
 
@@ -268,7 +268,7 @@ export class BastionController extends EventEmitter {
    * @param data - Data to verify
    * @param expectedHash - Expected hash
    */
-  verifyChecksum(data: any, expectedHash: string): boolean {
+  verifyChecksum(data: unknown, expectedHash: string): boolean {
     return this.checksum.verifyData(data, expectedHash);
   }
 

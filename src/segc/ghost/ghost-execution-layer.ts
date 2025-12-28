@@ -86,7 +86,7 @@ export class GhostExecutionLayer extends EventEmitter {
   async startGhostSession(
     realPath: GhostPath,
     alternativePaths: GhostPath[],
-    page: any // Playwright Page
+    page: unknown // Playwright Page
   ): Promise<GhostSession> {
     if (!this.config.enabled) {
       throw new Error('Ghost execution is disabled');
@@ -125,7 +125,7 @@ export class GhostExecutionLayer extends EventEmitter {
   private async executeGhostPath(
     sessionId: string,
     path: GhostPath,
-    page: any
+    page: unknown
   ): Promise<GhostExecutionResult> {
     const startTime = Date.now();
     this.stats.pathsTested++;
@@ -158,12 +158,13 @@ export class GhostExecutionLayer extends EventEmitter {
       
       return executionResult;
       
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
       return {
         path,
         success: false,
         executionTime: Date.now() - startTime,
-        error: error.message,
+        error: message,
         elementFound: false,
         timestamp: new Date(),
       };
@@ -174,7 +175,7 @@ export class GhostExecutionLayer extends EventEmitter {
    * Find element using ghost path (read-only, doesn't affect state)
    */
   private async findElementGhost(
-    page: any,
+    page: unknown,
     path: GhostPath
   ): Promise<{ found: boolean; state?: { visible: boolean; enabled: boolean; interactable: boolean } }> {
     if (!page) {
@@ -182,26 +183,35 @@ export class GhostExecutionLayer extends EventEmitter {
       return this.simulateFindElement(path);
     }
     
+    // Type assertion for page-like object with selector methods
+    const browserPage = page as {
+      $: (selector: string) => Promise<{
+        isVisible: () => Promise<boolean>;
+        isEnabled: () => Promise<boolean>;
+        boundingBox: () => Promise<{ x: number; y: number; width: number; height: number } | null>;
+      } | null>;
+    };
+    
     try {
-      let element: any = null;
+      let element: Awaited<ReturnType<typeof browserPage.$>> = null;
       
       switch (path.strategy) {
         case 'semantic':
         case 'text':
-          element = await page.$(`text="${path.selector}"`);
+          element = await browserPage.$(`text="${path.selector}"`);
           break;
         case 'css':
-          element = await page.$(path.selector);
+          element = await browserPage.$(path.selector);
           break;
         case 'xpath':
-          element = await page.$(`xpath=${path.selector}`);
+          element = await browserPage.$(`xpath=${path.selector}`);
           break;
         case 'visual':
           // Visual strategy would use image matching
-          element = await page.$(path.selector);
+          element = await browserPage.$(path.selector);
           break;
         default:
-          element = await page.$(path.selector);
+          element = await browserPage.$(path.selector);
       }
       
       if (!element) {
@@ -230,7 +240,7 @@ export class GhostExecutionLayer extends EventEmitter {
   /**
    * Simulate finding element (for testing without browser)
    */
-  private simulateFindElement(path: GhostPath): { found: boolean; state?: any } {
+  private simulateFindElement(path: GhostPath): { found: boolean; state?: { visible: boolean; enabled: boolean; interactable: boolean } } {
     // Simulate with random success based on confidence
     const success = Math.random() < path.confidence;
     
@@ -247,11 +257,18 @@ export class GhostExecutionLayer extends EventEmitter {
   /**
    * Get screenshot hash for visual comparison
    */
-  private async getScreenshotHash(page: any, selector: string): Promise<string> {
+  private async getScreenshotHash(page: unknown, selector: string): Promise<string> {
     try {
       if (!page) return 'simulated_hash';
       
-      const element = await page.$(selector);
+      // Type assertion for page-like object
+      const browserPage = page as {
+        $: (selector: string) => Promise<{
+          screenshot: (options: { type: string }) => Promise<Buffer>;
+        } | null>;
+      };
+      
+      const element = await browserPage.$(selector);
       if (!element) return '';
       
       const screenshot = await element.screenshot({ type: 'png' });
@@ -533,7 +550,7 @@ export class GhostExecutionLayer extends EventEmitter {
     sampleCount: number;
     lastUpdated: Date;
   }> {
-    const data: Array<any> = [];
+    const data: unknown[] = [];
     
     for (const [hash, value] of this.knowledgeBase.entries()) {
       data.push({

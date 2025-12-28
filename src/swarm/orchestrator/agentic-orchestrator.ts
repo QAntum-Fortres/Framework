@@ -186,8 +186,8 @@ export class AgenticOrchestrator extends EventEmitter {
   private setupEventHandlers(): void {
     // Forward agent events
     const forwardEvent = (agent: BaseAgent, eventName: string) => {
-      agent.on(eventName, (data: any) => {
-        this.emit(`agent:${eventName}`, { agent: agent.id, ...data });
+      agent.on(eventName, (data: unknown) => {
+        this.emit(`agent:${eventName}`, { agent: agent.id, ...(data as Record<string, unknown>) });
       });
     };
     
@@ -270,7 +270,7 @@ export class AgenticOrchestrator extends EventEmitter {
    */
   async executeGoal(
     goal: string,
-    context?: Record<string, any>
+    context?: Record<string, unknown>
   ): Promise<{
     traceId: string;
     success: boolean;
@@ -350,8 +350,9 @@ export class AgenticOrchestrator extends EventEmitter {
       
       return { traceId, success, results, plan };
       
-    } catch (error: any) {
-      this.log(`Goal execution failed: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Goal execution failed: ${message}`);
       this.activeTraces.delete(traceId);
       
       return {
@@ -502,7 +503,7 @@ export class AgenticOrchestrator extends EventEmitter {
   /**
    * Set browser page for executors
    */
-  setPage(page: any): void {
+  setPage(page: unknown): void {
     for (const executor of this.executors) {
       executor.setPage(page);
     }
@@ -601,7 +602,7 @@ export class AgenticOrchestrator extends EventEmitter {
   /**
    * Log if verbose
    */
-  private log(message: string, ...args: any[]): void {
+  private log(message: string, ...args: unknown[]): void {
     if (this.verbose) {
       console.log(`[Orchestrator] ${message}`, ...args);
     }

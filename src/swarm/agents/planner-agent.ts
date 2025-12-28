@@ -109,7 +109,7 @@ export class PlannerAgent extends BaseAgent {
    */
   async createPlan(
     goal: string,
-    context?: Record<string, any>,
+    context?: Record<string, unknown>,
     traceId?: string
   ): Promise<ExecutionPlan> {
     const planTraceId = traceId || generateTraceId();
@@ -184,7 +184,7 @@ export class PlannerAgent extends BaseAgent {
    */
   private decomposeGoal(
     goal: string,
-    context?: Record<string, any>,
+    context?: Record<string, unknown>,
     traceId?: string
   ): SwarmTask[] {
     const tasks: SwarmTask[] = [];
@@ -230,7 +230,7 @@ export class PlannerAgent extends BaseAgent {
   /**
    * Create form filling tasks
    */
-  private createFormTasks(fields: Record<string, any>, traceId: string): SwarmTask[] {
+  private createFormTasks(fields: Record<string, unknown>, traceId: string): SwarmTask[] {
     return Object.entries(fields).map(([field, value]) => 
       this.createTask('fill', field, { field, value }, traceId)
     );
@@ -242,7 +242,7 @@ export class PlannerAgent extends BaseAgent {
   private createTask(
     type: SwarmTask['type'],
     target: string,
-    params: Record<string, any>,
+    params: Record<string, unknown>,
     traceId: string,
     priority: MessagePriority = 'normal'
   ): SwarmTask {

@@ -35,7 +35,7 @@ export interface StateVersion {
   /** Whether this is the baseline */
   isBaseline: boolean;
   /** Metadata */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 /** State versioning configuration */

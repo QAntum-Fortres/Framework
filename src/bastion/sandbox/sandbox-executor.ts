@@ -71,7 +71,7 @@ export class SandboxExecutor extends EventEmitter {
    */
   async execute(
     code: string,
-    context: Record<string, any> = {},
+    context: Record<string, unknown> = {},
     policy: Partial<SecurityPolicy> = {}
   ): Promise<SandboxResult> {
     const startTime = Date.now();
@@ -151,7 +151,7 @@ export class SandboxExecutor extends EventEmitter {
   async validateMutation(
     mutationId: string,
     mutationCode: string,
-    testContext: Record<string, any> = {}
+    testContext: Record<string, unknown> = {}
   ): Promise<MutationValidation> {
     // Use strict policy for mutation validation
     const strictPolicy: Partial<SecurityPolicy> = {
@@ -209,11 +209,11 @@ export class SandboxExecutor extends EventEmitter {
   private createSandbox(
     policy: SecurityPolicy,
     violations: SecurityViolation[]
-  ): Record<string, any> {
+  ): Record<string, unknown> {
     const self = this;
 
     // Safe global objects
-    const sandbox: Record<string, any> = {
+    const sandbox: Record<string, unknown> = {
       // Math operations
       Math,
       // JSON operations
@@ -234,10 +234,10 @@ export class SandboxExecutor extends EventEmitter {
       Promise,
       // Console proxy
       console: {
-        log: (..._args: any[]) => { /* sandboxed, no output */ },
-        warn: (..._args: any[]) => { /* sandboxed */ },
-        error: (..._args: any[]) => { /* sandboxed */ },
-        info: (..._args: any[]) => { /* sandboxed */ }
+        log: (..._args: unknown[]) => { /* sandboxed, no output */ },
+        warn: (..._args: unknown[]) => { /* sandboxed */ },
+        error: (..._args: unknown[]) => { /* sandboxed */ },
+        info: (..._args: unknown[]) => { /* sandboxed */ }
       },
       // setTimeout/setInterval (limited)
       setTimeout: (fn: Function, ms: number) => {
@@ -363,7 +363,7 @@ export class SandboxExecutor extends EventEmitter {
   /**
    * Estimate memory usage of a result
    */
-  private estimateMemoryUsage(result: any): number {
+  private estimateMemoryUsage(result: unknown): number {
     try {
       const str = JSON.stringify(result);
       return str ? str.length * 2 : 0; // UTF-16 estimate

@@ -649,8 +649,10 @@ export class StreamProcessor extends EventEmitter {
       }
     });
 
-    (writable as any).getItems = () => items;
-    return writable as Writable & { getItems(): T[] };
+    // Extend the writable with getItems method
+    const writableWithGetItems = writable as Writable & { getItems(): T[] };
+    writableWithGetItems.getItems = () => items;
+    return writableWithGetItems;
   }
 
   /**

@@ -312,9 +312,11 @@ export class CircuitOpenError extends MisterMindError {
  * Captures memory, handles, and stack trace for debugging
  */
 export function createNeuralSnapshot(error?: Error): NeuralSnapshot {
+  // Note: _getActiveHandles is an undocumented Node.js API for debugging
+  const processWithInternals = process as NodeJS.Process & { _getActiveHandles?: () => unknown[] };
   return {
     memoryUsage: process.memoryUsage(),
-    activeHandles: (process as any)._getActiveHandles?.()?.length ?? 0,
+    activeHandles: processWithInternals._getActiveHandles?.()?.length ?? 0,
     uptime: process.uptime(),
     timestamp: new Date(),
     stackTrace: error?.stack ?? new Error().stack ?? ''

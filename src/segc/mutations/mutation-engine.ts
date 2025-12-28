@@ -304,11 +304,12 @@ export class GeneticMutationEngine extends EventEmitter {
       
       return true;
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       mutation.status = 'failed';
       this.stats.failedMutations++;
       
-      this.emit('mutationFailed', { mutation, error: error.message });
+      const message = error instanceof Error ? error.message : String(error);
+      this.emit('mutationFailed', { mutation, error: message });
       
       return false;
     }
@@ -342,8 +343,9 @@ export class GeneticMutationEngine extends EventEmitter {
       
       return true;
       
-    } catch (error: any) {
-      this.emit('rollbackFailed', { mutation, error: error.message });
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.emit('rollbackFailed', { mutation, error: message });
       return false;
     }
   }

@@ -51,7 +51,7 @@ export interface SandboxResult {
   /** Execution success */
   success: boolean;
   /** Return value from sandbox */
-  result?: any;
+  result?: unknown;
   /** Execution time in ms */
   executionTime: number;
   /** Memory used in bytes */
@@ -126,7 +126,7 @@ export type WorkerStatus = 'idle' | 'busy' | 'error' | 'terminated';
 /**
  * Worker task
  */
-export interface WorkerTask<T = any, R = any> {
+export interface WorkerTask<T = unknown, R = unknown> {
   /** Task ID */
   id: string;
   /** Task type */

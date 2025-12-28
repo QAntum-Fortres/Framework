@@ -35,7 +35,7 @@ export interface ChecksumRecord {
   /** Generation timestamp */
   generatedAt: Date;
   /** Optional metadata */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -131,7 +131,7 @@ export class ChecksumValidator extends EventEmitter {
    * Generate SHA-256 hash for any serializable data
    * @param data - Any serializable data
    */
-  hashData(data: any): ChecksumRecord {
+  hashData(data: unknown): ChecksumRecord {
     const serialized = JSON.stringify(data);
     const hash = this.hashString(serialized);
     const id = `data-${Date.now()}-${hash.slice(0, 8)}`;
@@ -254,7 +254,7 @@ export class ChecksumValidator extends EventEmitter {
    * @param data - Data to verify
    * @param expectedHash - Expected hash
    */
-  verifyData(data: any, expectedHash: string): boolean {
+  verifyData(data: unknown, expectedHash: string): boolean {
     const actualHash = this.hashString(JSON.stringify(data));
     return actualHash === expectedHash;
   }
@@ -350,7 +350,7 @@ export class ChecksumValidator extends EventEmitter {
    */
   async verifyMultiple(
     records: ChecksumRecord[],
-    dataProvider: (id: string) => Promise<any>
+    dataProvider: (id: string) => Promise<unknown>
   ): Promise<VerificationResult> {
     const result: VerificationResult = {
       valid: true,

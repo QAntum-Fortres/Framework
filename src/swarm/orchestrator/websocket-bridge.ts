@@ -47,8 +47,8 @@ interface PendingMessage {
   timestamp: Date;
   retries: number;
   maxRetries: number;
-  resolve: (value: any) => void;
-  reject: (error: any) => void;
+  resolve: (value: unknown) => void;
+  reject: (error: unknown) => void;
 }
 
 /**
@@ -65,7 +65,7 @@ export class WebSocketBridge extends EventEmitter {
   private config: WsBridgeConfig;
   
   /** WebSocket instance (will be actual WebSocket in browser/Node) */
-  private ws: any = null;
+  private ws: { connected: boolean } | null = null;
   
   /** Connection status */
   private status: ConnectionStatus = 'disconnected';
@@ -74,7 +74,7 @@ export class WebSocketBridge extends EventEmitter {
   private reconnectAttempts: number = 0;
   
   /** Heartbeat timer */
-  private heartbeatTimer: any = null;
+  private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
   
   /** Pending messages awaiting response */
   private pendingMessages: Map<string, PendingMessage> = new Map();
@@ -136,11 +136,12 @@ export class WebSocketBridge extends EventEmitter {
       this.log('Connected to WebSocket server');
       return true;
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       this.status = 'error';
       this.emit('statusChange', this.status);
       this.emit('error', error);
-      this.log(`Connection failed: ${error.message}`);
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Connection failed: ${message}`);
       
       // Attempt reconnect
       if (this.reconnectAttempts < (this.config.maxReconnectAttempts || 5)) {
@@ -174,7 +175,7 @@ export class WebSocketBridge extends EventEmitter {
   /**
    * Send a message through the bridge
    */
-  async send(message: SwarmMessage): Promise<any> {
+  async send(message: SwarmMessage): Promise<unknown> {
     // If not connected, queue the message
     if (this.status !== 'connected') {
       this.messageQueue.push(message);
@@ -246,7 +247,7 @@ export class WebSocketBridge extends EventEmitter {
    */
   async broadcast(
     type: SwarmMessage['type'],
-    payload: any,
+    payload: unknown,
     traceId: string,
     priority: MessagePriority = 'normal'
   ): Promise<void> {
@@ -269,9 +270,9 @@ export class WebSocketBridge extends EventEmitter {
   /**
    * Handle incoming message
    */
-  private handleIncomingMessage(data: any): void {
+  private handleIncomingMessage(data: unknown): void {
     try {
-      const message: SwarmMessage = typeof data === 'string' ? JSON.parse(data) : data;
+      const message: SwarmMessage = typeof data === 'string' ? JSON.parse(data) : data as SwarmMessage;
       
       // Check if it's a response to pending message
       if (message.parentSpanId) {
@@ -286,8 +287,9 @@ export class WebSocketBridge extends EventEmitter {
       this.emit('message', message);
       this.log(`Message received: ${message.id} from ${message.from}`);
       
-    } catch (error: any) {
-      this.log(`Failed to parse message: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.log(`Failed to parse message: ${errorMessage}`);
       this.emit('parseError', { data, error });
     }
   }
@@ -432,7 +434,7 @@ export class WebSocketBridge extends EventEmitter {
   /**
    * Log if verbose
    */
-  private log(message: string, ...args: any[]): void {
+  private log(message: string, ...args: unknown[]): void {
     if (this.config.verbose) {
       console.log(`[WsBridge] ${message}`, ...args);
     }

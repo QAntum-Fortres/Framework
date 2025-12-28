@@ -515,8 +515,9 @@ export class AILogicGate extends EventEmitter {
       }
 
       // v20.0: Handle dynamic import attempts (sandbox escape vector)
+      const errWithCode = err as Error & { code?: string };
       if (err.message.includes('dynamic import') || 
-          (err as any).code === 'ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING') {
+          errWithCode.code === 'ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING') {
         violations.push({
           type: 'code-injection',
           operation: 'dynamic-import',

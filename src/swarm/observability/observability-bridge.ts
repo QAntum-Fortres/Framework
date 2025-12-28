@@ -70,7 +70,7 @@ export class ObservabilityBridge extends EventEmitter {
   private activeSpans: Map<string, TraceSpan> = new Map();
   
   /** Export timer */
-  private exportTimer: any = null;
+  private exportTimer: ReturnType<typeof setInterval> | null = null;
   
   /** Statistics */
   private stats = {
@@ -187,7 +187,7 @@ export class ObservabilityBridge extends EventEmitter {
   /**
    * Add event to current span
    */
-  addEvent(name: string, attributes?: Record<string, any>): void {
+  addEvent(name: string, attributes?: Record<string, unknown>): void {
     if (!this.currentContext) return;
     
     const span = this.activeSpans.get(this.currentContext.spanId);
@@ -287,9 +287,10 @@ export class ObservabilityBridge extends EventEmitter {
       const result = await fn();
       this.setStatus('ok');
       return result;
-    } catch (error: any) {
-      this.setStatus('error', error.message);
-      this.recordException(error);
+    } catch (error: unknown) {
+      const err = error instanceof Error ? error : new Error(String(error));
+      this.setStatus('error', err.message);
+      this.recordException(err);
       throw error;
     } finally {
       this.endSpan();
@@ -413,8 +414,9 @@ export class ObservabilityBridge extends EventEmitter {
       
       return spans.length;
       
-    } catch (error: any) {
-      this.log(`Export failed: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Export failed: ${message}`);
       // Put spans back in buffer
       this.spanBuffer.unshift(...spans);
       throw error;
@@ -442,7 +444,7 @@ export class ObservabilityBridge extends EventEmitter {
   /**
    * Convert spans to OTLP format
    */
-  private toOtlpFormat(spans: TraceSpan[]): any {
+  private toOtlpFormat(spans: TraceSpan[]): Record<string, unknown> {
     return {
       resourceSpans: [{
         resource: {
@@ -566,7 +568,7 @@ export class ObservabilityBridge extends EventEmitter {
   /**
    * Log if verbose
    */
-  private log(message: string, ...args: any[]): void {
+  private log(message: string, ...args: unknown[]): void {
     if (this.config.verbose) {
       console.log(`[Observability] ${message}`, ...args);
     }

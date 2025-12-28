@@ -473,7 +473,7 @@ export class PredictiveStatePreloader extends EventEmitter {
     occurrences: number;
     avgTime: number;
   }> {
-    const stats: Array<any> = [];
+    const stats: unknown[] = [];
     
     for (const [fromState, transitions] of this.transitionGraph) {
       for (const [toState, data] of transitions) {

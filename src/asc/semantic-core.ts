@@ -282,7 +282,30 @@ export class AdaptiveSemanticCore {
         return tag;
       };
 
-      const results: any[] = [];
+      const results: Array<{
+        tag: string;
+        visibleText: string;
+        ariaLabel: string | null;
+        placeholder: string | null;
+        role: string | null;
+        type: string | null;
+        classes: string[];
+        elementId: string | null;
+        name: string | null;
+        coordinates: {
+          x: number;
+          y: number;
+          width: number;
+          height: number;
+          centerX: number;
+          centerY: number;
+        };
+        selector: string;
+        isVisible: boolean;
+        isInteractable: boolean;
+        parentContext: string | null;
+        nearbyText: string;
+      }> = [];
       const seen = new Set<Element>();
 
       interactiveSelectors.forEach(selector => {

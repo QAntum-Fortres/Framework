@@ -100,13 +100,13 @@ export class HotSwapModuleLoader extends EventEmitter {
     
     // Auto-discover methods
     const methodNames = Object.getOwnPropertyNames(Object.getPrototypeOf(instance))
-      .filter(name => name !== 'constructor' && typeof (instance as any)[name] === 'function');
+      .filter(name => name !== 'constructor' && typeof (instance as Record<string, unknown>)[name] === 'function');
     
     for (const methodName of methodNames) {
       const method = this.registerMethod(
         moduleId,
         methodName,
-        (instance as any)[methodName].bind(instance)
+        ((instance as Record<string, unknown>)[methodName] as Function).bind(instance)
       );
       module.methods.set(methodName, method);
     }
@@ -231,13 +231,14 @@ export class HotSwapModuleLoader extends EventEmitter {
       
       return true;
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Rollback on error
       if (this.config.autoRollbackOnError) {
         method.currentImplementation = previousImplementation;
         method.activeAlternativeId = previousId;
       }
       
+      const message = error instanceof Error ? error.message : String(error);
       const event: HotSwapEvent = {
         id: generateId('swap'),
         methodId,
@@ -245,7 +246,7 @@ export class HotSwapModuleLoader extends EventEmitter {
         toAlternativeId: alternativeId,
         timestamp: new Date(),
         success: false,
-        error: error.message,
+        error: message,
       };
       
       this.swapHistory.push(event);
@@ -296,7 +297,7 @@ export class HotSwapModuleLoader extends EventEmitter {
   /**
    * Execute a method (with tracking)
    */
-  async execute<T>(methodId: string, ...args: any[]): Promise<T> {
+  async execute<T>(methodId: string, ...args: unknown[]): Promise<T> {
     const method = this.methods.get(methodId);
     if (!method) {
       throw new Error(`Method not found: ${methodId}`);
@@ -331,7 +332,7 @@ export class HotSwapModuleLoader extends EventEmitter {
       
       return result;
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       method.errorCount++;
       
       if (activeAlternative) {
@@ -345,7 +346,8 @@ export class HotSwapModuleLoader extends EventEmitter {
         await this.rollback(methodId);
       }
       
-      this.emit('executionError', { methodId, error: error.message });
+      const message = error instanceof Error ? error.message : String(error);
+      this.emit('executionError', { methodId, error: message });
       
       throw error;
     }
@@ -370,10 +372,10 @@ export class HotSwapModuleLoader extends EventEmitter {
   /**
    * Create a proxy for a method that auto-tracks
    */
-  createProxy<T extends Function>(methodId: string): T {
+  createProxy<T extends (...args: unknown[]) => unknown>(methodId: string): T {
     const self = this;
     
-    return (async function(...args: any[]) {
+    return (async function(...args: unknown[]) {
       return self.execute(methodId, ...args);
     }) as unknown as T;
   }

@@ -77,7 +77,7 @@ export class DistillationLogger {
   private fileIndex: number = 0;
   
   /** Flush timer */
-  private flushTimer: any = null;
+  private flushTimer: ReturnType<typeof setInterval> | null = null;
   
   /** Statistics */
   private stats = {
@@ -109,7 +109,7 @@ export class DistillationLogger {
   async record(
     task: SwarmTask,
     result: TaskResult,
-    context?: Record<string, any>
+    context?: Record<string, unknown>
   ): Promise<boolean> {
     // Skip if not successful
     if (!result.success) {
@@ -236,7 +236,7 @@ export class DistillationLogger {
   private createEntry(
     task: SwarmTask,
     result: TaskResult,
-    context: Record<string, any> | undefined,
+    context: Record<string, unknown> | undefined,
     quality: number
   ): DistillationEntry {
     // Build prompt from task
@@ -270,7 +270,7 @@ export class DistillationLogger {
   /**
    * Build prompt from task
    */
-  private buildPrompt(task: SwarmTask, context?: Record<string, any>): string {
+  private buildPrompt(task: SwarmTask, context?: Record<string, unknown>): string {
     const parts: string[] = [];
     
     // System context
@@ -398,8 +398,9 @@ export class DistillationLogger {
       
       return entries.length;
       
-    } catch (error: any) {
-      this.log(`Flush failed: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.log(`Flush failed: ${message}`);
       // Put entries back in buffer
       this.buffer.unshift(...entries);
       throw error;
@@ -411,7 +412,7 @@ export class DistillationLogger {
    */
   private entryToJsonl(entry: DistillationEntry): string {
     // HuggingFace conversation format
-    const hfEntry: HFConversation & { metadata?: Record<string, any> } = {
+    const hfEntry: HFConversation & { metadata?: Record<string, unknown> } = {
       messages: [
         {
           role: 'system',
@@ -527,7 +528,16 @@ export class DistillationLogger {
   /**
    * Export to CSV format
    */
-  private async exportToCsv(entries: any[], outputPath: string): Promise<void> {
+  private async exportToCsv(entries: Array<{
+    messages?: Array<{ content?: string }>;
+    metadata?: {
+      taskType?: string;
+      domain?: string;
+      confidence?: number;
+      quality?: number;
+      tags?: string[];
+    };
+  }>, outputPath: string): Promise<void> {
     const headers = ['prompt', 'completion', 'task_type', 'domain', 'confidence', 'quality', 'tags'];
     const lines = [headers.join(',')];
     
@@ -604,7 +614,7 @@ export class DistillationLogger {
   /**
    * Log if verbose
    */
-  private log(message: string, ...args: any[]): void {
+  private log(message: string, ...args: unknown[]): void {
     if (this.config.verbose) {
       console.log(`[Distillation] ${message}`, ...args);
     }

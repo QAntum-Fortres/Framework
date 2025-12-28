@@ -1,7 +1,7 @@
 {
   "name": "mister-mind",
-  "version": "23.0.0",
-  "description": "AI-Powered QA Framework with Multimodal Commander - The Local Sovereign Edition with Hardware Telemetry, Swarm Orchestration & Bulgarian Voice Feedback",
+  "version": "23.2.0",
+  "description": "AI-Powered QA Framework with Multimodal Commander - The Local Sovereign Edition with Strict TypeScript, Hardware Telemetry, Swarm Orchestration & Bulgarian Voice Feedback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [

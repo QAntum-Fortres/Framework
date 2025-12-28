@@ -218,7 +218,7 @@ export class HealthCheckSystem extends EventEmitter {
 
     for (const cpu of cpuList) {
       for (const type in cpu.times) {
-        total += (cpu.times as any)[type];
+        total += cpu.times[type as keyof typeof cpu.times];
       }
       idle += cpu.times.idle;
     }

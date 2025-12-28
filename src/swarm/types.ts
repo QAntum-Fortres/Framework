@@ -73,11 +73,11 @@ export interface SwarmMessage {
   /** Message priority */
   priority: MessagePriority;
   /** Message payload */
-  payload: any;
+  payload: unknown;
   /** Timestamp */
   timestamp: Date;
   /** Metadata */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 /** Task definition */
@@ -91,9 +91,9 @@ export interface SwarmTask {
   /** Target URL or element */
   target: string;
   /** Task parameters */
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
   /** Context from previous tasks */
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   /** Expected outcome */
   expectedOutcome?: string;
   /** Retry count */
@@ -113,7 +113,7 @@ export interface TaskResult {
   /** Success status */
   success: boolean;
   /** Result data */
-  data?: any;
+  data?: unknown;
   /** Error if failed */
   error?: string;
   /** Execution duration in ms */
@@ -244,7 +244,7 @@ export interface TraceSpan {
   events: Array<{
     timestamp: Date;
     name: string;
-    attributes?: Record<string, any>;
+    attributes?: Record<string, unknown>;
   }>;
 }
 

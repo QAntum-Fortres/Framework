@@ -24,6 +24,39 @@ import {
 import { generateSpanId } from '../utils/id-generator';
 
 /**
+ * Browser page interface for type-safe page operations
+ */
+interface BrowserPageLike {
+  goto: (url: string, options?: { waitUntil?: string; timeout?: number }) => Promise<unknown>;
+  url: () => string;
+  $: (selector: string) => Promise<ElementHandleLike | null>;
+  $$: (selector: string) => Promise<ElementHandleLike[]>;
+  content: () => Promise<string>;
+}
+
+/**
+ * Element handle interface for type-safe element operations
+ */
+interface ElementHandleLike {
+  click: () => Promise<void>;
+  fill: (value: string) => Promise<void>;
+  textContent: () => Promise<string | null>;
+  innerHTML: () => Promise<string>;
+}
+
+/**
+ * Type guard to check if page has browser-like interface
+ */
+function isBrowserPage(page: unknown): page is BrowserPageLike {
+  return (
+    typeof page === 'object' &&
+    page !== null &&
+    typeof (page as BrowserPageLike).goto === 'function' &&
+    typeof (page as BrowserPageLike).$ === 'function'
+  );
+}
+
+/**
  * Executor Agent - Task Execution
  * 
  * Responsibilities:
@@ -34,7 +67,7 @@ import { generateSpanId } from '../utils/id-generator';
  */
 export class ExecutorAgent extends BaseAgent {
   /** Browser page reference (set externally) */
-  private page: any = null;
+  private page: unknown = null;
   
   /** Execution history for learning */
   private executionHistory: TaskResult[] = [];
@@ -52,7 +85,7 @@ export class ExecutorAgent extends BaseAgent {
   /**
    * Set browser page reference
    */
-  setPage(page: any): void {
+  setPage(page: unknown): void {
     this.page = page;
     this.log('Browser page reference set');
   }
@@ -60,7 +93,7 @@ export class ExecutorAgent extends BaseAgent {
   /**
    * Get browser page reference
    */
-  getPage(): any {
+  getPage(): unknown {
     return this.page;
   }
 
@@ -110,7 +143,7 @@ export class ExecutorAgent extends BaseAgent {
     this.emit('taskStarted', { taskId: task.id, type: task.type });
     
     try {
-      let result: any;
+      let result: unknown;
       let selectorUsed: string | undefined;
       let confidence = 0.8;
       
@@ -171,15 +204,16 @@ export class ExecutorAgent extends BaseAgent {
       
       return taskResult;
       
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const taskResult: TaskResult = {
         taskId: task.id,
         traceId: task.traceId,
         success: false,
-        error: error.message || String(error),
+        error: errorMessage,
         duration: Date.now() - startTime,
         executedBy: this.id,
-        reasoning: [...reasoning, `Error: ${error.message}`],
+        reasoning: [...reasoning, `Error: ${errorMessage}`],
         completedAt: new Date(),
       };
       
@@ -206,7 +240,7 @@ export class ExecutorAgent extends BaseAgent {
   private async executeNavigate(
     task: SwarmTask,
     reasoning: string[]
-  ): Promise<any> {
+  ): Promise<unknown> {
     reasoning.push(`Navigating to: ${task.target}`);
     
     if (!this.page) {
@@ -231,7 +265,7 @@ export class ExecutorAgent extends BaseAgent {
   private async executeClick(
     task: SwarmTask,
     reasoning: string[]
-  ): Promise<{ result: any; selector: string; confidence: number }> {
+  ): Promise<{ result: unknown; selector: string; confidence: number }> {
     reasoning.push(`Finding element to click: ${task.target}`);
     
     const selectors = this.generateSelectors(task.target, 'click');
@@ -282,7 +316,7 @@ export class ExecutorAgent extends BaseAgent {
   private async executeFill(
     task: SwarmTask,
     reasoning: string[]
-  ): Promise<{ result: any; selector: string; confidence: number }> {
+  ): Promise<{ result: unknown; selector: string; confidence: number }> {
     reasoning.push(`Finding field to fill: ${task.target}`);
     
     const value = task.params?.value || '';
@@ -334,7 +368,7 @@ export class ExecutorAgent extends BaseAgent {
   private async executeExtract(
     task: SwarmTask,
     reasoning: string[]
-  ): Promise<any> {
+  ): Promise<unknown> {
     reasoning.push(`Extracting data from: ${task.target}`);
     
     if (!this.page) {
@@ -345,7 +379,7 @@ export class ExecutorAgent extends BaseAgent {
     const selector = task.params?.selector || task.target;
     const elements = await this.page.$$(selector);
     
-    const extracted: any[] = [];
+    const extracted: Array<{ text: string | null; html: string }> = [];
     for (const el of elements) {
       const text = await el.textContent();
       const html = await el.innerHTML();
@@ -363,7 +397,7 @@ export class ExecutorAgent extends BaseAgent {
   private async executeValidate(
     task: SwarmTask,
     reasoning: string[]
-  ): Promise<any> {
+  ): Promise<unknown> {
     reasoning.push(`Validating: ${task.target}`);
     
     const expected = task.params?.expected;
@@ -404,7 +438,7 @@ export class ExecutorAgent extends BaseAgent {
   private async executeCustom(
     task: SwarmTask,
     reasoning: string[]
-  ): Promise<any> {
+  ): Promise<unknown> {
     reasoning.push(`Executing custom task: ${task.target}`);
     
     // Custom tasks are handled based on context

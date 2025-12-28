@@ -160,13 +160,13 @@ export class WorkerPoolManager extends EventEmitter {
   /**
    * Handle message from worker
    */
-  private handleWorkerMessage(workerId: number, message: any): void {
+  private handleWorkerMessage(workerId: number, message: { type: string; taskId?: string; result?: unknown; duration?: number; error?: string }): void {
     const info = this.workerInfo.get(workerId);
     if (!info) return;
 
     if (message.type === 'taskComplete') {
       const { taskId, result, duration } = message;
-      const activeTask = this.activeTasks.get(taskId);
+      const activeTask = this.activeTasks.get(taskId!);
       
       if (activeTask) {
         // Update stats
@@ -312,7 +312,7 @@ export class WorkerPoolManager extends EventEmitter {
   /**
    * Submit a task to the pool
    */
-  async submitTask<T = any, R = any>(
+  async submitTask<T = unknown, R = unknown>(
     type: string,
     payload: T,
     options: {
@@ -608,7 +608,7 @@ export function workerMain(): void {
   parentPort!.postMessage({ type: 'ready' });
 
   // Handle messages
-  parentPort!.on('message', async (message: any) => {
+  parentPort!.on('message', async (message: { type: string; taskId?: string; taskType?: string; payload?: unknown }) => {
     if (message.type === 'executeTask') {
       const { taskId, taskType, payload } = message;
       const startTime = Date.now();

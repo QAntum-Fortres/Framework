@@ -1,7 +1,7 @@
 {
   "name": "mister-mind",
-  "version": "20.0.0",
-  "description": "AI-Powered QA Automation Framework - Predicts bugs before they happen",
+  "version": "21.0.0",
+  "description": "AI-Powered QA Automation Framework with The Persona Engine - Simulates real user behavior for UX testing",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [

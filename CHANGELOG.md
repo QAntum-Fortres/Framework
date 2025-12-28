@@ -5,6 +5,67 @@ All notable changes to MISTER MIND will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [21.0.0] - 2025-01-17
+
+### 🎭 THE PERSONA ENGINE - UX Consultant with AI
+
+Transform MisterMind from a QA tool into an AI-powered UX Consultant that simulates real human behavior.
+
+#### Added
+
+- **🎭 Persona Simulator** (`src/persona/persona-engine.ts`)
+  - `UserPersona` interface with realistic human attributes
+  - 8 built-in persona templates: senior-novice, impatient-expert, office-worker, teen-speedster, accessibility-user, first-time-user, mobile-native, rage-gamer
+  - **Rage Click Detection** - Triggers after wait threshold based on patience level
+  - **Miss Click Simulation** - Based on visual impairment and target size
+  - **Natural Mouse Movement** - Bezier curves with persona-specific jitter
+  - **Typing Simulation** - Variable WPM based on tech savviness
+  - **Reading Time Calculation** - Based on content complexity and persona
+  - **Frustration Metrics** - Track and log user frustration events
+  - **UX Recommendations** - Auto-generated based on detected issues
+
+- **🎮 Persona-Aware Action Executor** (`src/persona/action-executor.ts`)
+  - Execute browser actions with realistic human behavior
+  - Integrated rage click injection
+  - Per-persona typing speed modulation
+  - Session tracking with full interaction log
+
+- **🧠 Cognitive UX Auditor** (`src/ux/cognitive-ux-auditor.ts`)
+  - **Gemini 2.0 Flash Vision** integration for AI screenshot analysis
+  - UX Score (0-100) with 8 category breakdowns:
+    - Visual Hierarchy, Accessibility, Consistency, Clarity
+    - Spacing, Color Contrast, Typography, Interactive Elements
+  - Issue detection with severity levels (critical, major, minor, suggestion)
+  - Automatic recommendation generation
+  - Analysis history and statistics
+  - Result caching for performance
+
+- **⚡ Neural Optimizer** (`src/neural/neural-optimizer.ts`)
+  - **LRU Cache** with O(1) operations for selector caching
+  - Hit/miss statistics and eviction tracking
+  - Hot item detection for frequently accessed selectors
+  - **Pattern Deduplicator** for selector compression
+  - Common pattern extraction and frequency tracking
+  - Gzip compression for heuristics files
+
+- **📊 Hardware Telemetry Integration** (`src/telemetry/hardware-telemetry.ts`)
+  - Real-time **AMD Ryzen 7** CPU monitoring
+  - Per-core load tracking (16 threads support)
+  - Memory usage monitoring (24GB RAM optimization)
+  - **Auto-throttling at 90% CPU** threshold
+  - Worker pool scaling based on system load
+  - Priority task queue for resource management
+  - Detailed telemetry reports
+
+#### Tests
+
+- 302 total tests (28 new for Persona Engine)
+- Full test coverage for LRU Cache operations
+- Hardware telemetry mocking for CI/CD
+- UX Auditor report generation validation
+
+---
+
 ## [20.0.0] - 2025-01-16
 
 ### 💎 The Flawless Diamond Protocol

@@ -36,3 +36,7 @@
 !CHANGELOG.md
 !.eslintrc.json
 !test-all.js
+
+# Include tests
+!tests/
+!tests/**

@@ -1,7 +1,7 @@
 {
   "name": "mister-mind",
-  "version": "21.0.0",
-  "description": "AI-Powered QA Automation Framework with The Persona Engine - Simulates real user behavior for UX testing",
+  "version": "22.0.0",
+  "description": "AI-Powered QA Framework with Multimodal Commander - Voice, Video & Neural HUD for next-gen testing",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
@@ -49,8 +49,10 @@
     "version": "npm run build"
   },
   "dependencies": {
+    "@types/ws": "^8.18.1",
+    "axios": "^1.6.0",
     "playwright": "^1.40.0",
-    "axios": "^1.6.0"
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

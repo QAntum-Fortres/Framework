@@ -6,7 +6,7 @@
  * 
  * @author Dimitar Papazov
  * @license SEE LICENSE FILE
- * @version 16.0.0
+ * @version 17.0.0
  */
 
 import { chromium, Browser, Page } from 'playwright';
@@ -20,6 +20,17 @@ import {
   SemanticElement,
   CommonIntents 
 } from './asc/semantic-core';
+import {
+  AgenticOrchestrator,
+  DistillationLogger,
+  ObservabilityBridge,
+  BrowserPoolManager,
+  SwarmConfig,
+  SwarmTask,
+  TaskResult,
+  ExecutionPlan,
+  SwarmStats,
+} from './swarm';
 
 export interface AuditResult {
   url: string;
@@ -241,6 +252,13 @@ export class MisterMind {
   private config: MisterMindConfig;
   private isProLicense: boolean = false;
   private asc: AdaptiveSemanticCore | null = null;
+  
+  // 🐝 Sovereign Swarm v17.0 components
+  private orchestrator: AgenticOrchestrator | null = null;
+  private distillationLogger: DistillationLogger | null = null;
+  private observabilityBridge: ObservabilityBridge | null = null;
+  private browserPool: BrowserPoolManager | null = null;
+  private swarmInitialized: boolean = false;
 
   constructor(config: MisterMindConfig = {}) {
     // Validate config
@@ -1994,6 +2012,235 @@ export class MisterMind {
       this.asc.clearCache();
     }
   }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // 🐝 SOVEREIGN SWARM v17.0 - Multi-Agent Architecture
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * 💎 PRO: Initialize Sovereign Swarm
+   * Sets up multi-agent orchestration with distillation and observability
+   */
+  async initSwarm(config?: SwarmConfig): Promise<void> {
+    if (!this.isProLicense) {
+      throw new Error('Sovereign Swarm requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (this.swarmInitialized) {
+      if (this.config.verbose) {
+        console.log('🐝 Swarm already initialized');
+      }
+      return;
+    }
+
+    if (this.config.verbose) {
+      console.log('🐝 Initializing Sovereign Swarm v17.0...');
+    }
+
+    // Initialize components
+    this.orchestrator = new AgenticOrchestrator({
+      verbose: this.config.verbose,
+      enableDistillation: true,
+      enableTracing: true,
+      ...config,
+    });
+
+    this.distillationLogger = new DistillationLogger({
+      verbose: this.config.verbose,
+      outputPath: './fine-tuning-dataset.jsonl',
+      minConfidence: 0.75,
+    });
+
+    this.observabilityBridge = new ObservabilityBridge({
+      verbose: this.config.verbose,
+      serviceName: 'mister-mind-swarm',
+      serviceVersion: '17.0.0',
+      consoleExport: this.config.verbose,
+    });
+
+    this.browserPool = new BrowserPoolManager({
+      verbose: this.config.verbose,
+      headless: true,
+    });
+
+    // Initialize orchestrator
+    await this.orchestrator.initialize();
+
+    // Connect distillation to orchestrator
+    this.orchestrator.on('successfulExecution', async (data: any) => {
+      if (this.distillationLogger) {
+        await this.distillationLogger.record(data.task, data.result);
+        this.orchestrator?.incrementDistillationCount();
+      }
+    });
+
+    this.swarmInitialized = true;
+
+    if (this.config.verbose) {
+      console.log('🐝 Sovereign Swarm initialized successfully');
+      console.log(`   Agents: ${this.orchestrator.getAgentCount()}`);
+      console.log(`   Distillation: enabled`);
+      console.log(`   Observability: enabled`);
+    }
+  }
+
+  /**
+   * 💎 PRO: Execute a goal using the swarm
+   * The swarm will plan, execute, and validate automatically
+   */
+  async executeGoal(
+    goal: string,
+    context?: Record<string, any>
+  ): Promise<{
+    traceId: string;
+    success: boolean;
+    results: TaskResult[];
+    plan: ExecutionPlan | null;
+  }> {
+    if (!this.isProLicense) {
+      throw new Error('Sovereign Swarm requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (!this.swarmInitialized || !this.orchestrator) {
+      await this.initSwarm();
+    }
+
+    // Start trace
+    const traceId = this.observabilityBridge?.startTrace('executeGoal', {
+      goal,
+    }) || '';
+
+    try {
+      if (this.config.verbose) {
+        console.log(`🐝 Executing goal: ${goal}`);
+      }
+
+      const result = await this.orchestrator!.executeGoal(goal, context);
+
+      this.observabilityBridge?.setStatus(result.success ? 'ok' : 'error');
+
+      if (this.config.verbose) {
+        console.log(`🐝 Goal execution ${result.success ? 'succeeded' : 'failed'}`);
+        console.log(`   Tasks: ${result.results.length}`);
+        console.log(`   Success rate: ${(result.results.filter(r => r.success).length / result.results.length * 100).toFixed(1)}%`);
+      }
+
+      return result;
+    } finally {
+      this.observabilityBridge?.endTrace();
+    }
+  }
+
+  /**
+   * 💎 PRO: Execute tasks in parallel across multiple browsers
+   */
+  async executeParallel<T>(
+    tasks: Array<(page: Page) => Promise<T>>
+  ): Promise<Array<{ success: boolean; result?: T; error?: string }>> {
+    if (!this.isProLicense) {
+      throw new Error('Parallel execution requires a Pro license. Get yours at ' + CHECKOUT_URL);
+    }
+
+    if (!this.browserPool) {
+      this.browserPool = new BrowserPoolManager({
+        verbose: this.config.verbose,
+      });
+      
+      // Initialize with playwright
+      const playwright = require('playwright');
+      await this.browserPool.initialize(playwright);
+    }
+
+    if (this.config.verbose) {
+      console.log(`🐝 Executing ${tasks.length} tasks in parallel`);
+    }
+
+    return this.browserPool.executeParallel(tasks);
+  }
+
+  /**
+   * 💎 PRO: Get Swarm statistics
+   */
+  getSwarmStats(): SwarmStats | null {
+    if (!this.orchestrator) return null;
+    return this.orchestrator.getStats();
+  }
+
+  /**
+   * 💎 PRO: Get distillation statistics
+   */
+  getDistillationStats(): {
+    accepted: number;
+    rejected: number;
+    totalEntries: number;
+    acceptanceRate: number;
+  } | null {
+    if (!this.distillationLogger) return null;
+    return this.distillationLogger.getStats();
+  }
+
+  /**
+   * 💎 PRO: Get observability statistics
+   */
+  getObservabilityStats(): {
+    spansCreated: number;
+    spansExported: number;
+    errors: number;
+  } | null {
+    if (!this.observabilityBridge) return null;
+    return this.observabilityBridge.getStats();
+  }
+
+  /**
+   * 💎 PRO: Get current trace ID
+   */
+  getCurrentTraceId(): string | null {
+    return this.observabilityBridge?.getCurrentTraceId() || null;
+  }
+
+  /**
+   * 💎 PRO: Export distillation data
+   */
+  async exportDistillationData(format: 'jsonl' | 'csv', path: string): Promise<void> {
+    if (!this.distillationLogger) {
+      throw new Error('Distillation logger not initialized');
+    }
+    await this.distillationLogger.exportAs(format, path);
+  }
+
+  /**
+   * 💎 PRO: Shutdown Swarm gracefully
+   */
+  async shutdownSwarm(): Promise<void> {
+    if (!this.swarmInitialized) return;
+
+    if (this.config.verbose) {
+      console.log('🐝 Shutting down Sovereign Swarm...');
+    }
+
+    // Shutdown in order
+    if (this.browserPool) {
+      await this.browserPool.shutdown();
+    }
+
+    if (this.orchestrator) {
+      await this.orchestrator.stop();
+    }
+
+    if (this.distillationLogger) {
+      await this.distillationLogger.shutdown();
+    }
+
+    if (this.observabilityBridge) {
+      await this.observabilityBridge.shutdown();
+    }
+
+    this.swarmInitialized = false;
+
+    if (this.config.verbose) {
+      console.log('🐝 Sovereign Swarm shutdown complete');
+    }
+  }
 }
 
 // Default export
@@ -2003,7 +2250,7 @@ export default MisterMind;
 export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(config);
 
 // Version constant
-export const VERSION = '16.0.0';
+export const VERSION = '17.0.0';
 
 // Re-export ASC types and utilities
 export { 
@@ -2015,3 +2262,28 @@ export {
   SemanticElement,
   ASCConfig
 } from './asc/semantic-core';
+
+// Re-export Swarm types and utilities
+export {
+  AgenticOrchestrator,
+  DistillationLogger,
+  ObservabilityBridge,
+  BrowserPoolManager,
+  PlannerAgent,
+  ExecutorAgent,
+  CriticAgent,
+  WebSocketBridge,
+} from './swarm';
+
+export type {
+  SwarmConfig,
+  SwarmTask,
+  TaskResult,
+  ExecutionPlan,
+  SwarmStats,
+  SwarmMessage,
+  AgentConfig,
+  AgentRole,
+  CriticFeedback,
+  DistillationEntry,
+} from './swarm';

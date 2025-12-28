@@ -343,9 +343,165 @@ async function runTests() {
     if (!CommonIntents.ADD_TO_CART) throw new Error('ADD_TO_CART intent missing');
   });
 
-  await test('VERSION is 16.0.0', () => {
+  await test('VERSION is 17.0.0', () => {
     const { VERSION } = require('../dist/index.js');
-    if (VERSION !== '16.0.0') throw new Error(`Expected 16.0.0, got ${VERSION}`);
+    if (VERSION !== '17.0.0') throw new Error(`Expected 17.0.0, got ${VERSION}`);
+  });
+
+  // ═══════════════════════════════════════════════════════════════
+  // SOVEREIGN SWARM v17.0 TESTS
+  // ═══════════════════════════════════════════════════════════════
+  console.log('');
+  console.log('🐝 Sovereign Swarm Tests:');
+
+  await test('Swarm exports are available', () => {
+    const { 
+      AgenticOrchestrator, 
+      DistillationLogger, 
+      ObservabilityBridge,
+      BrowserPoolManager,
+      PlannerAgent,
+      ExecutorAgent,
+      CriticAgent,
+    } = require('../dist/index.js');
+    if (!AgenticOrchestrator) throw new Error('AgenticOrchestrator not exported');
+    if (!DistillationLogger) throw new Error('DistillationLogger not exported');
+    if (!ObservabilityBridge) throw new Error('ObservabilityBridge not exported');
+    if (!BrowserPoolManager) throw new Error('BrowserPoolManager not exported');
+    if (!PlannerAgent) throw new Error('PlannerAgent not exported');
+    if (!ExecutorAgent) throw new Error('ExecutorAgent not exported');
+    if (!CriticAgent) throw new Error('CriticAgent not exported');
+  });
+
+  await test('initSwarm throws without PRO license', async () => {
+    const mm = new MisterMind();
+    try {
+      await mm.initSwarm();
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Pro license')) throw e;
+    }
+  });
+
+  await test('executeGoal throws without PRO license', async () => {
+    const mm = new MisterMind();
+    try {
+      await mm.executeGoal('login to website');
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Pro license')) throw e;
+    }
+  });
+
+  await test('executeParallel throws without PRO license', async () => {
+    const mm = new MisterMind();
+    try {
+      await mm.executeParallel([]);
+      throw new Error('Should have thrown');
+    } catch (e) {
+      if (!e.message.includes('Pro license')) throw e;
+    }
+  });
+
+  await test('getSwarmStats returns null without init', () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const stats = mm.getSwarmStats();
+    if (stats !== null) throw new Error('Should return null without swarm init');
+  });
+
+  await test('getDistillationStats returns null without init', () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const stats = mm.getDistillationStats();
+    if (stats !== null) throw new Error('Should return null without swarm init');
+  });
+
+  await test('getObservabilityStats returns null without init', () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const stats = mm.getObservabilityStats();
+    if (stats !== null) throw new Error('Should return null without swarm init');
+  });
+
+  await test('getCurrentTraceId returns null without init', () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const traceId = mm.getCurrentTraceId();
+    if (traceId !== null) throw new Error('Should return null without swarm init');
+  });
+
+  await test('PlannerAgent creates plan', async () => {
+    const { PlannerAgent } = require('../dist/index.js');
+    const planner = new PlannerAgent();
+    const plan = await planner.createPlan('login to website', { url: 'https://example.com' });
+    if (!plan) throw new Error('Plan should be created');
+    if (!plan.id) throw new Error('Plan should have id');
+    if (!plan.traceId) throw new Error('Plan should have traceId');
+    if (!plan.tasks || plan.tasks.length === 0) throw new Error('Plan should have tasks');
+  });
+
+  await test('ExecutorAgent has executeTask method', () => {
+    const { ExecutorAgent } = require('../dist/index.js');
+    const executor = new ExecutorAgent();
+    if (typeof executor.executeTask !== 'function') throw new Error('Should have executeTask');
+    if (typeof executor.setPage !== 'function') throw new Error('Should have setPage');
+    if (typeof executor.getSuccessRate !== 'function') throw new Error('Should have getSuccessRate');
+  });
+
+  await test('CriticAgent reviews results', async () => {
+    const { CriticAgent } = require('../dist/index.js');
+    const critic = new CriticAgent();
+    const feedback = await critic.reviewResult({
+      taskId: 'test_123',
+      traceId: 'trace_abc',
+      success: true,
+      duration: 100,
+      confidence: 0.9,
+      executedBy: 'executor_1',
+      completedAt: new Date(),
+    });
+    if (!feedback) throw new Error('Feedback should be created');
+    if (typeof feedback.approved !== 'boolean') throw new Error('Should have approved status');
+  });
+
+  await test('DistillationLogger records entries', async () => {
+    const { DistillationLogger } = require('../dist/index.js');
+    const logger = new DistillationLogger({ autoFlush: false, verbose: false });
+    const recorded = await logger.record(
+      { id: 'task_1', traceId: 'trace_1', type: 'click', target: 'button', priority: 'normal', createdAt: new Date() },
+      { 
+        taskId: 'task_1', 
+        traceId: 'trace_1', 
+        success: true, 
+        duration: 50, 
+        confidence: 0.95, 
+        executedBy: 'exec_1', 
+        reasoning: ['Found button', 'Clicked element', 'Action complete'],
+        completedAt: new Date() 
+      }
+    );
+    if (!recorded) throw new Error('Should record high-confidence entry');
+  });
+
+  await test('ObservabilityBridge creates traces', () => {
+    const { ObservabilityBridge } = require('../dist/index.js');
+    const obs = new ObservabilityBridge({ verbose: false });
+    const traceId = obs.startTrace('test-operation');
+    if (!traceId) throw new Error('Should return traceId');
+    if (traceId.length !== 32) throw new Error('TraceId should be 32 chars');
+    obs.endTrace();
+  });
+
+  await test('ObservabilityBridge generates traceparent header', () => {
+    const { ObservabilityBridge } = require('../dist/index.js');
+    const obs = new ObservabilityBridge({ verbose: false });
+    obs.startTrace('test');
+    const traceparent = obs.getTraceparent();
+    if (!traceparent) throw new Error('Should return traceparent');
+    if (!traceparent.startsWith('00-')) throw new Error('Should start with version 00');
+    obs.endTrace();
+  });
+
+  await test('shutdownSwarm does not throw when not initialized', async () => {
+    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    await mm.shutdownSwarm(); // Should not throw
   });
 
   // ═══════════════════════════════════════════════════════════════

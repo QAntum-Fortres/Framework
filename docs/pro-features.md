@@ -1,160 +1,231 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+MisterMind v23.0.0 "The Local Sovereign" - Pro Features Guide
+© 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# Pro Features Guide
+# ⭐ MisterMind Pro Features
 
-Unlock the full power of MISTER MIND with a Pro license.
-
-## 🛒 Get Pro License
-
-**[Buy Pro License - $29/month →](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)**
+## v23.0.0 "The Local Sovereign"
 
 ---
 
-## 🔮 Prediction Matrix
+## 📋 License Tiers Overview
 
-The AI-powered bug prediction system that identifies potential failures before they happen.
+| Feature | Trial | Professional | Enterprise | Sovereign |
+|---------|:-----:|:------------:|:----------:|:---------:|
+| **Max Instances** | 2 | 10 | 50 | 999 |
+| **Browser Support** | Chrome | +Firefox | +Edge, Safari | All |
+| **Thermal Pool** | ❌ | ✅ | ✅ | ✅ |
+| **Docker Manager** | ❌ | ✅ | ✅ | ✅ |
+| **Swarm Commander** | ❌ | ❌ | ✅ | ✅ |
+| **Bulgarian TTS** | ❌ | ❌ | ✅ | ✅ |
+| **Dashboard** | Basic | Full | Full | Full |
+| **API Access** | ❌ | ✅ | ✅ | ✅ |
+| **Priority Support** | ❌ | ❌ | ✅ | ✅ |
+| **Source Access** | ❌ | ❌ | ❌ | ✅ |
 
-### How It Works
+---
 
-1. **Analyzes your code changes** - Understands what you modified
-2. **Reviews test history** - Learns from past failures
-3. **Identifies patterns** - Finds correlations between changes and bugs
-4. **Predicts failures** - Tells you which tests are likely to fail
+## 🌡️ Thermal-Aware Pool (Professional+)
 
-### Usage
+Intelligent resource management based on CPU temperature.
 
-```javascript
-const mm = new MisterMind({ licenseKey: 'YOUR_KEY' });
+### Features
 
-const predictions = await mm.predict({
-  codeChanges: './src',
-  testHistory: './test-results'
-});
+- **Auto-scaling**: Reduces instances when CPU heats up
+- **Recovery**: Restores capacity when cooled
+- **Bulgarian logs**: Native language status updates
+- **Real-time graphs**: Dashboard integration
 
-console.log(`Risk Score: ${predictions.riskScore}/100`);
-console.log(`Likely failures: ${predictions.predictedFailures.join(', ')}`);
-console.log(`Recommendation: ${predictions.recommendation}`);
-```
+### Thermal States
+
+| State | Temperature | Max Instances |
+|-------|-------------|---------------|
+| **COOL** | <60°C | 40 |
+| **WARM** | 60-70°C | 30 |
+| **HOT** | 70-80°C | 20 |
+| **CRITICAL** | 80-90°C | 10 |
+| **EMERGENCY** | >90°C | 4 |
 
 ### Benefits
 
-- **Save 70% testing time** - Focus on high-risk areas
-- **Catch bugs early** - Before they reach production
-- **Smart prioritization** - Test what matters most
+- **Prevent thermal throttling**
+- **Extend hardware lifespan**
+- **Maintain consistent performance**
+- **No manual intervention needed**
 
 ---
 
-## 🤖 API Sensei
+## 🐳 Docker Selenium Grid (Professional+)
 
-Intelligent REST/GraphQL API testing that learns and adapts.
+Auto-generated Docker configurations for Selenium Grid.
 
-### Features
+### Generated Files
 
-- **Auto-discovery** - Finds all endpoints automatically
-- **Smart assertions** - Learns expected responses
-- **Load testing** - Performance under pressure
-- **Security scanning** - Finds vulnerabilities
+1. `selenium-grid/Dockerfile`
+2. `selenium-grid/docker-compose.yml`
+3. `selenium-grid/config.toml`
 
-### Usage
+### Capabilities
 
-```javascript
-const results = await mm.apiSensei({
-  baseURL: 'https://api.example.com',
-  discover: true,
-  securityScan: true
-});
+- Chrome, Firefox, Edge nodes
+- Video recording
+- VNC access for debugging
+- Auto-scaling nodes
+
+---
+
+## 🎖️ Swarm Commander (Enterprise+)
+
+Commander-Soldier pattern for massive parallelism.
+
+### Architecture
+
+```
+Commander (1)
+    ├── Soldier #1 (Chrome)
+    ├── Soldier #2 (Firefox)
+    ├── Soldier #3 (Chrome)
+    └── ... up to 999 soldiers
+```
+
+### Task Distribution
+
+- Intelligent load balancing
+- Priority queue support
+- Automatic retry on failure
+- Real-time status updates
+
+---
+
+## 🔊 Bulgarian TTS (Enterprise+)
+
+Native Bulgarian text-to-speech feedback.
+
+### Use Cases
+
+- Accessibility support
+- Hands-free testing
+- Status announcements
+- Error notifications
+
+### Templates
+
+| Event | Bulgarian Message |
+|-------|-------------------|
+| Test Pass | "Тестът премина успешно" |
+| Test Fail | "Тестът се провали" |
+| Error Found | "Открих грешка в {element}" |
+| Healing | "Намерих нов селектор" |
+
+---
+
+## 🎛️ Dashboard Features
+
+Real-time monitoring at `localhost:3847`.
+
+### Basic (Trial)
+- Activity logs
+- Test status
+
+### Full (Professional+)
+- CPU temperature graph (20-point history)
+- Memory usage monitoring
+- Docker container status
+- Swarm soldier count
+- WebSocket real-time updates
+- Bulgarian language UI
+
+---
+
+## 🔐 Hardware-Locked Licensing
+
+Licenses are bound to your machine's hardware ID.
+
+### Hardware ID Components
+
+1. CPU ID
+2. Motherboard Serial
+3. MAC Address
+4. Disk Serial
+
+### Security
+
+- SHA-256 hardware fingerprint
+- SHA-512 license signature
+- Tamper detection
+- Offline validation
+
+---
+
+## 📦 Enterprise Build
+
+Code protection with javascript-obfuscator.
+
+### Obfuscation Features
+
+- Variable renaming
+- String encoding
+- Control flow flattening
+- Dead code injection
+- Debug protection
+
+### Output
+
+```
+dist-protected/
+├── index.js (obfuscated)
+├── core/
+├── browser/
+├── enterprise/
+└── manifest.json (checksums)
 ```
 
 ---
 
-## ⏰ Chronos Engine
+## 🚀 Upgrading Your License
 
-Time-travel debugging for your tests.
+### Generate Development License
 
-### Features
-
-- **Replay failures** - See exactly what happened
-- **State inspection** - View DOM at any point
-- **Network timeline** - Track all requests
-- **Visual diff** - Compare before/after
-
-### Usage
-
-```javascript
-const timeline = await mm.chronos({
-  testFile: './tests/checkout.spec.js',
-  captureInterval: 100 // ms
-});
+```bash
+npm run license:generate
 ```
 
----
+### Check License Status
 
-## 🛡️ Strategic Resilience
-
-Chaos engineering for frontend applications.
-
-### Features
-
-- **Network chaos** - Slow/failed requests
-- **Resource limits** - CPU/memory throttling
-- **Error injection** - Random failures
-- **Recovery testing** - How well you bounce back
-
-### Usage
-
-```javascript
-const results = await mm.strategicResilience({
-  target: 'https://your-app.com',
-  scenarios: ['slow-network', 'api-failures', 'memory-pressure']
-});
+```bash
+npm run license:status
 ```
 
----
+### Upgrade Process
 
-## 🧬 DOM Evolution
-
-Self-healing selectors that adapt to UI changes.
-
-### Features
-
-- **Smart selectors** - Multiple fallback strategies
-- **Change detection** - Notifies when UI changes
-- **Auto-update** - Fixes broken selectors
-- **Visual stability** - Tracks layout shifts
+Contact for license upgrades:
+📧 dimitar@mistermind.bg
 
 ---
 
-## License Activation
+## 📞 Support Channels
 
-```javascript
-const mm = new MisterMind({
-  licenseKey: 'MM-XXXX-XXXX-XXXX' // Your license key
-});
-
-// All Pro features now available!
-```
-
-Your license key will be emailed after purchase.
+| Tier | Support Channel | Response Time |
+|------|-----------------|---------------|
+| Trial | GitHub Issues | Best effort |
+| Professional | Email | 48 hours |
+| Enterprise | Priority Email | 24 hours |
+| Sovereign | Dedicated | 4 hours |
 
 ---
 
-## Support
+## 💰 Pricing
 
-Pro customers get priority email support:
-
-- **Response time:** 24 hours
-- **Email:** support@mister-mind.dev
+| Tier | Price | Best For |
+|------|-------|----------|
+| **Trial** | Free | Evaluation |
+| **Professional** | €49/month | Small teams |
+| **Enterprise** | €199/month | Large teams |
+| **Sovereign** | Contact us | Unlimited |
 
 ---
 
-## Upgrade Today
-
-**[Get Pro License - $29/month →](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)**
-
-- ✅ Cancel anytime
-- ✅ 30-day money-back guarantee
-- ✅ Instant activation
+**© 2025 Димитър Продромов. All Rights Reserved.**

@@ -1,148 +1,213 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+MisterMind v23.0.0 "The Local Sovereign" - Enterprise Documentation
+© 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# Enterprise Setup
+# 🏢 MisterMind Enterprise Guide
 
-For large organizations requiring custom deployments, advanced integrations, and dedicated support.
-
-## 🏢 Enterprise Features
-
-| Feature | Pro | Enterprise |
-|---------|:---:|:----------:|
-| All Pro Features | ✅ | ✅ |
-| Custom Integrations | ❌ | ✅ |
-| On-Premise Deployment | ❌ | ✅ |
-| SSO/SAML | ❌ | ✅ |
-| SLA (99.9% uptime) | ❌ | ✅ |
-| Dedicated Support | ❌ | ✅ |
-| Custom Training | ❌ | ✅ |
-| Unlimited Users | ❌ | ✅ |
+## v23.0.0 "The Local Sovereign"
 
 ---
 
-## Pricing
+## 📋 Table of Contents
 
-**$149/month** per organization
-
-- Unlimited developers
-- Unlimited projects
-- Priority support channel
-- Custom feature requests
+1. [Enterprise Modules](#-enterprise-modules)
+2. [Thermal-Aware Pool](#️-thermal-aware-pool)
+3. [Docker Manager](#-docker-manager)
+4. [Swarm Commander](#️-swarm-commander)
+5. [Bulgarian TTS](#-bulgarian-tts)
+6. [Dashboard Server](#️-dashboard-server)
+7. [License Manager](#-license-manager)
+8. [Build System](#-build-system)
 
 ---
 
-## Integrations
+## 🎯 Enterprise Modules
 
-### CI/CD Pipelines
+| Module | File | Description |
+|--------|------|-------------|
+| **Thermal Pool** | `thermal-aware-pool.ts` | CPU temperature-aware parallelism |
+| **Docker Manager** | `docker-manager.ts` | Selenium Grid orchestration |
+| **Swarm Commander** | `swarm-commander.ts` | Commander-Soldier hierarchy |
+| **Bulgarian TTS** | `bulgarian-tts.ts` | Text-to-speech feedback |
+| **Dashboard Server** | `dashboard-server.ts` | Real-time WebSocket dashboard |
+| **License Manager** | `license-manager.ts` | Hardware-locked licensing |
 
-```yaml
-# GitHub Actions
-- name: MISTER MIND Analysis
-  uses: mister-mind/action@v1
-  with:
-    license-key: ${{ secrets.MISTER_MIND_KEY }}
-    
-# GitLab CI
-mister-mind:
-  script:
-    - npx mister-mind analyze --ci
+---
+
+## 🌡️ Thermal-Aware Pool
+
+Automatically adjusts parallelism based on CPU temperature.
+
+```typescript
+import { ThermalAwarePool } from './src/enterprise/thermal-aware-pool';
+
+const pool = new ThermalAwarePool({
+    maxInstances: 40,
+    updateInterval: 2000,
+    coolThreshold: 60,
+    warmThreshold: 70,
+    hotThreshold: 80,
+    criticalThreshold: 90
+});
+
+await pool.start();
 ```
 
-### Jira Integration
+### Thermal States
 
-Automatically create tickets for predicted failures:
+| State | Temperature | Max Instances |
+|-------|-------------|---------------|
+| **COOL** | <60°C | 40 |
+| **WARM** | 60-70°C | 30 |
+| **HOT** | 70-80°C | 20 |
+| **CRITICAL** | 80-90°C | 10 |
+| **EMERGENCY** | >90°C | 4 |
 
-```javascript
-const mm = new MisterMind({
-  licenseKey: 'YOUR_ENTERPRISE_KEY',
-  integrations: {
-    jira: {
-      host: 'your-company.atlassian.net',
-      project: 'QA',
-      apiToken: process.env.JIRA_TOKEN
-    }
-  }
+---
+
+## 🐳 Docker Manager
+
+Auto-generates Dockerfile and docker-compose.yml for Selenium Grid.
+
+```typescript
+import { DockerManager } from './src/enterprise/docker-manager';
+
+const docker = new DockerManager({
+    hubPort: 4444,
+    chromeNodes: 4,
+    firefoxNodes: 2,
+    enableVideo: true
+});
+
+await docker.generateDockerfile();
+await docker.generateDockerCompose();
+await docker.startGrid();
+```
+
+---
+
+## 🎖️ Swarm Commander
+
+Commander-Soldier pattern for parallel test execution.
+
+```typescript
+import { SwarmCommander } from './src/enterprise/swarm-commander';
+
+const commander = new SwarmCommander({
+    minSoldiers: 4,
+    maxSoldiers: 40,
+    taskTimeout: 30000
+});
+
+await commander.initialize();
+await commander.queueTask({
+    id: 'test-001',
+    type: 'browser-test',
+    payload: { url: 'https://example.com' }
 });
 ```
 
-### Slack Notifications
+---
 
-```javascript
-integrations: {
-  slack: {
-    webhook: 'https://hooks.slack.com/...',
-    channel: '#qa-alerts'
-  }
-}
+## 🔊 Bulgarian TTS
+
+Text-to-speech with native Bulgarian support.
+
+```typescript
+import { BulgarianTTS } from './src/enterprise/bulgarian-tts';
+
+const tts = new BulgarianTTS({ engine: 'auto' });
+await tts.initialize();
+
+await tts.speak('Тестът премина успешно');
+await tts.speakTemplate('error_found', { element: 'бутон' });
 ```
+
+### Templates
+
+| Template | Bulgarian Text |
+|----------|---------------|
+| `test_passed` | "Тестът премина успешно" |
+| `test_failed` | "Тестът се провали" |
+| `error_found` | "Открих грешка в {element}" |
 
 ---
 
-## On-Premise Deployment
+## 🎛️ Dashboard Server
 
-Run MISTER MIND entirely on your infrastructure.
-
-### Requirements
-
-- Node.js 18+
-- 4GB RAM minimum
-- Docker (optional)
-
-### Docker Deployment
+Real-time WebSocket dashboard at `http://localhost:3847`.
 
 ```bash
-docker pull mistermind/enterprise:latest
-
-docker run -d \
-  -e LICENSE_KEY=your-key \
-  -p 3000:3000 \
-  mistermind/enterprise
+npm run dashboard
 ```
 
----
+```typescript
+import { DashboardServer } from './src/enterprise/dashboard-server';
 
-## Security & Compliance
+const dashboard = new DashboardServer({ port: 3847 });
+await dashboard.start();
 
-- **SOC 2 Type II** compliant
-- **GDPR** compliant
-- **Data encryption** at rest and in transit
-- **No data retention** - your code stays yours
-- **Air-gapped** deployment available
+dashboard.logActivity('Агентът анализира Shadow DOM...');
+dashboard.logSuccess('Тестът премина успешно');
+```
 
----
+### API Endpoints
 
-## Support
-
-Enterprise customers receive:
-
-- **Dedicated Slack channel** - Direct access to our team
-- **4-hour response time** - For critical issues
-- **Quarterly reviews** - Strategy sessions
-- **Custom training** - For your team
+| Endpoint | Description |
+|----------|-------------|
+| `GET /` | Dashboard HTML |
+| `GET /api/state` | Full state JSON |
+| `GET /api/telemetry` | CPU/memory metrics |
+| `GET /api/logs` | Activity logs |
 
 ---
 
-## Contact Sales
+## 🔐 License Manager
 
-For Enterprise inquiries:
+Hardware-locked licensing system.
 
-📧 **enterprise@mister-mind.dev**
+```bash
+npm run license:generate   # Generate dev license
+npm run license:status     # Check status
+```
 
-Or schedule a demo call.
+```typescript
+import { LicenseManager } from './src/enterprise/license-manager';
+
+const license = new LicenseManager();
+const hwId = license.generateHardwareId();
+
+license.loadLicense('./.mistermind.license');
+const validation = license.validate();
+```
+
+### License Types
+
+| Type | Max Instances | Features |
+|------|---------------|----------|
+| **Trial** | 2 | Basic |
+| **Professional** | 10 | + Thermal, Docker |
+| **Enterprise** | 50 | + Swarm, TTS |
+| **Sovereign** | 999 | All features |
 
 ---
 
-## Getting Started
+## 📦 Build System
 
-1. **Contact us** for Enterprise license
-2. **Receive credentials** and documentation
-3. **Deploy** on-premise or use cloud
-4. **Integrate** with your CI/CD
-5. **Train** your team
+Enterprise build with code obfuscation.
+
+```bash
+npm run build:enterprise
+```
+
+Output in `dist-protected/` with:
+- Obfuscated JavaScript
+- Build manifest with checksums
+- Distribution package
 
 ---
 
-[Contact Enterprise Sales →](mailto:enterprise@mister-mind.dev)
+**© 2025 Димитър Продромов. All Rights Reserved.**

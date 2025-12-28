@@ -1,235 +1,315 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+MisterMind v23.0.0 "The Local Sovereign"
+© 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# 🧠 MISTER MIND - AI-Powered QA Automation
-
 <div align="center">
 
-[![CI](https://github.com/papica777-eng/MrMindQATool/actions/workflows/ci.yml/badge.svg)](https://github.com/papica777-eng/MrMindQATool/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/mister-mind?color=CB3837&logo=npm)](https://www.npmjs.com/package/mister-mind)
-[![Node.js](https://img.shields.io/badge/Node.js-v18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)]()
-[![Tests](https://img.shields.io/badge/Tests-✓%20Passing-brightgreen?style=for-the-badge)]()
-[![License](https://img.shields.io/badge/License-Source%20Available-orange?style=for-the-badge)](LICENSE)
-[![Money Back](https://img.shields.io/badge/💰-30%20Day%20Guarantee-gold?style=for-the-badge)]()
+# 🧠 MISTER MIND
 
-### **The QA Framework That Predicts Bugs Before They Happen**
+### **AI-Powered QA Automation Framework**
+### *v23.0.0 "The Local Sovereign"*
+
+[![Version](https://img.shields.io/badge/version-23.0.0-blue?style=for-the-badge)](https://github.com/papica777-eng/MrMindQATool/releases)
+[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tests](https://img.shields.io/badge/Tests-492%20Passing-brightgreen?style=for-the-badge)]()
+[![Lines](https://img.shields.io/badge/Lines%20of%20Code-45,895-orange?style=for-the-badge)]()
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
+
+**The QA Framework That Predicts Bugs Before They Happen**
 
 [🚀 Quick Start](#-quick-start) •
+[🎛️ Dashboard](#-real-time-dashboard) •
 [💡 Features](#-features) •
-[💰 Pricing](#-pricing) •
-[📖 Docs](#-documentation)
-
----
-
-### ⭐ Star this repo to support the project!
+[📖 Docs](#-documentation) •
+[🤝 Consulting](#-looking-for-partners)
 
 </div>
 
 ---
 
-## 🎯 What is MISTER MIND?
+## 🎯 What is MisterMind?
 
-MISTER MIND is an **AI-powered QA automation framework** that doesn't just find bugs — it **predicts and prevents them**.
+**MisterMind** is an enterprise-grade, AI-powered QA automation framework built entirely in TypeScript. It doesn't just find bugs — it **predicts and prevents them** using local AI models, thermal-aware execution, and intelligent test orchestration.
 
-```javascript
-const mm = require('mister-mind');
+### 🌟 Key Highlights:
 
-// Run a simple test
-const result = await mm.test('https://example.com', {
-  checkLinks: true,
-  checkPerformance: true,
-  checkAccessibility: true
-});
-
-console.log(result.score); // 94/100
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  🧠 LOCAL AI         - Ollama + Whisper, no cloud dependency                │
+│  🌡️ THERMAL AWARE    - CPU throttling based on hardware temperature        │
+│  🐳 DOCKER GRID      - Auto-orchestrated Selenium/Playwright containers    │
+│  🎖️ SWARM EXECUTION  - Commander-Soldier parallel architecture             │
+│  🇧🇬 BULGARIAN NATIVE - First QA framework with Bulgarian TTS & NLP        │
+│  🛡️ IP PROTECTED     - Hardware-locked licensing & code obfuscation        │
+│  📊 REAL-TIME        - WebSocket dashboard at localhost:3847               │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🆓 Free vs Pro
+## 📊 Project Statistics
 
-| Feature | Free | Pro ($29/mo) | Enterprise |
-|---------|:----:|:------------:|:----------:|
-| Basic Testing | ✅ | ✅ | ✅ |
-| Link Checker | ✅ | ✅ | ✅ |
-| Performance Audit | ✅ | ✅ | ✅ |
-| API Testing | 10/day | ✅ Unlimited | ✅ |
-| **🔮 Prediction Matrix** | ❌ | ✅ | ✅ |
-| **🤖 API Sensei** | ❌ | ✅ | ✅ |
-| **⏰ Chronos Engine** | ❌ | ✅ | ✅ |
-| **🛡️ Strategic Resilience** | ❌ | ✅ | ✅ |
-| Priority Support | ❌ | ✅ | ✅ |
-| Custom Integrations | ❌ | ❌ | ✅ |
+| Metric | Value |
+|--------|-------|
+| **Total Lines of Code** | 45,895 |
+| **Test Coverage** | 492 tests (100% passing) |
+| **TypeScript Modules** | 91 files |
+| **Core Modules** | 35+ |
+| **Version** | v23.0.0 |
+| **Codename** | "The Local Sovereign" |
 
 ---
 
 ## 🚀 Quick Start
 
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- (Optional) Docker for Selenium Grid
+- (Optional) Ollama for local AI
+
 ### Installation
 
 ```bash
-npm install mister-mind
+# Clone the repository
+git clone https://github.com/papica777-eng/MrMindQATool.git
+cd MrMindQATool
+
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Start the dashboard
+npm run dashboard
 ```
 
-### Basic Usage (Free)
+### Open Dashboard
 
-```javascript
-const { MisterMind } = require('mister-mind');
+Navigate to **http://localhost:3847** to see:
+- 🌡️ Real-time CPU temperature
+- 🐳 Docker container status
+- 📋 Live activity logs (Bulgarian)
+- 🎖️ Swarm execution status
 
-const mm = new MisterMind();
+---
 
-// Quick website audit
-const audit = await mm.audit('https://your-site.com');
-console.log(audit);
-// {
-//   performance: 87,
-//   accessibility: 92,
-//   seo: 78,
-//   brokenLinks: 2,
-//   suggestions: [...]
-// }
+## 🎛️ Real-Time Dashboard
+
+MisterMind includes a beautiful, real-time monitoring dashboard:
+
+```bash
+npm run dashboard
+# Opens at http://localhost:3847
 ```
 
-### Pro Features (Requires License)
-
-```javascript
-const { MisterMind } = require('mister-mind');
-
-const mm = new MisterMind({
-  licenseKey: 'YOUR_LICENSE_KEY' // Get at: https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe
-});
-
-// 🔮 Prediction Matrix - Predict bugs before they happen!
-const predictions = await mm.predict({
-  codeChanges: './src',
-  testHistory: './test-results'
-});
-
-console.log(predictions);
-// {
-//   riskScore: 73,
-//   predictedFailures: ['login.spec.js', 'checkout.spec.js'],
-//   recommendation: 'Focus testing on authentication module'
-// }
-```
+### Dashboard Features:
+- **CPU Temperature Graph** - Live hardware telemetry
+- **Docker Containers** - Status of Selenium Grid nodes
+- **Activity Logs** - Bulgarian language feedback
+- **Swarm Status** - Soldiers, queue, completed tasks
+- **Memory Usage** - Real-time RAM monitoring
 
 ---
 
 ## 💡 Features
 
-### 🆓 Free Tier
+### 🧠 AI & Machine Learning
 
-- **🔗 Link Checker** - Find broken links automatically
-- **⚡ Performance Audit** - Lighthouse-powered analysis
-- **♿ Accessibility Check** - WCAG compliance scanning
-- **📊 Basic Reports** - HTML/JSON output
+| Feature | Description |
+|---------|-------------|
+| **🔮 Prediction Matrix** | AI predicts where bugs will appear based on code changes |
+| **🎤 Whisper Bridge** | Local speech-to-text for voice commands |
+| **👁️ Hybrid Vision** | Gemini + Ollama fallback for visual testing |
+| **🇧🇬 Bulgarian NLP** | Native semantic mapping for Bulgarian language |
 
-### 💎 Pro Tier
+### 🏗️ Architecture
 
-- **🔮 Prediction Matrix** - AI predicts where bugs will appear
-- **🤖 API Sensei** - Intelligent REST/GraphQL testing
-- **⏰ Chronos Engine** - Time-travel debugging
-- **🛡️ Strategic Resilience** - Chaos engineering tests
-- **🧬 DOM Evolution** - Self-healing selectors
-- **📧 Email Support** - 24hr response time
+| Feature | Description |
+|---------|-------------|
+| **🎖️ Swarm Commander** | Commander-Soldier hierarchy for parallel execution |
+| **🌡️ Thermal Pool** | CPU temperature-aware thread management |
+| **🐳 Docker Manager** | Auto-generate Dockerfile & docker-compose for Selenium Grid |
+| **🔊 Bulgarian TTS** | Text-to-speech feedback in Bulgarian |
 
-### 🏢 Enterprise
+### 🛡️ Security & Protection
 
-- Everything in Pro, plus:
-- **Custom Integrations** - CI/CD, Jira, Slack
-- **On-Premise** - Run on your servers
-- **SLA** - 99.9% uptime guarantee
-- **Dedicated Support** - Direct Slack channel
+| Feature | Description |
+|---------|-------------|
+| **🔐 License Manager** | Hardware ID-locked licensing system |
+| **🛡️ Code Obfuscation** | javascript-obfuscator for IP protection |
+| **🧱 Bastion Security** | Multi-layer input validation & sandboxing |
+| **🔒 Encryption** | AES-256 for sensitive data |
+
+### 📊 Observability
+
+| Feature | Description |
+|---------|-------------|
+| **📡 Real-time Dashboard** | WebSocket streaming at localhost:3847 |
+| **📈 Telemetry** | CPU, memory, and system metrics |
+| **📝 Activity Logging** | Timestamped logs with Bulgarian messages |
+| **🔍 Error Tracking** | Comprehensive error handling system |
 
 ---
 
-## 💰 Pricing
+## 🏛️ Architecture Overview
 
-| Plan | Price | Best For |
-|------|-------|----------|
-| **Free** | $0 | Individual developers, learning |
-| **Pro** | $29/month | Small teams, startups |
-| **Enterprise** | $149/month | Large companies |
+```
+MisterMind v23.0.0 "The Local Sovereign"
+├── 📁 src/
+│   ├── 📁 core/           # DI Container, Error Handling, Streams
+│   ├── 📁 enterprise/     # License, Dashboard, Thermal, Docker, Swarm, TTS
+│   ├── 📁 local/          # Whisper, Hybrid Vision Controller
+│   ├── 📁 multimodal/     # Voice Commander, Video Analyzer, Neural HUD
+│   ├── 📁 agents/         # AI Agents, Test Orchestration
+│   ├── 📁 bastion/        # Security, Validation, Sandbox
+│   ├── 📁 neural/         # ML Models, Prediction Engine
+│   ├── 📁 persona/        # User Behavior Simulation
+│   ├── 📁 segc/           # Self-Evolving Genetic Code
+│   └── 📁 telemetry/      # Metrics, Monitoring
+├── 📁 tests/              # 492 tests (Vitest)
+├── 📁 docs/               # Documentation
+└── 📁 scripts/            # Build & utility scripts
+```
 
-### 🛒 [Get Pro License →](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)
+---
 
-<div align="center">
+## 🔧 Available Scripts
 
-#### 🛡️ **30-Day Money-Back Guarantee**
+```bash
+# Development
+npm run build              # Compile TypeScript
+npm run test               # Run all 492 tests
+npm run test:watch         # Watch mode
+npm run lint               # ESLint check
 
-*Not satisfied? Get a full refund within 30 days. No questions asked.*
+# Dashboard & Monitoring
+npm run dashboard          # Start real-time dashboard
 
-✅ Try Free tier first • ✅ Cancel anytime • ✅ No lock-in
+# License Management
+npm run license:generate   # Generate development license
+npm run license:status     # Check license status
 
-</div>
+# Enterprise Build
+npm run build:enterprise   # Build with obfuscation
+```
+
+---
+
+## 🌡️ Thermal-Aware Execution
+
+MisterMind monitors your CPU temperature and automatically adjusts parallelism:
+
+```typescript
+// Thermal states and their effects:
+// COOL    (<60°C)  → Max 40 parallel instances
+// WARM    (60-70°C) → Max 30 parallel instances  
+// HOT     (70-80°C) → Max 20 parallel instances
+// CRITICAL (80-90°C) → Max 10 parallel instances
+// EMERGENCY (>90°C)  → Max 4 parallel instances
+```
+
+---
+
+## 🐳 Docker Selenium Grid
+
+Auto-generate and manage Selenium Grid:
+
+```typescript
+import { DockerManager } from './src/enterprise/docker-manager';
+
+const docker = new DockerManager({
+    chromeNodes: 4,
+    firefoxNodes: 2,
+    enableVideo: true
+});
+
+// Generates Dockerfile + docker-compose.yml
+await docker.generateDockerfile();
+await docker.generateDockerCompose();
+await docker.startGrid();
+```
+
+---
+
+## 🇧🇬 Bulgarian Language Support
+
+MisterMind is the **first QA framework with native Bulgarian support**:
+
+```typescript
+// TTS Feedback
+"Тестът премина успешно"
+"Открих грешка в {element}"
+"Агентът анализира Shadow DOM..."
+
+// Dashboard UI
+"CPU Температура", "Войници", "В Опашка", "Термално Състояние"
+```
 
 ---
 
 ## 📖 Documentation
 
-- [Getting Started Guide](docs/getting-started.md)
-- [API Reference](docs/api-reference.md)
-- [Pro Features Guide](docs/pro-features.md)
-- [Enterprise Setup](docs/enterprise.md)
+| Document | Description |
+|----------|-------------|
+| [Getting Started](docs/getting-started.md) | Installation & first steps |
+| [API Reference](docs/api-reference.md) | Complete API documentation |
+| [Enterprise Guide](docs/enterprise.md) | Enterprise features & licensing |
+| [Consultant Brief](docs/CONSULTANT_JOB_POST.md) | Looking for partners |
+
+---
+
+## 🤝 Looking for Partners
+
+We're looking for **experienced consultants** to help commercialize MisterMind:
+
+- QA Architecture expertise (10+ years)
+- Product development & go-to-market strategy  
+- TypeScript / Docker / AI experience
+
+📧 **Contact:** dimitar.prodromov@mistermind.dev
+
+See [CONSULTANT_JOB_POST.md](docs/CONSULTANT_JOB_POST.md) for details.
+
+---
+
+## 📜 Version History
+
+| Version | Codename | Highlights |
+|---------|----------|------------|
+| **v23.0.0** | The Local Sovereign | Dashboard, License Manager, Full Documentation |
+| v23.0.0-beta | Phase 2 | Thermal Pool, Docker Manager, Swarm, Bulgarian TTS |
+| v23.0.0-alpha | Phase 1 | Whisper Bridge, Hybrid Vision, Bulgarian Mapping |
+| v22.0.0 | - | Core framework, Security, Neural Network |
 
 ---
 
 ## 🔐 License
 
-This project uses a **Source Available License**:
+**© 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.**
 
-- ✅ **Free** for personal and educational use
-- ✅ **Free** for evaluation
-- 💰 **License required** for commercial use
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use is strictly prohibited without express written permission.
 
-See [LICENSE](LICENSE) for details.
-
----
-
-## 🤝 Support
-
-- � **Issues:** [GitHub Issues](https://github.com/papica777-eng/MrMindQATool/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/papica777-eng/MrMindQATool/discussions)
-- 📧 **Email:** papica777.eng@gmail.com
-
----
-
-## 🌟 Why Choose MISTER MIND?
-
-```
-┌────────────────────────────────────────────────────────────┐
-│  🎯 PREDICTS bugs before they happen                       │
-│  ⚡ REDUCES testing time by 70%                            │
-│  🛡️ PROTECTS production from failures                     │
-│  🔄 LEARNS from every test run                             │
-│  📈 IMPROVES over time with AI                             │
-└────────────────────────────────────────────────────────────┘
-```
-
----
-
-## ✅ Why Trust Us?
-
-| Guarantee | Description |
-|-----------|-------------|
-| 💰 **30-Day Refund** | Full money back if not satisfied |
-| 🆓 **Free Trial** | Test all basic features free forever |
-| 📖 **Open Source Core** | See the code before you buy |
-| 🔒 **Secure Payments** | Powered by Stripe |
-| 📧 **Real Support** | Direct email to the developer |
-| 🇧🇬 **Indie Developer** | Built with passion, not by a corporation |
+For licensing inquiries: **dimitar.prodromov@mistermind.dev**
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by Dimitar Papazov**
+### **Made with ❤️ in Bulgaria 🇧🇬**
 
-[GitHub](https://github.com/papica777-eng) • [Buy Pro](https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe)
+**Димитър Продромов** | QA Architect & Creator
+
+[GitHub](https://github.com/papica777-eng) • [Email](mailto:dimitar.prodromov@mistermind.dev)
+
+---
+
+*"ГАЗ ДО ДУПКА! СИНГУЛЯРНОСТТА Е ТУК!"* 🚀
 
 </div>

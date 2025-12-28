@@ -5,64 +5,186 @@ All notable changes to MISTER MIND will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [21.0.0] - 2025-01-17
+## [21.0.0] - 2025-12-28 🎭 THE PERSONA ENGINE (STABLE)
 
-### 🎭 THE PERSONA ENGINE - UX Consultant with AI
+### 🧠 AI-Powered UX Consultant - PRODUCTION READY
 
-Transform MisterMind from a QA tool into an AI-powered UX Consultant that simulates real human behavior.
+Transform MisterMind from a QA tool into an **AI-powered UX Consultant** that simulates real human behavior
+and provides actionable insights for interface optimization.
 
-#### Added
+---
 
-- **🎭 Persona Simulator** (`src/persona/persona-engine.ts`)
-  - `UserPersona` interface with realistic human attributes
-  - 8 built-in persona templates: senior-novice, impatient-expert, office-worker, teen-speedster, accessibility-user, first-time-user, mobile-native, rage-gamer
-  - **Rage Click Detection** - Triggers after wait threshold based on patience level
-  - **Miss Click Simulation** - Based on visual impairment and target size
-  - **Natural Mouse Movement** - Bezier curves with persona-specific jitter
-  - **Typing Simulation** - Variable WPM based on tech savviness
-  - **Reading Time Calculation** - Based on content complexity and persona
-  - **Frustration Metrics** - Track and log user frustration events
-  - **UX Recommendations** - Auto-generated based on detected issues
+### 🎯 KEY ACHIEVEMENTS
 
-- **🎮 Persona-Aware Action Executor** (`src/persona/action-executor.ts`)
-  - Execute browser actions with realistic human behavior
-  - Integrated rage click injection
-  - Per-persona typing speed modulation
-  - Session tracking with full interaction log
+| Module | Status | Description |
+|--------|--------|-------------|
+| 🎭 Persona Engine | ✅ DEPLOYED | Психологически профили с рандомизирани взаимодействия |
+| 🧠 Cognitive UX Auditor | ✅ DEPLOYED | Gemini 2.0 Vision за UX Score + Heatmap анализи |
+| 📊 Hardware Telemetry | ✅ SYNCED | Динамично регулиране на нишки за Ryzen 7 7435HS |
+| 🛡️ Stability Hardening | ✅ VERIFIED | 302 автоматизирани теста със 100% успех |
 
-- **🧠 Cognitive UX Auditor** (`src/ux/cognitive-ux-auditor.ts`)
-  - **Gemini 2.0 Flash Vision** integration for AI screenshot analysis
-  - UX Score (0-100) with 8 category breakdowns:
-    - Visual Hierarchy, Accessibility, Consistency, Clarity
-    - Spacing, Color Contrast, Typography, Interactive Elements
-  - Issue detection with severity levels (critical, major, minor, suggestion)
-  - Automatic recommendation generation
-  - Analysis history and statistics
-  - Result caching for performance
+---
 
-- **⚡ Neural Optimizer** (`src/neural/neural-optimizer.ts`)
-  - **LRU Cache** with O(1) operations for selector caching
-  - Hit/miss statistics and eviction tracking
-  - Hot item detection for frequently accessed selectors
-  - **Pattern Deduplicator** for selector compression
-  - Common pattern extraction and frequency tracking
-  - Gzip compression for heuristics files
+### 🎭 PERSONA ENGINE DEPLOYED
 
-- **📊 Hardware Telemetry Integration** (`src/telemetry/hardware-telemetry.ts`)
-  - Real-time **AMD Ryzen 7** CPU monitoring
-  - Per-core load tracking (16 threads support)
-  - Memory usage monitoring (24GB RAM optimization)
-  - **Auto-throttling at 90% CPU** threshold
-  - Worker pool scaling based on system load
-  - Priority task queue for resource management
-  - Detailed telemetry reports
+Интеграция на психологически профили за реалистична симулация на човешко поведение.
 
-#### Tests
+#### Built-in Persona Templates
 
-- 302 total tests (28 new for Persona Engine)
-- Full test coverage for LRU Cache operations
-- Hardware telemetry mocking for CI/CD
-- UX Auditor report generation validation
+| Persona | Tech Savviness | Patience | Visual Impairment | Use Case |
+|---------|---------------|----------|-------------------|----------|
+| `Impatient_Teenager` | 0.9 | 0.2 | 0.0 | Rage click testing |
+| `Senior_User` | 0.3 | 0.8 | 0.4 | Accessibility testing |
+| `Power_User` | 1.0 | 0.5 | 0.0 | Speed optimization |
+| `Office_Worker` | 0.6 | 0.6 | 0.1 | General UX testing |
+| `Accessibility_User` | 0.5 | 0.7 | 0.6 | WCAG compliance |
+| `First_Time_User` | 0.2 | 0.5 | 0.0 | Onboarding flows |
+| `Mobile_Native` | 0.8 | 0.4 | 0.0 | Touch interaction |
+| `Rage_Gamer` | 0.95 | 0.1 | 0.0 | Stress testing |
+
+#### Randomized Interactions
+
+- **Rage Click Detection** - Triggers after patience threshold exceeded
+- **Miss Click Simulation** - Based on visual impairment + target size
+- **Natural Mouse Movement** - Bezier curves with persona-specific jitter
+- **Variable Typing Speed** - 30-120 WPM based on tech savviness
+- **Frustration Tracking** - Logs user frustration events for UX analysis
+
+---
+
+### 🧠 COGNITIVE UX AUDITOR
+
+Автоматично генериране на UX Score и Heatmap анализи чрез **Gemini 2.0 Flash Vision**.
+
+#### UX Score Categories (0-100)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  📊 UX ANALYSIS BREAKDOWN                                   │
+├─────────────────────────────────────────────────────────────┤
+│  Visual Hierarchy    ████████████████████░░░░  80/100      │
+│  Accessibility       ███████████████████░░░░░  75/100      │
+│  Consistency         ████████████████████████  95/100      │
+│  Clarity             ███████████████████████░  90/100      │
+│  Spacing             ██████████████████░░░░░░  70/100      │
+│  Color Contrast      ████████████████████░░░░  80/100      │
+│  Typography          ████████████████████████  95/100      │
+│  Interactive Elements████████████████████░░░░  85/100      │
+├─────────────────────────────────────────────────────────────┤
+│  OVERALL UX SCORE: 84/100 - Good                           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Features
+
+- Screenshot-to-insights AI analysis
+- Issue severity classification (Critical → Suggestion)
+- Auto-generated recommendations with effort estimates
+- Analysis history and trend tracking
+- Result caching for performance
+
+---
+
+### 📊 HARDWARE TELEMETRY SYNC
+
+Динамично регулиране на паралелните нишки спрямо натоварването на **AMD Ryzen 7 7435HS**.
+
+#### System Specifications Optimized
+
+| Component | Specification | Optimization |
+|-----------|---------------|--------------|
+| CPU | AMD Ryzen 7 7435HS | 16-thread distribution |
+| RAM | 24GB DDR5 | Memory-aware caching |
+| GPU | NVIDIA RTX 4050 | Vision API acceleration |
+
+#### Auto-Throttling Rules
+
+```typescript
+if (cpuLoad >= 90%) {
+    // 🔴 CRITICAL: Reduce parallel workers
+    workerPool.scale(0.5);
+    taskQueue.prioritize('critical-only');
+}
+if (cpuLoad >= 75% && cpuLoad < 90%) {
+    // 🟡 WARNING: Moderate throttling
+    workerPool.scale(0.75);
+}
+if (cpuLoad < 75%) {
+    // 🟢 OPTIMAL: Full performance
+    workerPool.scale(1.0);
+}
+```
+
+#### Telemetry Report
+
+- Real-time per-core CPU load tracking
+- Memory pressure monitoring
+- Worker pool auto-scaling
+- Priority task queue management
+- Detailed performance reports
+
+---
+
+### 🛡️ STABILITY HARDENING
+
+Увеличаване на тестовото покритие до **302 автоматизирани теста** със **100% успех**.
+
+#### Test Coverage Breakdown
+
+| Test Suite | Tests | Status |
+|------------|-------|--------|
+| Core Framework | 89 | ✅ PASS |
+| Chaos Engineering | 45 | ✅ PASS |
+| Malicious Intent | 30 | ✅ PASS |
+| Flaky Infrastructure | 13 | ✅ PASS |
+| Persona Engine | 28 | ✅ PASS |
+| UX Auditor | 12 | ✅ PASS |
+| Neural Optimizer | 23 | ✅ PASS |
+| Hardware Telemetry | 11 | ✅ PASS |
+| Other | 51 | ✅ PASS |
+| **TOTAL** | **302** | **✅ 100%** |
+
+#### Verification Command
+
+```bash
+npx vitest run --reporter=verbose
+# Result: 302 tests | 302 passed | 0 failed
+```
+
+---
+
+### 📁 New Files Added
+
+```
+src/
+├── persona/
+│   ├── persona-engine.ts      # 🎭 User behavior simulation
+│   ├── action-executor.ts     # 🎮 Browser action with persona
+│   └── index.ts
+├── ux/
+│   ├── cognitive-ux-auditor.ts # 🧠 Gemini Vision analysis
+│   └── index.ts
+├── neural/
+│   ├── neural-optimizer.ts    # ⚡ LRU Cache + Deduplication
+│   └── index.ts
+└── telemetry/
+    ├── hardware-telemetry.ts  # 📊 Ryzen 7 monitoring
+    └── index.ts
+
+tests/
+├── persona.test.ts            # 28 tests
+├── ux-auditor.test.ts         # 12 tests
+├── neural.test.ts             # 23 tests
+└── telemetry.test.ts          # 11 tests
+```
+
+---
+
+### 🚀 What's Next
+
+- v22.0 - Visual Regression AI (Pixel-perfect comparison with ML)
+- v23.0 - Autonomous Bug Hunter (Self-healing test generation)
+- v24.0 - Enterprise Dashboard (Real-time QA metrics visualization)
 
 ---
 

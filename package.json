@@ -1,6 +1,6 @@
 {
   "name": "mister-mind",
-  "version": "1.0.0",
+  "version": "19.0.0",
   "description": "AI-Powered QA Automation Framework - Predicts bugs before they happen",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,10 @@
     "quality-assurance",
     "api-testing",
     "e2e-testing",
-    "regression-testing"
+    "regression-testing",
+    "security",
+    "encryption",
+    "circuit-breaker"
   ],
   "author": "Dimitar Papazov <papica777.eng@gmail.com>",
   "license": "SEE LICENSE IN LICENSE",
@@ -35,7 +38,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "node test-all.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint src/ --ext .ts",
     "lint:fix": "eslint src/ --ext .ts --fix",
     "prepublishOnly": "npm run build && npm run test",
@@ -50,7 +54,8 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.50.0",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
   },
   "files": [
     "dist/",

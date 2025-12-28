@@ -6,7 +6,7 @@
  * 
  * @author Dimitar Papazov
  * @license SEE LICENSE FILE
- * @version 18.0.0
+ * @version 19.0.0
  */
 
 import { chromium, Browser, Page } from 'playwright';
@@ -39,6 +39,14 @@ import {
   StateVersion,
   GeneticMutation,
 } from './segc';
+import {
+  BastionController,
+  BastionConfig,
+  BastionStats,
+  ServiceProvider,
+  SystemHealth,
+  MutationValidation,
+} from './bastion';
 
 export interface AuditResult {
   url: string;
@@ -271,6 +279,10 @@ export class MisterMind {
   // 🧬 Self-Evolving Genetic Core v18.0 components
   private segc: SEGCController | null = null;
   private segcInitialized: boolean = false;
+  
+  // 🏰 Security Bastion & Neural Grid v19.0 components
+  private bastion: BastionController | null = null;
+  private bastionInitialized: boolean = false;
 
   constructor(config: MisterMindConfig = {}) {
     // Validate config
@@ -383,6 +395,116 @@ export class MisterMind {
   startABExperiment(versionA: string, versionB: string, trafficSplit?: number): string | null {
     if (!this.segc) return null;
     return this.segc.startExperiment(versionA, versionB, trafficSplit);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // 🏰 SECURITY BASTION & NEURAL GRID v19.0
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * 🏰 Initialize Security Bastion & Neural Grid
+   * @param config - Bastion configuration
+   * @param vaultPassword - Password for encrypted vault (required)
+   */
+  async initBastion(config: BastionConfig = {}, vaultPassword: string): Promise<void> {
+    if (this.bastionInitialized) return;
+    
+    this.bastion = new BastionController({
+      verbose: this.config.verbose,
+      ...config,
+    });
+    
+    await this.bastion.initialize(vaultPassword);
+    this.bastionInitialized = true;
+    
+    if (this.config.verbose) {
+      console.log('🏰 BASTION: Security Bastion & Neural Grid initialized');
+    }
+  }
+
+  /**
+   * 🏰 Get Bastion controller
+   */
+  getBastion(): BastionController | null {
+    return this.bastion;
+  }
+
+  /**
+   * 🏰 Get Bastion statistics
+   */
+  getBastionStats(): BastionStats | null {
+    return this.bastion?.getStats() || null;
+  }
+
+  /**
+   * 🏰 Validate a mutation in secure sandbox
+   */
+  async validateMutationSecure(
+    mutationId: string,
+    mutationCode: string,
+    context?: Record<string, any>
+  ): Promise<MutationValidation | null> {
+    if (!this.bastion) return null;
+    return this.bastion.validateMutation(mutationId, mutationCode, context || {});
+  }
+
+  /**
+   * 🏰 Submit task to worker pool
+   */
+  async submitWorkerTask<T = any, R = any>(
+    type: string,
+    payload: T,
+    options?: { priority?: number; timeout?: number }
+  ): Promise<R | null> {
+    if (!this.bastion) return null;
+    return this.bastion.submitTask<T, R>(type, payload, options);
+  }
+
+  /**
+   * 🏰 Store data in encrypted vault
+   */
+  async storeSecure(
+    id: string,
+    type: 'ghost_knowledge' | 'predictions' | 'mutations' | 'versions' | 'metrics',
+    data: any
+  ): Promise<boolean> {
+    if (!this.bastion) return false;
+    await this.bastion.storeSecure(id, type, data);
+    return true;
+  }
+
+  /**
+   * 🏰 Retrieve data from encrypted vault
+   */
+  async retrieveSecure<T = any>(id: string): Promise<T | null> {
+    if (!this.bastion) return null;
+    return this.bastion.retrieveSecure<T>(id);
+  }
+
+  /**
+   * 🏰 Execute with circuit breaker and fallback
+   */
+  async executeWithFallback<T>(
+    requestFn: (service: ServiceProvider) => Promise<T>,
+    options?: { service?: ServiceProvider; timeout?: number }
+  ): Promise<T | null> {
+    if (!this.bastion) return null;
+    return this.bastion.executeWithFallback(requestFn, options);
+  }
+
+  /**
+   * 🏰 Get system health
+   */
+  async getSystemHealth(): Promise<SystemHealth | null> {
+    if (!this.bastion) return null;
+    return this.bastion.getHealth();
+  }
+
+  /**
+   * 🏰 Track browser for GC-friendly cleanup
+   */
+  trackBrowser(browser: object, instanceId: string): void {
+    this.bastion?.trackBrowser(browser, instanceId);
   }
 
   /**
@@ -2330,6 +2452,36 @@ export class MisterMind {
       console.log('🐝 Sovereign Swarm shutdown complete');
     }
   }
+
+  /**
+   * 🏰 Shutdown Bastion gracefully
+   */
+  async shutdownBastion(): Promise<void> {
+    if (!this.bastionInitialized || !this.bastion) return;
+
+    if (this.config.verbose) {
+      console.log('🏰 Shutting down Security Bastion...');
+    }
+
+    await this.bastion.shutdown();
+    this.bastionInitialized = false;
+
+    if (this.config.verbose) {
+      console.log('🏰 Security Bastion shutdown complete');
+    }
+  }
+
+  /**
+   * Shutdown all components
+   */
+  async shutdown(): Promise<void> {
+    await this.shutdownBastion();
+    await this.shutdownSwarm();
+    
+    if (this.config.verbose) {
+      console.log('🧠 Mister Mind shutdown complete');
+    }
+  }
 }
 
 // Default export
@@ -2339,7 +2491,7 @@ export default MisterMind;
 export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(config);
 
 // Version constant
-export const VERSION = '18.0.0';
+export const VERSION = '19.0.0';
 
 // Re-export ASC types and utilities
 export { 
@@ -2376,3 +2528,32 @@ export type {
   CriticFeedback,
   DistillationEntry,
 } from './swarm';
+
+// Re-export Bastion types and utilities
+export {
+  BastionController,
+  SandboxExecutor,
+  WorkerPoolManager,
+  MemoryHardeningManager,
+  NeuralVault,
+  ChecksumValidator,
+  CircuitBreakerManager,
+  HealthCheckSystem,
+} from './bastion';
+
+export type {
+  BastionConfig,
+  BastionStats,
+  SecurityPolicy,
+  SandboxResult,
+  SecurityViolation,
+  MutationValidation,
+  WorkerPoolConfig,
+  WorkerPoolStats,
+  NeuralVaultConfig,
+  CircuitBreakerConfig,
+  ServiceProvider,
+  CircuitState,
+  SystemHealth,
+  HealthCheckResult,
+} from './bastion';

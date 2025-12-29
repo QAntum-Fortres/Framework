@@ -156,3 +156,43 @@ export {
   type DelegatorConfig,
   type TaskHandler
 } from './workers/heavy-task-delegator';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// NEXUS COORDINATOR (v26.0 Sovereign Nexus)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export {
+  NexusCoordinator,
+  
+  // Types
+  type AgentRole,
+  type VulnerabilitySeverity,
+  type VulnerabilityType,
+  type DetectedVulnerability,
+  type RegressionTest,
+  type SecurityPatch,
+  type FeedbackCycleResult,
+  type NexusCoordinatorConfig,
+  type NexusMessage,
+  type NexusStats
+} from './nexus-coordinator';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CHRONOS ENGINE V2.0 (v26.0 Sovereign Nexus - MCTS Look-ahead)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export {
+  ChronosEngine,
+  
+  // Types
+  type ChronosSnapshot,
+  type TimelineEventType,
+  type ChronosTimelineEvent,
+  type MCTSNode,
+  type MCTSSimulationResult,
+  type ActionEvaluation,
+  type FallbackStrategy,
+  type FallbackResult,
+  type ChronosEngineConfig,
+  type ChronosEngineStats
+} from './chronos-engine-v2';

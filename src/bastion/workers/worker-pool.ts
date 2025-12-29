@@ -18,7 +18,6 @@ import { Worker, parentPort, workerData, isMainThread } from 'node:worker_thread
 import { cpus } from 'node:os';
 import { EventEmitter } from 'node:events';
 import {
-  WorkerStatus,
   WorkerTask,
   WorkerInfo,
   WorkerPoolConfig,
@@ -35,7 +34,8 @@ class PriorityQueue<T extends { priority: number }> {
     // Insert in sorted order (higher priority first)
     let inserted = false;
     for (let i = 0; i < this.items.length; i++) {
-      if (item.priority > this.items[i].priority) {
+      const currentItem = this.items[i];
+      if (currentItem && item.priority > currentItem.priority) {
         this.items.splice(i, 0, item);
         inserted = true;
         break;
@@ -89,6 +89,14 @@ export class WorkerPoolManager extends EventEmitter {
   private tasksFailed = 0;
   private totalExecutionTime = 0;
   private nextWorkerId = 1;
+  
+  // v26.0 Sovereign Nexus - Thermal Throttling & Dynamic Rebalancing
+  private thermalState: 'cool' | 'warm' | 'hot' | 'critical' = 'cool';
+  private estimatedTemperature: number = 50;
+  private throttledTasks: number = 0;
+  private rebalanceInterval: ReturnType<typeof setInterval> | null = null;
+  /** Used for CPU usage delta calculation */
+  private _lastCpuUsage: number[] = [];
 
   constructor(config: WorkerPoolConfig = {}) {
     super();
@@ -101,11 +109,20 @@ export class WorkerPoolManager extends EventEmitter {
       taskTimeout: config.taskTimeout ?? 30000,
       maxQueueSize: config.maxQueueSize ?? 10000,
       enableWorkStealing: config.enableWorkStealing ?? true,
-      workerScript: config.workerScript ?? this.getDefaultWorkerScript()
+      workerScript: config.workerScript ?? this.getDefaultWorkerScript(),
+      enableThermalThrottling: config.enableThermalThrottling ?? true,
+      thermalThresholdCelsius: config.thermalThresholdCelsius ?? 85,
+      enableDynamicRebalancing: config.enableDynamicRebalancing ?? true,
+      rebalanceIntervalMs: config.rebalanceIntervalMs ?? 5000
     };
 
     // Initialize workers
     this.initializeWorkers();
+    
+    // Start thermal monitoring and rebalancing if enabled
+    if (this.config.enableThermalThrottling || this.config.enableDynamicRebalancing) {
+      this.startThermalMonitoring();
+    }
   }
 
   /**
@@ -115,6 +132,122 @@ export class WorkerPoolManager extends EventEmitter {
     for (let i = 0; i < this.config.workerCount; i++) {
       this.spawnWorker();
     }
+  }
+  
+  /**
+   * v26.0: Start thermal monitoring and dynamic rebalancing
+   */
+  private startThermalMonitoring(): void {
+    this.rebalanceInterval = setInterval(() => {
+      this.updateThermalState();
+      
+      if (this.config.enableDynamicRebalancing) {
+        this.rebalanceWorkers();
+      }
+    }, this.config.rebalanceIntervalMs);
+    
+    this.emit('thermalMonitoringStarted');
+  }
+  
+  /**
+   * v26.0: Update thermal state based on CPU usage estimation
+   */
+  private updateThermalState(): void {
+    const cpuInfo = cpus();
+    const currentUsage: number[] = cpuInfo.map(cpu => {
+      const total = cpu.times.user + cpu.times.nice + cpu.times.sys + cpu.times.idle;
+      const idle = cpu.times.idle;
+      return ((total - idle) / total) * 100;
+    });
+    
+    // Calculate average CPU usage
+    const avgUsage = currentUsage.reduce((a, b) => a + b, 0) / currentUsage.length;
+    
+    // Estimate temperature based on usage (Ryzen 7 7435HS typical range: 45-95°C)
+    const baseTemp = 45;
+    const loadTemp = (avgUsage / 100) * 50;
+    this.estimatedTemperature = Math.round(baseTemp + loadTemp);
+    
+    // Determine thermal state
+    const prevState = this.thermalState;
+    if (this.estimatedTemperature >= this.config.thermalThresholdCelsius + 10) {
+      this.thermalState = 'critical';
+    } else if (this.estimatedTemperature >= this.config.thermalThresholdCelsius) {
+      this.thermalState = 'hot';
+    } else if (this.estimatedTemperature >= this.config.thermalThresholdCelsius - 15) {
+      this.thermalState = 'warm';
+    } else {
+      this.thermalState = 'cool';
+    }
+    
+    if (prevState !== this.thermalState) {
+      this.emit('thermalStateChanged', { 
+        from: prevState, 
+        to: this.thermalState, 
+        temperature: this.estimatedTemperature 
+      });
+    }
+    
+    this._lastCpuUsage = currentUsage;
+  }
+  
+  /**
+   * v26.0: Dynamically rebalance workers based on thermal state and load
+   */
+  private rebalanceWorkers(): void {
+    const currentWorkerCount = this.workers.size;
+    const cpuCount = cpus().length;
+    
+    let targetWorkerCount = currentWorkerCount;
+    
+    // Adjust worker count based on thermal state
+    switch (this.thermalState) {
+      case 'critical':
+        // Reduce to 25% of CPU count
+        targetWorkerCount = Math.max(1, Math.floor(cpuCount * 0.25));
+        break;
+      case 'hot':
+        // Reduce to 50% of CPU count
+        targetWorkerCount = Math.max(2, Math.floor(cpuCount * 0.5));
+        break;
+      case 'warm':
+        // Reduce to 75% of CPU count
+        targetWorkerCount = Math.max(2, Math.floor(cpuCount * 0.75));
+        break;
+      case 'cool':
+        // Use full capacity
+        targetWorkerCount = this.config.workerCount;
+        break;
+    }
+    
+    // Scale workers if needed
+    if (targetWorkerCount !== currentWorkerCount) {
+      this.emit('rebalancing', { 
+        from: currentWorkerCount, 
+        to: targetWorkerCount, 
+        reason: this.thermalState 
+      });
+      this.scale(targetWorkerCount);
+    }
+  }
+  
+  /**
+   * v26.0: Check if task should be throttled based on thermal state
+   */
+  private shouldThrottleTask(task: WorkerTask): boolean {
+    if (!this.config.enableThermalThrottling) return false;
+    
+    // In critical state, only allow high priority tasks
+    if (this.thermalState === 'critical' && task.priority < 8) {
+      return true;
+    }
+    
+    // In hot state, delay low priority tasks
+    if (this.thermalState === 'hot' && task.priority < 5) {
+      return true;
+    }
+    
+    return false;
   }
 
   /**
@@ -340,6 +473,21 @@ export class WorkerPoolManager extends EventEmitter {
         queuedAt: new Date()
       };
 
+      // v26.0: Check thermal throttling
+      if (this.shouldThrottleTask(task)) {
+        this.throttledTasks++;
+        this.emit('taskThrottled', { taskId: task.id, thermalState: this.thermalState });
+        
+        // Delay low priority tasks during thermal throttling
+        setTimeout(() => {
+          if (!this.isShuttingDown) {
+            this.taskQueue.enqueue(task);
+            this.tryAssignToIdleWorker();
+          }
+        }, 1000 * (this.thermalState === 'critical' ? 5 : 2));
+        return;
+      }
+
       // Set timeout for task
       const timeoutMs = options.timeout ?? this.config.taskTimeout;
       const timeoutHandle = setTimeout(() => {
@@ -512,8 +660,26 @@ export class WorkerPoolManager extends EventEmitter {
       avgTaskTime: this.tasksCompleted > 0 
         ? this.totalExecutionTime / this.tasksCompleted 
         : 0,
-      uptime: Date.now() - this.startTime
+      uptime: Date.now() - this.startTime,
+      // v26.0: Thermal monitoring stats
+      thermalState: this.thermalState,
+      estimatedTemperature: this.estimatedTemperature,
+      throttledTasks: this.throttledTasks
     };
+  }
+  
+  /**
+   * v26.0: Get current thermal state
+   */
+  getThermalState(): 'cool' | 'warm' | 'hot' | 'critical' {
+    return this.thermalState;
+  }
+  
+  /**
+   * v26.0: Get estimated CPU temperature
+   */
+  getEstimatedTemperature(): number {
+    return this.estimatedTemperature;
   }
 
   /**
@@ -561,6 +727,12 @@ export class WorkerPoolManager extends EventEmitter {
   async shutdown(graceful = true): Promise<void> {
     this.isShuttingDown = true;
 
+    // v26.0: Stop thermal monitoring
+    if (this.rebalanceInterval) {
+      clearInterval(this.rebalanceInterval);
+      this.rebalanceInterval = null;
+    }
+
     if (graceful) {
       // Wait for active tasks to complete
       while (this.activeTasks.size > 0) {
@@ -568,7 +740,7 @@ export class WorkerPoolManager extends EventEmitter {
       }
     } else {
       // Cancel all pending tasks
-      for (const [taskId, activeTask] of this.activeTasks.entries()) {
+      for (const [, activeTask] of this.activeTasks.entries()) {
         activeTask.task.reject(new Error('Pool shutdown'));
       }
       this.activeTasks.clear();

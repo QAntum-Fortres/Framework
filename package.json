@@ -1,7 +1,7 @@
 {
   "name": "mister-mind",
-  "version": "23.3.0",
-  "description": "AI-Powered QA Framework with Multimodal Commander - Type-Safe Sovereign Edition with Strict TypeScript, Hardware Telemetry, Swarm Orchestration & Bulgarian Voice Feedback",
+  "version": "26.0.0",
+  "description": "AI-Powered QA Framework - Sovereign Nexus Edition with Inter-Agent Intelligence, MCTS Look-ahead, Thermal-Aware Orchestration & 6-Language Support",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

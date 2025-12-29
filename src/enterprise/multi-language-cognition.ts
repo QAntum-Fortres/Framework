@@ -25,6 +25,7 @@ import { IntentType, ExtractedEntity, SemanticAction } from './voice-commander';
 
 /**
  * Supported languages for voice recognition
+ * v26.0: Added Chinese (CN) and Japanese (JP) for full 6-language support
  */
 export type SupportedLanguage = 
     | 'bg'  // Bulgarian
@@ -33,6 +34,8 @@ export type SupportedLanguage =
     | 'fr'  // French
     | 'es'  // Spanish
     | 'ru'  // Russian
+    | 'cn'  // Chinese (Simplified)
+    | 'jp'  // Japanese
     | 'auto'; // Auto-detect
 
 /**
@@ -419,6 +422,239 @@ export const ENGLISH_PATTERNS: LanguagePatterns = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🇨🇳 CHINESE (SIMPLIFIED) LANGUAGE PATTERNS (v26.0)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export const CHINESE_PATTERNS: LanguagePatterns = {
+    language: 'cn',
+    displayName: 'Chinese (Simplified)',
+    nativeName: '简体中文',
+    patterns: [
+        {
+            type: 'navigation',
+            patterns: [
+                /^(打开|进入|导航到|访问|加载)\s*(.+)$/i,
+                /^(去|到)\s*(.+)$/i
+            ],
+            examples: [
+                '打开登录页面',
+                '进入首页',
+                '导航到设置',
+                '访问个人资料'
+            ]
+        },
+        {
+            type: 'interaction',
+            patterns: [
+                /^(点击|按|选择|触摸)\s*(按钮|链接)?\s*(.+)$/i,
+                /^(单击|双击)\s*(.+)$/i
+            ],
+            examples: [
+                '点击登录按钮',
+                '按提交',
+                '选择保存选项'
+            ]
+        },
+        {
+            type: 'data_entry',
+            patterns: [
+                /^(输入|填写|写入)\s*["']?(.+?)["']?\s*(到|在)\s*(.+)$/i,
+                /^(输入|填写)\s*["']?(.+?)["']?$/i
+            ],
+            examples: [
+                '输入"test@email.com"到邮箱字段',
+                '填写用户名',
+                '写入密码'
+            ]
+        },
+        {
+            type: 'wait',
+            patterns: [
+                /^(等待|等)\s*(\d+)\s*(秒|毫秒)?$/i,
+                /^(等待|等)\s*(直到|到)\s*(.+)$/i
+            ],
+            examples: [
+                '等待5秒',
+                '等3秒',
+                '等待直到加载完成'
+            ]
+        },
+        {
+            type: 'assertion',
+            patterns: [
+                /^(验证|检查|确认)\s*(是否)?\s*(.+)$/i,
+                /^(应该|必须)\s*(.+)$/i
+            ],
+            examples: [
+                '验证标题正确',
+                '检查按钮可见',
+                '确认表单已提交'
+            ]
+        },
+        {
+            type: 'screenshot',
+            patterns: [
+                /^(截图|截屏|屏幕截图)$/i,
+                /^(保存|捕获)\s*(屏幕|页面)?$/i
+            ],
+            examples: [
+                '截图',
+                '截屏',
+                '保存页面'
+            ]
+        },
+        {
+            type: 'abort',
+            patterns: [
+                /^(停止|中止|取消|终止)\s*(测试|执行)?$/i,
+                /^停$/i
+            ],
+            examples: [
+                '停止测试',
+                '中止',
+                '终止执行'
+            ]
+        }
+    ],
+    vocabulary: [
+        '点击', '按', '输入', '填写', '等待', '验证', '检查',
+        '打开', '进入', '导航', '访问', '截图', '停止', '开始',
+        '按钮', '链接', '输入框', '表单', '页面', '元素',
+        '测试', '执行', '运行', '提交', '取消', '确认'
+    ],
+    entityMappings: [
+        { type: 'element', native: '按钮', english: 'button' },
+        { type: 'element', native: '链接', english: 'link' },
+        { type: 'element', native: '输入框', english: 'input' },
+        { type: 'element', native: '表单', english: 'form' },
+        { type: 'element', native: '表格', english: 'table' },
+        { type: 'element', native: '菜单', english: 'menu' },
+        { type: 'action', native: '点击', english: 'click' },
+        { type: 'action', native: '输入', english: 'type' },
+        { type: 'action', native: '等待', english: 'wait' },
+        { type: 'action', native: '验证', english: 'verify' },
+        { type: 'time', native: '秒', english: 'seconds' },
+        { type: 'time', native: '毫秒', english: 'milliseconds' }
+    ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🇯🇵 JAPANESE LANGUAGE PATTERNS (v26.0)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export const JAPANESE_PATTERNS: LanguagePatterns = {
+    language: 'jp',
+    displayName: 'Japanese',
+    nativeName: '日本語',
+    patterns: [
+        {
+            type: 'navigation',
+            patterns: [
+                /^(開く|開いて|移動|ナビゲート)\s*(.+)$/i,
+                /^(.+)\s*(へ|に)\s*(行く|移動)$/i
+            ],
+            examples: [
+                'ログインページを開く',
+                'ホームページへ移動',
+                '設定へ行く'
+            ]
+        },
+        {
+            type: 'interaction',
+            patterns: [
+                /^(クリック|押す|選択|タップ)\s*(ボタン|リンク)?\s*(.+)$/i,
+                /^(.+)\s*(を|の)\s*(クリック|押す)$/i
+            ],
+            examples: [
+                'ログインボタンをクリック',
+                '送信を押す',
+                '保存オプションを選択'
+            ]
+        },
+        {
+            type: 'data_entry',
+            patterns: [
+                /^(入力|書く|記入)\s*["']?(.+?)["']?\s*(を|に)\s*(.+)$/i,
+                /^(.+)\s*(を|に)\s*(入力|書く|記入)$/i
+            ],
+            examples: [
+                'メールフィールドに"test@email.com"を入力',
+                'ユーザー名を入力',
+                'パスワードを記入'
+            ]
+        },
+        {
+            type: 'wait',
+            patterns: [
+                /^(待つ|待機)\s*(\d+)\s*(秒|ミリ秒)?$/i,
+                /^(\d+)\s*(秒|ミリ秒)\s*(待つ|待機)$/i
+            ],
+            examples: [
+                '5秒待つ',
+                '待機3秒',
+                'ロードまで待つ'
+            ]
+        },
+        {
+            type: 'assertion',
+            patterns: [
+                /^(確認|検証|チェック)\s*(して)?\s*(.+)$/i,
+                /^(.+)\s*(を|が)\s*(確認|検証)$/i
+            ],
+            examples: [
+                'タイトルが正しいことを確認',
+                'ボタンが表示されているかチェック',
+                'フォーム送信を確認'
+            ]
+        },
+        {
+            type: 'screenshot',
+            patterns: [
+                /^(スクリーンショット|画面キャプチャ)$/i,
+                /^(保存|撮る)\s*(画面|ページ)?$/i
+            ],
+            examples: [
+                'スクリーンショット',
+                '画面キャプチャ',
+                'ページを保存'
+            ]
+        },
+        {
+            type: 'abort',
+            patterns: [
+                /^(停止|中止|キャンセル|終了)\s*(テスト|実行)?$/i,
+                /^ストップ$/i
+            ],
+            examples: [
+                'テスト停止',
+                '中止',
+                '実行終了'
+            ]
+        }
+    ],
+    vocabulary: [
+        'クリック', '押す', '入力', '書く', '待つ', '確認', '検証',
+        '開く', '移動', 'ナビゲート', 'スクリーンショット', '停止', '開始',
+        'ボタン', 'リンク', '入力欄', 'フォーム', 'ページ', '要素',
+        'テスト', '実行', '実行する', '送信', 'キャンセル', '確認'
+    ],
+    entityMappings: [
+        { type: 'element', native: 'ボタン', english: 'button' },
+        { type: 'element', native: 'リンク', english: 'link' },
+        { type: 'element', native: '入力欄', english: 'input' },
+        { type: 'element', native: 'フォーム', english: 'form' },
+        { type: 'element', native: 'テーブル', english: 'table' },
+        { type: 'element', native: 'メニュー', english: 'menu' },
+        { type: 'action', native: 'クリック', english: 'click' },
+        { type: 'action', native: '入力', english: 'type' },
+        { type: 'action', native: '待つ', english: 'wait' },
+        { type: 'action', native: '確認', english: 'verify' },
+        { type: 'time', native: '秒', english: 'seconds' },
+        { type: 'time', native: 'ミリ秒', english: 'milliseconds' }
+    ]
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 MULTI-LANGUAGE COGNITION ENGINE
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -428,9 +664,11 @@ export class MultiLanguageCognition {
     private detectedLanguage: SupportedLanguage | null = null;
     
     constructor() {
-        // Register built-in languages
+        // Register built-in languages (v26.0: Now supports 6 core languages)
         this.registerLanguage(BULGARIAN_PATTERNS);
         this.registerLanguage(ENGLISH_PATTERNS);
+        this.registerLanguage(CHINESE_PATTERNS);
+        this.registerLanguage(JAPANESE_PATTERNS);
     }
     
     /**
@@ -456,8 +694,35 @@ export class MultiLanguageCognition {
     
     /**
      * Detect language from transcript
+     * v26.0: Enhanced with Chinese and Japanese detection
      */
     detectLanguage(transcript: string): SupportedLanguage {
+        // Check for Chinese characters (Simplified/Traditional)
+        const chinesePattern = /[\u4E00-\u9FFF\u3400-\u4DBF]/;
+        if (chinesePattern.test(transcript)) {
+            // Check for Chinese-specific patterns
+            const chineseIndicators = /(点击|输入|打开|等待|验证|按钮|链接)/;
+            if (chineseIndicators.test(transcript)) {
+                this.detectedLanguage = 'cn';
+                return 'cn';
+            }
+            this.detectedLanguage = 'cn';
+            return 'cn';
+        }
+        
+        // Check for Japanese characters (Hiragana, Katakana, Kanji)
+        const japanesePattern = /[\u3040-\u309F\u30A0-\u30FF]/;
+        if (japanesePattern.test(transcript)) {
+            // Check for Japanese-specific patterns
+            const japaneseIndicators = /(クリック|入力|開く|待つ|確認|ボタン|リンク)/;
+            if (japaneseIndicators.test(transcript)) {
+                this.detectedLanguage = 'jp';
+                return 'jp';
+            }
+            this.detectedLanguage = 'jp';
+            return 'jp';
+        }
+        
         // Check for Cyrillic characters (Bulgarian/Russian)
         const cyrillicPattern = /[\u0400-\u04FF]/;
         if (cyrillicPattern.test(transcript)) {
@@ -470,6 +735,20 @@ export class MultiLanguageCognition {
             // Default Cyrillic to Bulgarian (can be extended for Russian)
             this.detectedLanguage = 'bg';
             return 'bg';
+        }
+        
+        // Check for German-specific patterns
+        const germanIndicators = /\b(klicken|eingeben|öffnen|warten|prüfen|Taste|Schaltfläche)\b/i;
+        if (germanIndicators.test(transcript)) {
+            this.detectedLanguage = 'de';
+            return 'de';
+        }
+        
+        // Check for French-specific patterns
+        const frenchIndicators = /\b(cliquer|saisir|ouvrir|attendre|vérifier|bouton|lien)\b/i;
+        if (frenchIndicators.test(transcript)) {
+            this.detectedLanguage = 'fr';
+            return 'fr';
         }
         
         // Default to English for Latin characters

@@ -88,6 +88,7 @@ export interface ThoughtContent {
 
 /**
  * Source module identification
+ * v26.0: Added nexus_coordinator, shield, sword, surgeon for Sovereign Nexus
  */
 export type ModuleSource =
     | 'voice_commander'
@@ -100,7 +101,14 @@ export type ModuleSource =
     | 'test_runner'
     | 'chaos_engine'
     | 'security_gate'
-    | 'system';
+    | 'system'
+    // v26.0 Sovereign Nexus additions
+    | 'nexus_coordinator'
+    | 'shield'          // Mister Mind (defensive QA)
+    | 'sword'           // CyberCody (offensive security)
+    | 'surgeon'         // Patch generator
+    | 'chronos'         // MCTS look-ahead engine
+    | 'thermal_monitor'; // Thermal throttling
 
 /**
  * Wave metadata
@@ -218,6 +226,41 @@ export interface NetworkMetrics {
     requestsPerSecond: number;
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔗 v26.0 NEXUS LOG - Shield & Sword Collaboration Streaming
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Nexus Log entry for Shield/Sword collaboration (v26.0)
+ */
+export interface NexusLogEntry {
+    /** Log ID */
+    id: string;
+    /** Timestamp */
+    timestamp: number;
+    /** Event type */
+    eventType: 'vulnerability_detected' | 'test_generated' | 'patch_generated' | 'patch_validated' | 'cycle_complete' | 'fallback_triggered' | 'thermal_throttle';
+    /** Source agent */
+    source: 'shield' | 'sword' | 'surgeon' | 'nexus' | 'chronos';
+    /** Target agent */
+    target?: 'shield' | 'sword' | 'surgeon' | 'nexus';
+    /** Log message */
+    message: string;
+    /** Associated data */
+    data?: {
+        vulnerabilityId?: string;
+        vulnerabilityType?: string;
+        severity?: string;
+        testId?: string;
+        patchId?: string;
+        survivalProbability?: number;
+        thermalState?: string;
+        cycleId?: string;
+    };
+    /** Duration in ms */
+    duration?: number;
+}
+
 /**
  * Neural HUD configuration
  */
@@ -238,6 +281,10 @@ export interface NeuralHUDConfig {
     enableCors: boolean;
     /** Allowed origins */
     corsOrigins: string[];
+    /** v26.0: Enable Nexus log streaming */
+    enableNexusLogs?: boolean;
+    /** v26.0: Nexus log buffer size */
+    nexusLogBufferSize?: number;
 }
 
 /**
@@ -273,6 +320,10 @@ export class NeuralHUD extends EventEmitter {
     private routes: Map<string, RouteHandler> = new Map();
     private isRunning: boolean = false;
     
+    // v26.0: Nexus log buffer for Shield/Sword collaboration streaming
+    private nexusLogBuffer: NexusLogEntry[] = [];
+    private nexusLogSequence: number = 0;
+    
     constructor(config?: Partial<NeuralHUDConfig>) {
         super();
         this.config = {
@@ -283,7 +334,9 @@ export class NeuralHUD extends EventEmitter {
             requireAuth: config?.requireAuth ?? false,
             authToken: config?.authToken,
             enableCors: config?.enableCors ?? true,
-            corsOrigins: config?.corsOrigins || ['*']
+            corsOrigins: config?.corsOrigins || ['*'],
+            enableNexusLogs: config?.enableNexusLogs ?? true,
+            nexusLogBufferSize: config?.nexusLogBufferSize ?? 500
         };
         
         this.initializeRoutes();
@@ -1010,6 +1063,184 @@ export class NeuralHUD extends EventEmitter {
      */
     getClientCount(): number {
         return this.clients.size;
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════════
+    // 🔗 v26.0 NEXUS LOG STREAMING - Shield & Sword Collaboration
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * v26.0: Log a Nexus event (Shield/Sword collaboration)
+     */
+    logNexusEvent(entry: Omit<NexusLogEntry, 'id' | 'timestamp'>): NexusLogEntry {
+        const logEntry: NexusLogEntry = {
+            id: `nexus_${++this.nexusLogSequence}_${Date.now()}`,
+            timestamp: Date.now(),
+            ...entry
+        };
+        
+        this.nexusLogBuffer.push(logEntry);
+        
+        // Trim buffer if needed
+        const maxSize = this.config.nexusLogBufferSize ?? 500;
+        if (this.nexusLogBuffer.length > maxSize) {
+            this.nexusLogBuffer = this.nexusLogBuffer.slice(-maxSize);
+        }
+        
+        // Broadcast to all clients subscribed to nexus logs
+        this.broadcast('nexus_log', logEntry);
+        
+        this.emit('nexusLog', logEntry);
+        
+        return logEntry;
+    }
+    
+    /**
+     * v26.0: Log vulnerability detection from CyberCody (Sword)
+     */
+    logVulnerabilityDetected(vulnerabilityId: string, type: string, severity: string, target: string): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'vulnerability_detected',
+            source: 'sword',
+            target: 'nexus',
+            message: `🗡️ CyberCody detected ${severity.toUpperCase()} ${type} vulnerability on ${target}`,
+            data: { vulnerabilityId, vulnerabilityType: type, severity }
+        });
+    }
+    
+    /**
+     * v26.0: Log test generation from Mister Mind (Shield)
+     */
+    logTestGenerated(testId: string, vulnerabilityId: string, duration: number): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'test_generated',
+            source: 'shield',
+            target: 'nexus',
+            message: `🛡️ Shield generated regression test for vulnerability ${vulnerabilityId}`,
+            data: { testId, vulnerabilityId },
+            duration
+        });
+    }
+    
+    /**
+     * v26.0: Log patch generation from Surgeon
+     */
+    logPatchGenerated(patchId: string, vulnerabilityId: string, duration: number): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'patch_generated',
+            source: 'surgeon',
+            target: 'nexus',
+            message: `🔧 Surgeon generated security patch for vulnerability ${vulnerabilityId}`,
+            data: { patchId, vulnerabilityId },
+            duration
+        });
+    }
+    
+    /**
+     * v26.0: Log patch validation result
+     */
+    logPatchValidated(patchId: string, vulnerabilityId: string, success: boolean): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'patch_validated',
+            source: 'nexus',
+            message: success 
+                ? `✅ Patch ${patchId} validated successfully` 
+                : `❌ Patch ${patchId} validation failed`,
+            data: { patchId, vulnerabilityId }
+        });
+    }
+    
+    /**
+     * v26.0: Log feedback cycle completion
+     */
+    logCycleComplete(cycleId: string, vulnerabilityId: string, patchValidated: boolean, duration: number): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'cycle_complete',
+            source: 'nexus',
+            message: `🔄 Feedback cycle ${cycleId} completed - Patch ${patchValidated ? 'VALIDATED' : 'FAILED'}`,
+            data: { cycleId, vulnerabilityId },
+            duration
+        });
+    }
+    
+    /**
+     * v26.0: Log Chronos fallback trigger
+     */
+    logFallbackTriggered(action: string, survivalProbability: number, fallbackType: 'semantic' | 'vision'): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'fallback_triggered',
+            source: 'chronos',
+            message: `⚠️ Survival probability ${(survivalProbability * 100).toFixed(1)}% - switching to ${fallbackType} fallback`,
+            data: { survivalProbability }
+        });
+    }
+    
+    /**
+     * v26.0: Log thermal throttling event
+     */
+    logThermalThrottle(thermalState: string, estimatedTemp: number): NexusLogEntry {
+        return this.logNexusEvent({
+            eventType: 'thermal_throttle',
+            source: 'nexus',
+            message: `🌡️ Thermal state: ${thermalState.toUpperCase()} (${estimatedTemp}°C) - throttling enabled`,
+            data: { thermalState }
+        });
+    }
+    
+    /**
+     * v26.0: Get recent Nexus logs
+     */
+    getRecentNexusLogs(limit: number = 100): NexusLogEntry[] {
+        return this.nexusLogBuffer.slice(-limit);
+    }
+    
+    /**
+     * v26.0: Get Nexus logs by event type
+     */
+    getNexusLogsByType(eventType: NexusLogEntry['eventType'], limit: number = 50): NexusLogEntry[] {
+        return this.nexusLogBuffer
+            .filter(log => log.eventType === eventType)
+            .slice(-limit);
+    }
+    
+    /**
+     * v26.0: Get Nexus logs by source agent
+     */
+    getNexusLogsBySource(source: NexusLogEntry['source'], limit: number = 50): NexusLogEntry[] {
+        return this.nexusLogBuffer
+            .filter(log => log.source === source)
+            .slice(-limit);
+    }
+    
+    /**
+     * v26.0: Clear Nexus log buffer
+     */
+    clearNexusLogs(): void {
+        this.nexusLogBuffer = [];
+        this.nexusLogSequence = 0;
+    }
+    
+    /**
+     * v26.0: Get Nexus collaboration statistics
+     */
+    getNexusStats(): {
+        totalLogs: number;
+        vulnerabilitiesDetected: number;
+        testsGenerated: number;
+        patchesGenerated: number;
+        patchesValidated: number;
+        fallbacksTriggered: number;
+        thermalThrottles: number;
+    } {
+        return {
+            totalLogs: this.nexusLogBuffer.length,
+            vulnerabilitiesDetected: this.nexusLogBuffer.filter(l => l.eventType === 'vulnerability_detected').length,
+            testsGenerated: this.nexusLogBuffer.filter(l => l.eventType === 'test_generated').length,
+            patchesGenerated: this.nexusLogBuffer.filter(l => l.eventType === 'patch_generated').length,
+            patchesValidated: this.nexusLogBuffer.filter(l => l.eventType === 'patch_validated').length,
+            fallbacksTriggered: this.nexusLogBuffer.filter(l => l.eventType === 'fallback_triggered').length,
+            thermalThrottles: this.nexusLogBuffer.filter(l => l.eventType === 'thermal_throttle').length
+        };
     }
 }
 

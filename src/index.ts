@@ -4381,10 +4381,10 @@ export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(co
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /** Current version */
-export const VERSION = '23.3.0';
+export const VERSION = '26.0.0';
 
 /** Version codename */
-export const VERSION_CODENAME = 'Type-Safe Sovereign';
+export const VERSION_CODENAME = 'Sovereign Nexus';
 
 /** Full version string */
 export const VERSION_FULL = `MisterMind v${VERSION} "${VERSION_CODENAME}"`;

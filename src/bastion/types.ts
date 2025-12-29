@@ -185,7 +185,20 @@ export interface WorkerPoolConfig {
   enableWorkStealing?: boolean;
   /** Worker script path */
   workerScript?: string;
+  /** Enable thermal throttling (v26.0) */
+  enableThermalThrottling?: boolean;
+  /** Temperature threshold in °C for throttling (default: 85) */
+  thermalThresholdCelsius?: number;
+  /** Enable dynamic load rebalancing (v26.0) */
+  enableDynamicRebalancing?: boolean;
+  /** Rebalancing interval in ms (default: 5000) */
+  rebalanceIntervalMs?: number;
 }
+
+/**
+ * Thermal state for worker pool
+ */
+export type ThermalState = 'cool' | 'warm' | 'hot' | 'critical';
 
 /**
  * Worker pool statistics
@@ -207,6 +220,12 @@ export interface WorkerPoolStats {
   avgTaskTime: number;
   /** Uptime in ms */
   uptime: number;
+  /** Current thermal state (v26.0) */
+  thermalState?: ThermalState;
+  /** Estimated CPU temperature in °C (v26.0) */
+  estimatedTemperature?: number;
+  /** Throttled tasks count (v26.0) */
+  throttledTasks?: number;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

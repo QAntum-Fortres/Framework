@@ -1,0 +1,134 @@
+{
+  "name": "mister-mind-training-framework",
+  "version": "18.0.0",
+  "description": "🧠 SOVEREIGN SINGULARITY - AI-Powered Testing Framework with Self-Healing, Swarm Intelligence, and Predictive QA",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test test/*.test.js",
+    "test:phase1": "node -e \"const {Phase1Orchestrator} = require('./phase1-index'); const p = new Phase1Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
+    "test:phase2": "node -e \"const {Phase2Orchestrator} = require('./phase2-index'); const p = new Phase2Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
+    "test:phase3": "node -e \"const {Phase3Orchestrator} = require('./phase3-index'); const p = new Phase3Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
+    "test:all": "node -e \"const {initialize} = require('./index'); initialize().then(s => s.runComprehensiveTests()).then(console.log)\"",
+    "docs": "node -e \"const {SelfDocEngine} = require('./docs/self-documenting'); const e = new SelfDocEngine(); e.documentDirectory('.').then(console.log)\"",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.js\""
+  },
+  "keywords": [
+    "testing",
+    "automation",
+    "ai",
+    "machine-learning",
+    "self-healing",
+    "qa",
+    "quality-assurance",
+    "swarm-intelligence",
+    "hive-mind",
+    "predictive-testing",
+    "chaos-engineering",
+    "visual-regression",
+    "shadow-dom",
+    "nlp",
+    "natural-language",
+    "compliance",
+    "gdpr",
+    "hipaa",
+    "soc2",
+    "saas",
+    "multi-tenant",
+    "enterprise"
+  ],
+  "author": {
+    "name": "Dimitar Prodromov",
+    "email": "dimitar@mistermind.ai"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/papica777-eng/MrMindQATool.git"
+  },
+  "homepage": "https://github.com/papica777-eng/MrMindQATool#readme",
+  "bugs": {
+    "url": "https://github.com/papica777-eng/MrMindQATool/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  },
+  "peerDependencies": {
+    "playwright": "^1.40.0",
+    "puppeteer": "^22.0.0"
+  },
+  "optionalDependencies": {
+    "openai": "^4.28.0",
+    "@anthropic-ai/sdk": "^0.14.0",
+    "sharp": "^0.33.2",
+    "jimp": "^0.22.10"
+  },
+  "files": [
+    "index.js",
+    "phase1-index.js",
+    "phase2-index.js", 
+    "phase3-index.js",
+    "config.js",
+    "config-manager.js",
+    "dependency-manager.js",
+    "ml-pipeline.js",
+    "model-versioning.js",
+    "security-baseline.js",
+    "architecture/",
+    "cognitive/",
+    "selectors/",
+    "async/",
+    "healing/",
+    "verification/",
+    "chronos/",
+    "nlu/",
+    "shadow/",
+    "visual/",
+    "swarm/",
+    "security/",
+    "quantum/",
+    "knowledge/",
+    "evolution/",
+    "autonomous/",
+    "meta/",
+    "saas/",
+    "integrations/",
+    "docs/",
+    "cloud/",
+    "ai-to-ai/",
+    "compliance/",
+    "predictive/",
+    "chaos/",
+    "orchestrator/",
+    "business/",
+    "README.md",
+    "LICENSE"
+  ],
+  "codename": "SOVEREIGN SINGULARITY",
+  "phases": {
+    "phase1": {
+      "name": "Enterprise Foundation",
+      "codename": "Immune System",
+      "steps": "1-20",
+      "modules": 20
+    },
+    "phase2": {
+      "name": "Autonomous Intelligence",
+      "codename": "Cognitive Awakening",
+      "steps": "21-35",
+      "modules": 15
+    },
+    "phase3": {
+      "name": "Domination",
+      "codename": "Sovereign Domination",
+      "steps": "36-50",
+      "modules": 15
+    }
+  }
+}

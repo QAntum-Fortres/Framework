@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+*.min.js
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime
+.env
+.env.local
+.env.*.local
+
+# Test outputs
+coverage/
+.nyc_output/
+test-results/
+screenshots/
+visual-diffs/
+
+# Temp files
+tmp/
+temp/
+*.tmp
+
+# Cache
+.cache/
+.eslintcache
+.prettiercache
+
+# Model files (large)
+*.h5
+*.pkl
+*.pt
+*.onnx
+models/*.bin
+
+# Secrets (never commit!)
+secrets/
+*.pem
+*.key
+credentials.json

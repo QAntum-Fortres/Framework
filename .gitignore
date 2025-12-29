@@ -1,60 +1,42 @@
-# Dependencies
-node_modules/
-package-lock.json
+# Ignore everything
+*
 
-# Build outputs
-dist/
-build/
-*.min.js
+# Except these files
+!README.md
+!LICENSE
+!package.json
+!tsconfig.json
+!src/
+!src/**
+!.npmignore
+!.gitignore
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
+# Include app directory (user auth pages)
+!app/
+!app/**
 
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
+# Include examples
+!examples/
+!examples/**
 
-# Logs
-logs/
-*.log
-npm-debug.log*
+# Include docs
+!docs/
+!docs/**
 
-# Runtime
-.env
-.env.local
-.env.*.local
+# Include GitHub config
+!.github/
+!.github/**
 
-# Test outputs
-coverage/
-.nyc_output/
-test-results/
-screenshots/
-visual-diffs/
+# Include landing page
+!index.html
 
-# Temp files
-tmp/
-temp/
-*.tmp
+# Include documentation
+!SECURITY.md
+!CONTRIBUTING.md
+!CHANGELOG.md
+!.eslintrc.json
+!test-all.js
 
-# Cache
-.cache/
-.eslintcache
-.prettiercache
-
-# Model files (large)
-*.h5
-*.pkl
-*.pt
-*.onnx
-models/*.bin
-
-# Secrets (never commit!)
-secrets/
-*.pem
-*.key
-credentials.json
+# Include tests
+!tests/
+!tests/**

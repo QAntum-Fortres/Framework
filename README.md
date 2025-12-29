@@ -1,220 +1,366 @@
-# 🧠 MISTER MIND v18.0 - SOVEREIGN SINGULARITY
+<!-- 
+═══════════════════════════════════════════════════════════════════════════════
+MisterMind v23.0.0 "The Local Sovereign"
+© 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+═══════════════════════════════════════════════════════════════════════════════
+-->
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-18.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)
-![Steps](https://img.shields.io/badge/steps-50-orange.svg)
-![Phases](https://img.shields.io/badge/phases-3-purple.svg)
+```
+███╗   ███╗██╗███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ 
+████╗ ████║██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗
+██╔████╔██║██║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║
+██║╚██╔╝██║██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║
+██║ ╚═╝ ██║██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝
+╚═╝     ╚═╝╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ 
+```
 
-**AI-Powered Testing Framework with Self-Healing, Swarm Intelligence, and Predictive QA**
+### **v23.0.0 "The Local Sovereign"**
 
-*"Built with Persistence. Engineered for Eternity."*
+[![Version](https://img.shields.io/badge/version-23.0.0-blue?style=for-the-badge)](https://github.com/papica777-eng/MrMindQATool)
+[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tests](https://img.shields.io/badge/Tests-492%20Passing-brightgreen?style=for-the-badge)]()
+[![Lines](https://img.shields.io/badge/Lines-45,895-orange?style=for-the-badge)]()
 
-[Quick Start](#-quick-start) •
-[Features](#-features) •
-[Architecture](#-architecture) •
-[Documentation](#-documentation) •
-[Author](#-author)
+**AI-Powered QA Automation Framework**
+
+*The framework that predicts bugs before they happen*
+
+[Quick Start](#-quick-start) • [Features](#-features) • [Dashboard](#-dashboard) • [Enterprise](#-enterprise-modules) • [API](#-api-reference)
+
+---
+
+**🇧🇬 Създадено с ❤️ в България | Made with ❤️ in Bulgaria**
 
 </div>
 
 ---
 
+## 📋 Table of Contents
+
+- [What is MisterMind?](#-what-is-mistermind)
+- [Quick Start](#-quick-start)
+- [Features](#-features)
+- [Enterprise Modules](#-enterprise-modules)
+- [Dashboard](#-dashboard)
+- [API Reference](#-api-reference)
+- [Statistics](#-statistics)
+- [License](#-license)
+
+---
+
+## 🧠 What is MisterMind?
+
+MisterMind is an **enterprise-grade QA automation framework** built in TypeScript that uses local AI models, thermal-aware execution, and intelligent test orchestration.
+
+> *🇧🇬 MisterMind е професионална QA рамка с изкуствен интелект, която работи локално без облачни зависимости.*
+
+### Key Capabilities
+
+| Feature | Description |
+|---------|-------------|
+| **🤖 Local AI** | Ollama + Whisper integration, no cloud dependency |
+| **🌡️ Thermal Aware** | CPU throttling based on hardware temperature |
+| **🐳 Docker Grid** | Auto-orchestrated Selenium/Playwright containers |
+| **🎖️ Swarm Execution** | Commander-Soldier parallel architecture |
+| **🔊 Bulgarian TTS** | Native text-to-speech in Bulgarian |
+| **🎛️ Real-time Dashboard** | WebSocket monitoring at localhost:3847 |
+| **🔐 Hardware Licensing** | SHA-256 hardware-locked license keys |
+
+---
+
 ## 🚀 Quick Start
+
+### Prerequisites
+
+```bash
+Node.js 18+
+npm 9+
+Docker (optional)
+Ollama (optional)
+```
+
+### Installation
 
 ```bash
 # Clone
 git clone https://github.com/papica777-eng/MrMindQATool.git
-cd training-framework
+cd MrMindQATool
 
 # Install
 npm install
 
-# Run
-npm start
+# Build
+npm run build
+
+# Test
+npm test
+
+# Dashboard
+npm run dashboard
 ```
 
-```javascript
-const { initialize } = require('./training-framework');
+> *🇧🇬 След npm run dashboard отвори http://localhost:3847 за да видиш таблото.*
 
-// Initialize the Singularity
-const singularity = await initialize();
+### Basic Usage
 
-// Run comprehensive tests
-const results = await singularity.runComprehensiveTests();
-console.log(results);
+```typescript
+import { MisterMind, printBanner } from './src/index';
+
+// Show banner
+printBanner({ compact: true });
+
+// Create instance
+const mm = new MisterMind({ verbose: true });
+
+// Audit a website
+const result = await mm.audit('https://example.com');
+console.log(`Performance: ${result.performance}/100`);
+console.log(`Accessibility: ${result.accessibility}/100`);
+console.log(`SEO: ${result.seo}/100`);
+
+// Test an API
+const api = await mm.testAPI('https://api.example.com/health');
+console.log(`Status: ${api.status}, Time: ${api.responseTime}ms`);
 ```
 
 ---
 
 ## ✨ Features
 
-### 🌑 Phase 1: Enterprise Foundation (Steps 1-20)
-*"The Immune System"*
+### 🆓 Free Features
 
 | Feature | Description |
 |---------|-------------|
-| 🔧 **Environment Config** | Multi-environment support (dev/staging/prod) |
-| 💉 **Dependency Injection** | IoC container with automatic resolution |
-| 🔐 **Security Baseline** | RBAC + AES-256 encryption |
-| 🤖 **ML Pipeline** | Feature engineering & model training |
-| 📦 **Model Versioning** | Git-like version control for ML models |
-| 🏗️ **POM Architecture** | Page Object Model with components |
-| 🔌 **Multi-AI Integration** | OpenAI, Anthropic, Local models |
-| ⏰ **Smart Waits** | Fluent waits with conditions |
-| 💉 **Self-Healing** | Automatic error recovery |
-| ⏱️ **Time-Travel** | Chronos debugging foundation |
+| **Website Audit** | Performance, accessibility, SEO analysis |
+| **API Testing** | HTTP request testing with timing |
+| **Link Checker** | Find broken links on any page |
+| **Browser Factory** | Chromium, Firefox, WebKit support |
 
-### 🧠 Phase 2: Autonomous Intelligence (Steps 21-35)
-*"Cognitive Awakening"*
+### 💎 Pro Features
 
 | Feature | Description |
 |---------|-------------|
-| 🗣️ **NLU Engine** | Natural language understanding |
-| 🎯 **Intent Classification** | ML-powered intent detection |
-| 👻 **Shadow DOM Penetrator** | Breaks through Shadow DOM |
-| 👁️ **Visual Regression** | Pixel-perfect comparison |
-| 🐝 **HIVE MIND** | Swarm intelligence architecture |
-| 🛡️ **Neuro Sentinel** | AI-powered threat detection |
-| ⚛️ **Quantum Scaling** | Quantum-inspired optimization |
-| 🔮 **Look-Ahead Engine** | N-step prediction with MCTS |
-| 📚 **Knowledge Distillation** | Teacher-student learning |
-| 🧬 **Genetic Evolution** | Evolutionary algorithms |
-| 🤖 **Autonomous Decisions** | UCB & Thompson Sampling |
-| 🎓 **Meta-Learning** | MAML & Reptile |
+| **Prediction Matrix** | AI-powered bug prediction |
+| **API Sensei** | Intelligent API test generation |
+| **Chronos Engine** | Time-travel debugging |
+| **Sovereign Swarm** | Multi-agent orchestration |
+| **Semantic Core** | Intent-based element finding |
 
-### 👑 Phase 3: Domination (Steps 36-50)
-*"Sovereign Domination"*
-
-| Feature | Description |
-|---------|-------------|
-| 🏢 **SaaS Platform** | Multi-tenant architecture |
-| 📈 **Auto-Scaling** | Dynamic resource management |
-| 🎫 **Jira Integration** | Full REST API integration |
-| 📋 **Linear Integration** | GraphQL sync |
-| 📚 **Self-Documentation** | Auto-generates docs |
-| 📱 **Device Farm** | Cloud testing devices |
-| 🤝 **AI-to-AI Negotiation** | Agent communication |
-| ✅ **Compliance Engine** | GDPR/HIPAA/SOC2/PCI-DSS |
-| 🔮 **Predictive QA** | Bug prediction |
-| 💥 **Chaos Engineering** | 31 attack types |
-| 🌍 **Global Orchestrator** | Multi-region execution |
-| 💰 **Revenue Engine** | Billing & analytics |
-| 🏷️ **White Label** | Reseller platform |
+> *🇧🇬 Pro функциите изискват лицензен ключ. Безплатните работят веднага.*
 
 ---
 
-## 🏗️ Architecture
+## 🏢 Enterprise Modules
 
-```
-╔═══════════════════════════════════════════════════════════════════╗
-║                    SOVEREIGN SINGULARITY v18.0                    ║
-╠═══════════════════════════════════════════════════════════════════╣
-║                                                                   ║
-║   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐          ║
-║   │   PHASE 1   │───▶│   PHASE 2   │───▶│   PHASE 3   │          ║
-║   │  Foundation │    │ Intelligence │    │ Domination  │          ║
-║   │   (1-20)    │    │   (21-35)   │    │   (36-50)   │          ║
-║   └─────────────┘    └─────────────┘    └─────────────┘          ║
-║                                                                   ║
-╚═══════════════════════════════════════════════════════════════════╝
+MisterMind v23.0.0 includes 6 enterprise-grade modules:
+
+### 1. 🌡️ Thermal-Aware Pool
+
+Automatically adjusts parallelism based on CPU temperature.
+
+```typescript
+import { ThermalAwarePool } from './src/enterprise/thermal-aware-pool';
+
+const pool = new ThermalAwarePool({
+  maxInstances: 40,
+  coolThreshold: 60,
+  hotThreshold: 80
+});
+
+await pool.start();
 ```
 
-### Directory Structure
+| State | Temperature | Instances |
+|-------|-------------|-----------|
+| COOL | <60°C | 40 |
+| WARM | 60-70°C | 30 |
+| HOT | 70-80°C | 20 |
+| CRITICAL | >80°C | 10 |
 
-```
-training-framework/
-├── index.js                 # Master Index (Step 50)
-├── phase1-index.js          # Phase 1 Orchestrator
-├── phase2-index.js          # Phase 2 Orchestrator
-├── phase3-index.js          # Phase 3 Orchestrator
-├── package.json             # NPM configuration
-│
-├── architecture/            # Steps 7-9
-├── cognitive/               # Steps 10-12
-├── selectors/               # Steps 13-14
-├── async/                   # Steps 15-16
-├── healing/                 # Steps 17-18
-├── verification/            # Step 19
-├── chronos/                 # Steps 20, 29
-├── nlu/                     # Steps 21-22
-├── shadow/                  # Step 23
-├── visual/                  # Step 24
-├── swarm/                   # Steps 25-26
-├── security/                # Step 27
-├── quantum/                 # Step 28
-├── knowledge/               # Step 30
-├── evolution/               # Steps 31-32
-├── autonomous/              # Step 33
-├── meta/                    # Step 34
-├── saas/                    # Steps 36-37
-├── integrations/            # Steps 38-39
-├── docs/                    # Step 40
-├── cloud/                   # Step 41
-├── ai-to-ai/                # Step 42
-├── compliance/              # Step 43
-├── predictive/              # Step 44
-├── chaos/                   # Step 45
-├── orchestrator/            # Step 46
-└── business/                # Steps 47-48
+> *🇧🇬 Термалният контрол пази хардуера ти от прегряване при масивни тестове.*
+
+---
+
+### 2. 🐳 Docker Manager
+
+Auto-generates Selenium Grid configuration.
+
+```typescript
+import { DockerManager } from './src/enterprise/docker-manager';
+
+const docker = new DockerManager({
+  hubPort: 4444,
+  chromeNodes: 4,
+  firefoxNodes: 2
+});
+
+await docker.generateDockerCompose();
+await docker.startGrid();
 ```
 
 ---
 
-## 📚 Documentation
+### 3. 🎖️ Swarm Commander
 
-| Document | Description |
-|----------|-------------|
-| [DOCUMENTATION-50-STEPS.md](DOCUMENTATION-50-STEPS.md) | Full documentation of all 50 steps |
-| [VISUAL-MAP-50-STEPS.md](VISUAL-MAP-50-STEPS.md) | Visual diagram of the architecture |
-| [QUICK-REFERENCE.md](QUICK-REFERENCE.md) | Quick reference card |
+Commander-Soldier pattern for parallel execution.
+
+```typescript
+import { SwarmCommander } from './src/enterprise/swarm-commander';
+
+const commander = new SwarmCommander({
+  minSoldiers: 4,
+  maxSoldiers: 40
+});
+
+await commander.initialize();
+await commander.queueTask({
+  id: 'test-001',
+  type: 'browser-test',
+  payload: { url: 'https://example.com' }
+});
+```
+
+> *🇧🇬 Командирът разпределя задачите между войниците (browser instances).*
 
 ---
 
-## 🔧 Usage Examples
+### 4. 🔊 Bulgarian TTS
 
-### Self-Healing Test
+Native Bulgarian text-to-speech feedback.
 
-```javascript
-const { RecoveryEngine } = require('./healing/recovery-engine');
-const engine = new RecoveryEngine();
+```typescript
+import { BulgarianTTS } from './src/enterprise/bulgarian-tts';
 
-// Automatically heals errors
-await engine.heal(error);
+const tts = new BulgarianTTS();
+await tts.initialize();
+
+await tts.speak('Тестът премина успешно');
+await tts.speakTemplate('error_found', { element: 'бутон' });
 ```
 
-### AI Prediction
+| Template | Text |
+|----------|------|
+| `test_passed` | "Тестът премина успешно" |
+| `test_failed` | "Тестът се провали" |
+| `error_found` | "Открих грешка в {element}" |
 
-```javascript
-const { LookAheadEngine } = require('./chronos/look-ahead');
-const engine = new LookAheadEngine();
+---
 
-// Simulate 5 steps ahead
-const bestPath = await engine.simulate(state, 5);
+### 5. 🎛️ Dashboard Server
+
+Real-time WebSocket dashboard.
+
+```bash
+npm run dashboard
+# Open http://localhost:3847
 ```
 
-### Chaos Engineering
+**Features:**
+- 📊 CPU temperature graph (20-point history)
+- 🐳 Docker container count
+- 🎖️ Active soldiers count
+- 📜 Bulgarian activity logs
+- ⚡ WebSocket real-time updates
 
-```javascript
-const { ChaosEngine } = require('./chaos/engine');
-const chaos = new ChaosEngine();
+> *🇧🇬 Таблото показва всичко на живо - температура, Docker, Swarm.*
 
-// Test system resilience
-await chaos.runAttack('network-latency');
-await chaos.runAttack('cpu-stress');
+---
+
+### 6. 🔐 License Manager
+
+Hardware-locked licensing system.
+
+```bash
+npm run license:generate   # Generate dev license
+npm run license:status     # Check status
 ```
 
-### Swarm Intelligence
+```typescript
+import { LicenseManager } from './src/enterprise/license-manager';
 
-```javascript
-const { HiveMind } = require('./swarm/hive-mind');
-const hive = new HiveMind();
+const license = new LicenseManager();
+const hwId = license.generateHardwareId();
+const validation = license.validate();
+```
 
-// Distribute tasks across agents
-await hive.distribute(tasks);
-const decision = await hive.consensus();
+**License Types:**
+
+| Type | Instances | Features |
+|------|-----------|----------|
+| Trial | 2 | Basic |
+| Professional | 10 | + Thermal, Docker |
+| Enterprise | 50 | + Swarm, TTS |
+| Sovereign | 999 | All features |
+
+> *🇧🇬 Лицензът се привързва към хардуера ти с SHA-256 отпечатък.*
+
+---
+
+## 🎛️ Dashboard
+
+The dashboard provides real-time monitoring of your test execution.
+
+### Screenshot Preview
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  🎛️ MISTER MIND DASHBOARD          v23.0.0 "The Local Sovereign"   │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  🌡️ CPU Temperature        🐳 Docker         🎖️ Swarm               │
+│  ████████░░ 65°C           4 containers     12 soldiers            │
+│                                                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│  📊 Activity Log                                                    │
+│  ─────────────────────────────────────────────────────────────────  │
+│  15:46:54 ℹ️ Агентът анализира Shadow DOM...                       │
+│  15:46:55 ✅ Тестът премина успешно                                │
+│  15:46:56 🔍 Намерих 3 нови селектора                              │
+│  15:46:57 ⚠️ CPU температура: 72°C                                 │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📚 API Reference
+
+### MisterMind Class
+
+```typescript
+const mm = new MisterMind(config?: MisterMindConfig);
+
+// Free methods
+await mm.audit(url: string): Promise<AuditResult>;
+await mm.testAPI(endpoint: string, options?): Promise<APITestResult>;
+await mm.checkLinks(url: string): Promise<CheckLinksResult>;
+
+// Pro methods
+await mm.predict(options): Promise<PredictionResult>;
+await mm.chronos(options): Promise<ChronosResult>;
+await mm.apiSensei(config): Promise<APISenseiResult>;
+
+// Utilities
+mm.getLicenseStatus(): { isValid: boolean; tier: string };
+mm.getFinancialStats(): FinancialStats;
+mm.getLogger(): Logger;
+```
+
+### Exports
+
+```typescript
+import {
+  MisterMind,
+  printBanner,
+  VERSION,
+  VERSION_CODENAME,
+  VERSION_FULL,
+  getSystemStats,
+  BrowserFactory,
+  createMisterMind
+} from './src/index';
 ```
 
 ---
@@ -223,67 +369,115 @@ const decision = await hive.consensus();
 
 | Metric | Value |
 |--------|-------|
-| Total Steps | 50 |
-| Total Modules | 50 |
-| Total Classes | 150+ |
-| Phases | 3 |
-| Language | JavaScript (Node.js) |
-| Version | 18.0.0 |
-| Codename | SOVEREIGN SINGULARITY |
+| **Lines of Code** | 45,895 |
+| **TypeScript Files** | 91 |
+| **Tests** | 492 passing |
+| **Enterprise Modules** | 6 |
+| **Version** | 23.0.0 |
+| **Codename** | The Local Sovereign |
 
----
-
-## 🧪 Running Tests
+### npm Scripts
 
 ```bash
-# Test all phases
-npm run test:all
-
-# Test Phase 1 only
-npm run test:phase1
-
-# Test Phase 2 only
-npm run test:phase2
-
-# Test Phase 3 only
-npm run test:phase3
+npm test              # Run all tests
+npm run build         # Build TypeScript
+npm run dashboard     # Start dashboard
+npm run license:generate  # Generate license
+npm run license:status    # Check license
+npm run build:enterprise  # Build with obfuscation
 ```
 
 ---
 
-## 🗺️ Roadmap
+## 🗂️ Project Structure
 
-- [x] Phase 1: Enterprise Foundation (Steps 1-20)
-- [x] Phase 2: Autonomous Intelligence (Steps 21-35)
-- [x] Phase 3: Domination (Steps 36-50)
-- [x] Documentation
-- [ ] TypeScript conversion
-- [ ] NPM publish
-- [ ] VS Code extension
+```
+MrMindQATool/
+├── src/
+│   ├── index.ts              # Main entry (3,300+ lines)
+│   ├── core/                 # Core modules
+│   ├── browser/              # Browser automation
+│   ├── ai/                   # AI & ML modules
+│   ├── enterprise/           # Enterprise features
+│   │   ├── thermal-aware-pool.ts
+│   │   ├── docker-manager.ts
+│   │   ├── swarm-commander.ts
+│   │   ├── bulgarian-tts.ts
+│   │   ├── dashboard-server.ts
+│   │   └── license-manager.ts
+│   └── utils/                # Utilities
+├── tests/                    # Test files
+├── docs/                     # Documentation
+├── scripts/                  # Build scripts
+└── package.json
+```
 
 ---
 
-## 👤 Author
+## 🔧 Configuration
 
-**Dimitar Prodromov**
+### .mistermindrc
 
-- GitHub: [@papica777-eng](https://github.com/papica777-eng)
-- Tech Stack: Ryzen 7 7435HS + RTX 4050 | Cloud-Hybrid AI Architecture
+```json
+{
+  "browser": "chromium",
+  "headless": true,
+  "timeout": 30000,
+  "dashboard": {
+    "port": 3847
+  },
+  "thermal": {
+    "maxInstances": 40,
+    "coolThreshold": 60
+  }
+}
+```
+
+### Environment Variables
+
+```bash
+MISTERMIND_LICENSE=MM-XXXX-XXXX-XXXX
+MISTERMIND_VERBOSE=true
+OLLAMA_ENDPOINT=http://localhost:11434
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+**Proprietary License** - All Rights Reserved
+
+© 2025 Димитър Продромов (Dimitar Prodromov)
+
+This software is proprietary and confidential. Unauthorized copying, modification, distribution, or use is strictly prohibited.
+
+For licensing inquiries: dimitar@mistermind.bg
+
+---
+
+## 👤 Author
+
+**Димитър Продромов (Dimitar Prodromov)**
+
+- 🇧🇬 Sofia, Bulgaria
+- 💼 QA Architect
+- 📧 dimitar@mistermind.bg
+- 🐙 [@papica777-eng](https://github.com/papica777-eng)
 
 ---
 
 <div align="center">
 
-### 🏆 MISTER MIND v18.0 - SOVEREIGN SINGULARITY
+### 🇧🇬 Made with ❤️ in Bulgaria
 
-*"We don't just test. We dominate reality."*
+**MisterMind v23.0.0 "The Local Sovereign"**
 
-**Built with Persistence. Engineered for Eternity.**
+*The QA framework that thinks ahead*
 
 </div>

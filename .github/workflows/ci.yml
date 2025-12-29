@@ -1,0 +1,113 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# MisterMind
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+# @license PROPRIETARY AND CONFIDENTIAL
+#
+# This file is part of MisterMind.
+# Unauthorized copying, modification, distribution, or use of this file,
+# via any medium, is strictly prohibited without express written permission.
+#
+# For licensing inquiries: dimitar.papazov@mistermind.dev
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════
+  # BUILD & TEST
+  # ═══════════════════════════════════════════════════════════════
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🟢 Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: 📦 Install Dependencies
+        run: npm ci
+      
+      - name: 🔨 Build
+        run: npm run build
+      
+      - name: 🧪 Run Tests
+        run: node test-all.js
+      
+      - name: 📊 Upload Build Artifacts
+        if: matrix.node-version == '20.x'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  # ═══════════════════════════════════════════════════════════════
+  # SECURITY SCAN
+  # ═══════════════════════════════════════════════════════════════
+  security:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: 📦 Install Dependencies
+        run: npm ci
+      
+      - name: 🔒 Security Audit
+        run: npm audit --audit-level=high
+
+  # ═══════════════════════════════════════════════════════════════
+  # PUBLISH TO NPM (on release)
+  # ═══════════════════════════════════════════════════════════════
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build, security]
+    if: github.event_name == 'release'
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      
+      - name: 📦 Install Dependencies
+        run: npm ci
+      
+      - name: 🔨 Build
+        run: npm run build
+      
+      - name: 📤 Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+MisterMind
+═══════════════════════════════════════════════════════════════════════════════
+
+@copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+@license PROPRIETARY AND CONFIDENTIAL
+
+This file is part of MisterMind.
+Unauthorized copying, modification, distribution, or use of this file,
+via any medium, is strictly prohibited without express written permission.
+
+For licensing inquiries: dimitar.papazov@mistermind.dev
+═══════════════════════════════════════════════════════════════════════════════
+-->
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate License - MISTER MIND</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --primary-light: #a78bfa;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --bg-dark: #0f0f23;
+            --bg-card: #1a1a2e;
+            --bg-input: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --text-muted: #64748b;
+            --border: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-logo {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Activation Card */
+        .activation-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 15px;
+        }
+
+        /* License Input */
+        .license-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .license-segment {
+            flex: 1;
+            position: relative;
+        }
+
+        .license-segment input {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-input);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Fira Code', monospace;
+            font-size: 18px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .license-segment input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+
+        .license-segment input.valid {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .license-segment input.invalid {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .license-segment::after {
+            content: '-';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 20px;
+        }
+
+        .license-segment:last-child::after {
+            display: none;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider span {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Full Input Alternative */
+        .full-license-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-input);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            margin-bottom: 24px;
+        }
+
+        .full-license-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+
+        .full-license-input::placeholder {
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        .btn.loading .btn-text { display: none; }
+        .btn.loading .spinner { display: inline-block; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Status Messages */
+        .status-message {
+            display: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-message.show {
+            display: flex;
+        }
+
+        .status-message.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+        }
+
+        .status-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--error);
+        }
+
+        .status-message.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--warning);
+        }
+
+        .status-icon {
+            font-size: 20px;
+        }
+
+        /* Help Section */
+        .help-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .help-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .help-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .help-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--text-primary);
+        }
+
+        .help-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .help-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Success Animation */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-content {
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .success-overlay.show .success-content {
+            transform: scale(1);
+        }
+
+        .success-checkmark {
+            width: 100px;
+            height: 100px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 24px;
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .success-text {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Footer Links */
+        .footer-links {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .license-input-group {
+                flex-direction: column;
+            }
+            
+            .license-segment::after {
+                display: none;
+            }
+            
+            .activation-card {
+                padding: 24px;
+            }
+        }
+
+        /* Purchase CTA */
+        .purchase-cta {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .purchase-cta h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .purchase-cta p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .purchase-cta .btn {
+            width: auto;
+            display: inline-flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">🔑</div>
+            <h1 class="header-title">Activate Your License</h1>
+            <p class="header-subtitle">Enter your license key to unlock all Pro features</p>
+        </div>
+
+        <!-- Activation Card -->
+        <div class="activation-card">
+            <h2 class="card-title">
+                <span>📋</span>
+                License Key
+            </h2>
+            <p class="card-description">
+                Enter the license key you received after purchase. It should look like: MM-XXXX-XXXX-XXXX
+            </p>
+
+            <!-- Status Message -->
+            <div class="status-message" id="status-message">
+                <span class="status-icon" id="status-icon">✓</span>
+                <span id="status-text">Your license has been activated!</span>
+            </div>
+
+            <!-- Segmented Input -->
+            <div class="license-input-group">
+                <div class="license-segment">
+                    <input type="text" id="seg1" maxlength="2" placeholder="MM" value="MM" readonly>
+                </div>
+                <div class="license-segment">
+                    <input type="text" id="seg2" maxlength="4" placeholder="XXXX" autofocus required>
+                </div>
+                <div class="license-segment">
+                    <input type="text" id="seg3" maxlength="4" placeholder="XXXX">
+                </div>
+                <div class="license-segment">
+                    <input type="text" id="seg4" maxlength="4" placeholder="XXXX">
+                </div>
+            </div>
+
+            <div class="divider">
+                <span>or paste full key</span>
+            </div>
+
+            <!-- Full Input -->
+            <input type="text" class="full-license-input" id="full-license" placeholder="Paste your full license key here (MM-XXXX-XXXX-XXXX)">
+
+            <!-- Activate Button -->
+            <button class="btn btn-primary" id="activate-btn" onclick="activateLicense()">
+                <span class="btn-text">🔓 Activate License</span>
+                <div class="spinner"></div>
+            </button>
+
+            <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'">
+                ← Back to Dashboard
+            </button>
+        </div>
+
+        <!-- Help Section -->
+        <div class="help-section">
+            <h3 class="help-title">
+                <span>❓</span>
+                Need Help?
+            </h3>
+            <div class="help-items">
+                <div class="help-item">
+                    <span>📧</span>
+                    <span>Can't find your key? Check your email from Polar.sh</span>
+                </div>
+                <div class="help-item">
+                    <span>🔄</span>
+                    <span>Having issues? <a href="mailto:support@mistermind.dev">Contact Support</a></span>
+                </div>
+                <div class="help-item">
+                    <span>📖</span>
+                    <span>Read the <a href="#">License FAQ</a></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase CTA -->
+        <div class="purchase-cta">
+            <h4>🚀 Don't have a license yet?</h4>
+            <p>Get Pro access and unlock AI-powered predictions, Chronos Engine, and more!</p>
+            <a href="https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe" class="btn btn-primary" target="_blank">
+                Get Pro License - $29/mo
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-links">
+            <a href="auth.html">Sign In</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+    </div>
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-content">
+            <div class="success-checkmark">✓</div>
+            <h2 class="success-title">License Activated!</h2>
+            <p class="success-text">Welcome to MISTER MIND Pro! All features are now unlocked.</p>
+            <button class="btn btn-primary" onclick="window.location.href='dashboard.html'" style="width:auto;margin:0 auto;">
+                Go to Dashboard →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Auto-focus and auto-advance segments
+        const segments = ['seg2', 'seg3', 'seg4'];
+        
+        segments.forEach((id, index) => {
+            const input = document.getElementById(id);
+            
+            input.addEventListener('input', (e) => {
+                const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                e.target.value = value;
+                
+                // Auto-advance to next segment
+                if (value.length === 4 && index < segments.length - 1) {
+                    document.getElementById(segments[index + 1]).focus();
+                }
+                
+                // Validate segment
+                if (value.length === 4) {
+                    e.target.classList.add('valid');
+                    e.target.classList.remove('invalid');
+                } else if (value.length > 0) {
+                    e.target.classList.remove('valid');
+                }
+                
+                // Update full input
+                updateFullInput();
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                // Backspace to previous
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    document.getElementById(segments[index - 1]).focus();
+                }
+            });
+            
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const paste = (e.clipboardData || window.clipboardData).getData('text');
+                handlePaste(paste);
+            });
+        });
+        
+        // Full license input
+        document.getElementById('full-license').addEventListener('input', (e) => {
+            const value = e.target.value.toUpperCase();
+            e.target.value = value;
+            
+            // Parse and fill segments
+            const match = value.match(/^MM-?([A-Z0-9]{0,4})-?([A-Z0-9]{0,4})-?([A-Z0-9]{0,4})$/i);
+            if (match) {
+                document.getElementById('seg2').value = match[1] || '';
+                document.getElementById('seg3').value = match[2] || '';
+                document.getElementById('seg4').value = match[3] || '';
+                
+                segments.forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input.value.length === 4) {
+                        input.classList.add('valid');
+                    } else {
+                        input.classList.remove('valid');
+                    }
+                });
+            }
+        });
+        
+        document.getElementById('full-license').addEventListener('paste', (e) => {
+            setTimeout(() => {
+                const value = e.target.value;
+                handlePaste(value);
+            }, 0);
+        });
+        
+        function handlePaste(text) {
+            const clean = text.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+            const match = clean.match(/^MM-?([A-Z0-9]{4})-?([A-Z0-9]{4})-?([A-Z0-9]{4})$/);
+            
+            if (match) {
+                document.getElementById('seg2').value = match[1];
+                document.getElementById('seg3').value = match[2];
+                document.getElementById('seg4').value = match[3];
+                document.getElementById('full-license').value = `MM-${match[1]}-${match[2]}-${match[3]}`;
+                
+                segments.forEach(id => {
+                    document.getElementById(id).classList.add('valid');
+                });
+            }
+        }
+        
+        function updateFullInput() {
+            const s2 = document.getElementById('seg2').value;
+            const s3 = document.getElementById('seg3').value;
+            const s4 = document.getElementById('seg4').value;
+            
+            if (s2 || s3 || s4) {
+                document.getElementById('full-license').value = `MM-${s2}-${s3}-${s4}`;
+            }
+        }
+        
+        // Activate License
+        async function activateLicense() {
+            const s2 = document.getElementById('seg2').value;
+            const s3 = document.getElementById('seg3').value;
+            const s4 = document.getElementById('seg4').value;
+            
+            const license = `MM-${s2}-${s3}-${s4}`;
+            
+            // Validate format
+            if (!/^MM-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(license)) {
+                showStatus('Please enter a valid license key (MM-XXXX-XXXX-XXXX)', 'error');
+                return;
+            }
+            
+            const btn = document.getElementById('activate-btn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            // Simulate API validation
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // In real app, validate with Polar.sh API
+            // For demo, accept any properly formatted key
+            const isValid = true; // Would be API response
+            
+            btn.classList.remove('loading');
+            btn.disabled = false;
+            
+            if (isValid) {
+                // Save license
+                localStorage.setItem('license', license);
+                localStorage.setItem('licenseActivatedAt', new Date().toISOString());
+                
+                // Show success
+                showStatus('License activated successfully!', 'success');
+                
+                // Show overlay
+                setTimeout(() => {
+                    document.getElementById('success-overlay').classList.add('show');
+                }, 500);
+            } else {
+                showStatus('Invalid license key. Please check and try again.', 'error');
+                segments.forEach(id => {
+                    document.getElementById(id).classList.add('invalid');
+                    document.getElementById(id).classList.remove('valid');
+                });
+            }
+        }
+        
+        function showStatus(message, type) {
+            const status = document.getElementById('status-message');
+            const icon = document.getElementById('status-icon');
+            const text = document.getElementById('status-text');
+            
+            icon.textContent = type === 'success' ? '✓' : type === 'error' ? '✕' : '⚠️';
+            text.textContent = message;
+            status.className = 'status-message show ' + type;
+        }
+        
+        // Check for existing license
+        document.addEventListener('DOMContentLoaded', () => {
+            const existing = localStorage.getItem('license');
+            if (existing) {
+                const match = existing.match(/^MM-([A-Z0-9]{4})-([A-Z0-9]{4})-([A-Z0-9]{4})$/);
+                if (match) {
+                    document.getElementById('seg2').value = match[1];
+                    document.getElementById('seg3').value = match[2];
+                    document.getElementById('seg4').value = match[3];
+                    document.getElementById('full-license').value = existing;
+                    
+                    segments.forEach(id => {
+                        document.getElementById(id).classList.add('valid');
+                    });
+                    
+                    showStatus('You already have an active license!', 'success');
+                }
+            }
+        });
+    </script>
+<!-- Toast Notification -->
+    <div class="toast" id="toast" style="position:fixed;bottom:24px;right:24px;padding:16px 24px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 40px rgba(0,0,0,0.3);transform:translateY(100px);opacity:0;transition:all 0.3s;z-index:1000;">
+        <span id="toast-icon">✓</span>
+        <span id="toast-message">Success!</span>
+    </div>
+    <script>
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+            document.getElementById('toast-message').textContent = msg;
+            t.style.borderLeft = type === 'success' ? '4px solid var(--success)' : '4px solid var(--error)';
+            t.style.transform = 'translateY(0)';
+            t.style.opacity = '1';
+            setTimeout(() => { t.style.transform = 'translateY(100px)'; t.style.opacity = '0'; }, 3000);
+        }
+    </script>
+</body>
+</html>

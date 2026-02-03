@@ -1,77 +1,40 @@
-# QANTUM - Source Available License
+═══════════════════════════════════════════════════════════════════════════════
+👑 QAntum Sovereign License: PROPRIETARY & CONFIDENTIAL 👑
+Copyright © 2025 Dimitar Prodromov. All Rights Reserved.
+═══════════════════════════════════════════════════════════════════════════════
 
-**Copyright (c) 2024-2025 Dimitar Papazov. All Rights Reserved.**
+IMPORTANT: PLEASE READ THIS LICENSE CAREFULLY.
 
----
+This software ("QAntum Sovereign Framework") and all its associated documentation, 
+source code, and binary assets are the exclusive property of Dimitar Prodromov.
 
-## 📋 LICENSE SUMMARY
+1. PROHIBITIONS (STRICTLY FORBIDDEN):
+   - You may NOT copy, modify, or distribute this code in any form.
+   - You may NOT use this code for any commercial or non-commercial purpose 
+     without express written permission from the owner.
+   - You may NOT reverse engineer, decompile, or attempt to extract the 
+     underlying logic (The Arsenal) of this framework.
+   - You may NOT sub-license or sell any part of this software.
 
-| Use Type | Allowed? | Requirements |
-|----------|----------|--------------|
-| 👀 View & Learn | ✅ Yes | None |
-| 🎓 Educational | ✅ Yes | Attribution |
-| 🏠 Personal Projects | ✅ Yes | Non-commercial |
-| 💼 Commercial Use | ⚠️ License Required | Purchase license |
-| 🏢 Company/Business | ⚠️ License Required | Purchase license |
+2. OWNERSHIP:
+   The user acknowledges that they do not acquire any ownership rights by 
+   accessing this repository. All intellectual property rights remain with 
+   Dimitar Prodromov.
 
----
+3. HARDWARE-LOCKING:
+   The use of this software is protected by SHA-256 hardware-locked licensing 
+   mechanisms. Any attempt to bypass these security gates is a violation 
+   of this agreement.
 
-## ✅ PERMITTED (Free)
+4. NO WARRANTY:
+   This software is provided "AS IS" without warranty of any kind. 
+   The owner shall not be liable for any claims or damages.
 
-You MAY freely:
-- View, read, and study the source code
-- Use for personal, non-commercial projects
-- Use for learning and educational purposes
-- Fork for personal experimentation
-- Reference in academic work (with attribution)
-- Evaluate for potential commercial use (30 days)
+5. TERMINATION:
+   Any breach of these terms will result in immediate termination of access 
+   and legal action under the Law of Veritas.
 
----
+For licensing inquiries or permission requests, contact: dimitar.papazov@QAntum.dev
 
-## 💰 LICENSE REQUIRED (Commercial)
-
-A paid license is REQUIRED to:
-- Use in any commercial project or product
-- Use in a company or organization
-- Use for freelance or client work
-- Integrate into paid products or services
-- Deploy in production for business purposes
-
-### Purchase Options
-
-| License | Price | Includes |
-|---------|-------|----------|
-| **Pro** | $29/month | Full features, 1 team |
-| **Enterprise** | $149/month | Unlimited, priority support |
-
-### 🛒 Purchase: https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe
-
----
-
-## ❌ NOT PERMITTED
-
-You may NOT:
-- Redistribute as your own product
-- Remove copyright notices
-- Sell or sublicense the software
-- Use trademarks without permission
-- Create competing products
-
----
-
-## ⚖️ LEGAL
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-
-IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE.
-
----
-
-## 📧 Contact
-
-For licensing inquiries: license@qantum.dev
-
----
-
-Copyright (c) 2024-2025 Dimitar Papazov
+/// STATUS: LEGAL_FORTRESS_ACTIVE. ///
+/// ENTROPY: 0.00 ///

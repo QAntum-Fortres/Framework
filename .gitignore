@@ -54,6 +54,7 @@ polyglot-modules/**/*.dll
 
 # Include new documentation
 !POLYGLOT-ZERO-DOWNTIME.md
+!ENTERPRISE-TRANSFORMATION-SUMMARY.md
 !QUICK-REFERENCE.md
 !DOCUMENTATION-50-STEPS.md
 !VISUAL-MAP-50-STEPS.md

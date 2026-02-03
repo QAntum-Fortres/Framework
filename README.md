@@ -34,13 +34,43 @@
 
 *Predict, Heal, and Dominate: Zero Entropy QA for the Next Generation.*
 
-[The Arsenal](#-the-sovereign-arsenal) • [Features](#-key-capabilities) • [Phase 1](#-phase-1-enterprise-foundation) • [Phase 2](#-phase-2-autonomous-intelligence) • [Phase 3](#-phase-3-domination)
+[The Arsenal](#-the-sovereign-arsenal) • [Features](#-key-capabilities) • [Phase 1](#-phase-1-enterprise-foundation) • [Phase 2](#-phase-2-autonomous-intelligence) • [Phase 3](#-phase-3-domination) • [Hud](#-the-arsenal-hud)
 
 ---
 
 **🇧🇬 Създадено за Империята | Built for the Empire**
 
 </div>
+
+---
+
+## 🛸 The Arsenal Hud
+
+*Runtime capability mapping as of v18.0.0 (Sovereign Singularity)*
+
+```text
+║   🎯 CAPABILITIES:                                                                                        ║
+║   ────────────────────────────────────────────────────────────────────────────────────────────────────    ║
+║   ✅ Cognitive Testing      ✅ Self-Healing      ✅ Visual Testing     ✅ Time Travel                     ║
+║   ✅ NLU Processing         ✅ Shadow DOM        ✅ Swarm Testing      ✅ Neural Security                  ║
+║   ✅ Quantum Scaling        ✅ Look-Ahead        ✅ Knowledge Transfer ✅ Genetic Evolution               ║
+║   ✅ Meta-Learning          ✅ Autonomous AI     ✅ SaaS Platform      ✅ Auto-Scaling                    ║
+║   ✅ PM Integrations        ✅ Device Farm       ✅ AI Negotiation     ✅ Compliance                       ║
+║   ✅ Predictive QA          ✅ Chaos Engineering  ✅ Global Orchestration ✅ Revenue Engine                  ║
+║   ✅ White Label Platform   ✅ Self-Documentation                                                          ║
+```
+
+---
+
+## 🛰️ 50-Step Strategic Progression
+
+The Sovereign Singularity orchestrates 50 critical steps toward total autonomy.
+
+| Phase | Milestone | Focus |
+|-------|-----------|-------|
+| **1** | [1-20] Enterprise Foundation | Stability, Uptime, Visual Integrity |
+| **2** | [21-35] Autonomous Intelligence | Self-Mutation, Learning, Security |
+| **3** | [36-50] Global Domination | Monetization, Orchestration, Chaos |
 
 ---
 

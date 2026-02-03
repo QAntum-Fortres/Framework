@@ -1,0 +1,16 @@
+{
+  "name": "crypto-rust",
+  "language": "rust",
+  "path": "./target/release/crypto_rust",
+  "version": "1.0.0",
+  "capabilities": [
+    "encrypt",
+    "decrypt",
+    "blake3_hash",
+    "hash_password",
+    "verify_password",
+    "sign",
+    "verify_signature"
+  ],
+  "fallback": "../../src/core/security/enterprise-security.ts"
+}

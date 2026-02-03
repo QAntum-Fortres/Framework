@@ -1,16 +1,16 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * For licensing inquiries: dimitar.papazov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -253,16 +253,16 @@ class FlakyHTTPClient {
 
 describe('🔴 CHAOS: Flaky Infrastructure Test', () => {
   let flakyClient: FlakyHTTPClient;
-  let MisterMind: any;
+  let QAntum: any;
   let mm: any;
   
   beforeAll(async () => {
-    // Import MisterMind
+    // Import QAntum
     const module = await import('../../src/index');
-    MisterMind = module.MisterMind;
+    QAntum = module.QAntum;
     
     // Create instance
-    mm = new MisterMind();
+    mm = new QAntum();
   });
   
   beforeEach(() => {
@@ -402,7 +402,7 @@ describe('🔴 CHAOS: Flaky Infrastructure Test', () => {
 
   describe('🔌 Circuit Breaker Activation', () => {
     it('should trip circuit breaker after consecutive failures', async () => {
-      // Use MisterMind's circuit breaker
+      // Use QAntum's circuit breaker
       console.log('\n   🔌 Testing circuit breaker activation...');
       
       // Simulate consecutive 500 errors

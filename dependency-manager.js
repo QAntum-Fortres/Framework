@@ -452,6 +452,274 @@ class VersionResolver {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// IOC CONTAINER - Dependency Injection Container
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Container - Inversion of Control (IoC) Container for Dependency Injection
+ * 
+ * @description Manages service registration and resolution with support for:
+ * - Singleton and transient lifetimes
+ * - Factory functions
+ * - Constructor injection
+ * - Lazy loading
+ * 
+ * @example
+ * const container = new Container();
+ * container.register('logger', LoggerService);
+ * container.registerSingleton('config', ConfigService);
+ * const logger = container.resolve('logger');
+ */
+class Container {
+    constructor() {
+        /**
+         * @type {Map<string, {type: string, value: any, instance: any}>}
+         * @description Registry of all registered services
+         */
+        this.services = new Map();
+        
+        /**
+         * @type {Map<string, any>}
+         * @description Cache for singleton instances
+         */
+        this.singletons = new Map();
+        
+        /**
+         * @type {Set<string>}
+         * @description Track resolution chain to detect circular dependencies
+         */
+        this.resolving = new Set();
+    }
+
+    /**
+     * Register a service (transient - new instance each time)
+     * 
+     * @param {string} name - Service identifier
+     * @param {Function|Object} implementation - Class constructor or factory function
+     * @param {Object} options - Registration options
+     * @param {Array<string>} options.dependencies - Names of dependencies to inject
+     * @returns {Container} - Returns this for chaining
+     * 
+     * @example
+     * container.register('userService', UserService, { dependencies: ['db', 'logger'] });
+     */
+    register(name, implementation, options = {}) {
+        if (!name || typeof name !== 'string') {
+            throw new Error('Service name must be a non-empty string');
+        }
+        
+        this.services.set(name, {
+            type: 'transient',
+            value: implementation,
+            dependencies: options.dependencies || [],
+            factory: options.factory || false
+        });
+        
+        return this;
+    }
+
+    /**
+     * Register a singleton service (same instance always)
+     * 
+     * @param {string} name - Service identifier
+     * @param {Function|Object} implementation - Class constructor or factory function
+     * @param {Object} options - Registration options
+     * @returns {Container} - Returns this for chaining
+     * 
+     * @example
+     * container.registerSingleton('database', DatabaseConnection);
+     */
+    registerSingleton(name, implementation, options = {}) {
+        if (!name || typeof name !== 'string') {
+            throw new Error('Service name must be a non-empty string');
+        }
+        
+        this.services.set(name, {
+            type: 'singleton',
+            value: implementation,
+            dependencies: options.dependencies || [],
+            factory: options.factory || false
+        });
+        
+        return this;
+    }
+
+    /**
+     * Register a factory function
+     * 
+     * @param {string} name - Service identifier
+     * @param {Function} factory - Factory function that returns the service
+     * @returns {Container} - Returns this for chaining
+     * 
+     * @example
+     * container.registerFactory('config', () => loadConfig());
+     */
+    registerFactory(name, factory) {
+        if (typeof factory !== 'function') {
+            throw new Error('Factory must be a function');
+        }
+        
+        this.services.set(name, {
+            type: 'transient',
+            value: factory,
+            dependencies: [],
+            factory: true
+        });
+        
+        return this;
+    }
+
+    /**
+     * Register an existing instance
+     * 
+     * @param {string} name - Service identifier
+     * @param {Object} instance - Already created instance
+     * @returns {Container} - Returns this for chaining
+     * 
+     * @example
+     * container.registerInstance('logger', existingLoggerInstance);
+     */
+    registerInstance(name, instance) {
+        this.services.set(name, {
+            type: 'singleton',
+            value: instance,
+            dependencies: [],
+            factory: false,
+            isInstance: true
+        });
+        this.singletons.set(name, instance);
+        
+        return this;
+    }
+
+    /**
+     * Resolve a service by name
+     * 
+     * @param {string} name - Service identifier to resolve
+     * @returns {Object} - The resolved service instance
+     * @throws {Error} - If service not found or circular dependency detected
+     * 
+     * @example
+     * const userService = container.resolve('userService');
+     */
+    resolve(name) {
+        if (!this.services.has(name)) {
+            throw new Error(`Service '${name}' not registered in container`);
+        }
+
+        // Check for circular dependencies
+        if (this.resolving.has(name)) {
+            const chain = Array.from(this.resolving).join(' -> ');
+            throw new Error(`Circular dependency detected: ${chain} -> ${name}`);
+        }
+
+        const registration = this.services.get(name);
+
+        // Return cached singleton if available
+        if (registration.type === 'singleton' && this.singletons.has(name)) {
+            return this.singletons.get(name);
+        }
+
+        // Return pre-registered instance
+        if (registration.isInstance) {
+            return registration.value;
+        }
+
+        // Track resolution for circular dependency detection
+        this.resolving.add(name);
+
+        try {
+            let instance;
+
+            if (registration.factory) {
+                // Call factory function
+                instance = registration.value(this);
+            } else if (typeof registration.value === 'function') {
+                // Resolve dependencies
+                const deps = registration.dependencies.map(dep => this.resolve(dep));
+                // Create new instance with dependencies
+                instance = new registration.value(...deps);
+            } else {
+                // Return value as-is
+                instance = registration.value;
+            }
+
+            // Cache singleton
+            if (registration.type === 'singleton') {
+                this.singletons.set(name, instance);
+            }
+
+            return instance;
+        } finally {
+            this.resolving.delete(name);
+        }
+    }
+
+    /**
+     * Check if a service is registered
+     * 
+     * @param {string} name - Service identifier
+     * @returns {boolean} - True if registered
+     */
+    has(name) {
+        return this.services.has(name);
+    }
+
+    /**
+     * Unregister a service
+     * 
+     * @param {string} name - Service identifier
+     * @returns {boolean} - True if service was removed
+     */
+    unregister(name) {
+        this.singletons.delete(name);
+        return this.services.delete(name);
+    }
+
+    /**
+     * Clear all registrations
+     */
+    clear() {
+        this.services.clear();
+        this.singletons.clear();
+        this.resolving.clear();
+    }
+
+    /**
+     * Get all registered service names
+     * 
+     * @returns {string[]} - Array of service names
+     */
+    getRegisteredServices() {
+        return Array.from(this.services.keys());
+    }
+
+    /**
+     * Create a child container that inherits from this container
+     * 
+     * @returns {Container} - New child container
+     */
+    createChild() {
+        const child = new Container();
+        child.parent = this;
+        
+        // Override resolve to check parent
+        const originalResolve = child.resolve.bind(child);
+        child.resolve = (name) => {
+            if (child.services.has(name)) {
+                return originalResolve(name);
+            }
+            if (child.parent) {
+                return child.parent.resolve(name);
+            }
+            throw new Error(`Service '${name}' not registered`);
+        };
+        
+        return child;
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // SINGLETON & FACTORY
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -470,6 +738,7 @@ function getDependencyManager(options = {}) {
 
 module.exports = {
     DependencyManager,
+    Container,
     VersionResolver,
     getDependencyManager,
     

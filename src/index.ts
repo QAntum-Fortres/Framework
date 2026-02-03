@@ -34,11 +34,11 @@
  * ║   @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved. ║
  * ║   @license PROPRIETARY AND CONFIDENTIAL                                       ║
  * ║                                                                               ║
- * ║   This file is part of MisterMind.                                            ║
+ * ║   This file is part of QAntum.                                            ║
  * ║   Unauthorized copying, modification, distribution, or use of this file,      ║
  * ║   via any medium, is strictly prohibited without express written permission.  ║
  * ║                                                                               ║
- * ║   For licensing inquiries: dimitar@mistermind.bg                              ║
+ * ║   For licensing inquiries: dimitar@QAntum.bg                              ║
  * ║                                                                               ║
  * ╚═══════════════════════════════════════════════════════════════════════════════╝
  */
@@ -165,7 +165,7 @@ export interface LogEntry {
   traceId?: string;
 }
 
-export interface MisterMindConfig {
+export interface QAntumConfig {
   /** Pro license key (format: MM-XXXX-XXXX-XXXX) */
   licenseKey?: string;
   /** Request timeout in milliseconds (default: 30000) */
@@ -411,7 +411,7 @@ export class BrowserFactory {
 }
 
 /**
- * # MisterMind v23.3.0 "Type-Safe Sovereign"
+ * # QAntum v23.3.0 "Type-Safe Sovereign"
  * 
  * The ultimate AI-powered QA automation framework with autonomous test execution,
  * self-healing selectors, bug prediction, and enterprise-grade security.
@@ -440,10 +440,10 @@ export class BrowserFactory {
  * ## 📚 Quick Start
  * 
  * ```typescript
- * import { MisterMind } from 'mister-mind';
+ * import { QAntum } from 'qantum';
  * 
  * // Initialize with Pro license
- * const mm = new MisterMind({ 
+ * const mm = new QAntum({ 
  *   licenseKey: 'MM-XXXX-XXXX-XXXX',
  *   verbose: true 
  * });
@@ -459,20 +459,20 @@ export class BrowserFactory {
  * console.log(prediction.riskScore); // 42
  * ```
  * 
- * @author Димитър Продромов (Dimitar Prodromov) <dimitar@mistermind.bg>
- * @copyright 2025 MisterMind. All Rights Reserved.
+ * @author Димитър Продромов (Dimitar Prodromov) <dimitar@QAntum.bg>
+ * @copyright 2025 QAntum. All Rights Reserved.
  * @license PROPRIETARY - See LICENSE file
- * @see {@link https://mister-mind.dev} Official Documentation
- * @see {@link https://github.com/papica777-eng/MrMindQATool} GitHub Repository
+ * @see {@link https://qantum.dev} Official Documentation
+ * @see {@link https://github.com/papica777-eng/QAntumQATool} GitHub Repository
  * 
  * @example
  * // Smart element finding with semantic search
- * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+ * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
  * await mm.smartClick(page, ['login', 'sign in', 'вход']);
  * await mm.smartFill(page, ['email', 'username'], 'user@example.com');
  */
-export class MisterMind {
-  private config: MisterMindConfig;
+export class QAntum {
+  private config: QAntumConfig;
   private isProLicense: boolean = false;
   private asc: AdaptiveSemanticCore | null = null;
   
@@ -543,7 +543,7 @@ export class MisterMind {
     openedAt: null,
   };
 
-  constructor(config: MisterMindConfig = {}) {
+  constructor(config: QAntumConfig = {}) {
     // Validate config
     if (config.timeout !== undefined && (typeof config.timeout !== 'number' || config.timeout < 0)) {
       throw new Error('Invalid timeout: must be a positive number');
@@ -582,7 +582,7 @@ export class MisterMind {
       this.initASC(config.asc);
     }
 
-    this.logger.info(`🧠 MisterMind v${VERSION} initialized`, {
+    this.logger.info(`🧠 QAntum v${VERSION} initialized`, {
       tier: this.isProLicense ? 'pro' : 'free',
       browserEngine: this.config.browserEngine,
       memoryHardening: this.config.enableMemoryHardening,
@@ -670,7 +670,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * // After running some AI operations
    * const stats = mm.getFinancialStats();
@@ -684,7 +684,7 @@ export class MisterMind {
    * ```
    * 
    * @since v20.0 "The Sovereign Singularity"
-   * @see {@link MisterMindConfig.financialOracle} for budget configuration
+   * @see {@link QAntumConfig.financialOracle} for budget configuration
    */
   getFinancialStats(): {
     totalCost: number;
@@ -715,7 +715,7 @@ export class MisterMind {
       level,
       message,
       timestamp: new Date(),
-      component: 'MisterMind',
+      component: 'QAntum',
       metadata: meta,
       traceId: this.observabilityBridge?.getCurrentTraceId() || undefined,
     };
@@ -736,7 +736,7 @@ export class MisterMind {
   /**
    * 📊 Get structured logger for external access
    * 
-   * Provides access to MisterMind's internal logging system.
+   * Provides access to QAntum's internal logging system.
    * Use this to integrate with external log aggregators (DataDog, Splunk, ELK)
    * or to inspect logs during debugging.
    * 
@@ -751,7 +751,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ verbose: true });
+   * const mm = new QAntum({ verbose: true });
    * const logger = mm.getLogger();
    * 
    * // Add custom log entries
@@ -807,7 +807,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ enableMemoryHardening: true });
+   * const mm = new QAntum({ enableMemoryHardening: true });
    * 
    * await mm.audit('https://site1.com');
    * await mm.audit('https://site2.com');
@@ -844,7 +844,7 @@ export class MisterMind {
   /**
    * 🧬 Initialize Self-Evolving Genetic Core
    * 
-   * SEGC is MisterMind's machine learning engine that continuously improves
+   * SEGC is QAntum's machine learning engine that continuously improves
    * test strategies through genetic algorithms. It learns from test failures
    * and successes to evolve better selectors and test patterns.
    * 
@@ -863,7 +863,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * await mm.initSEGC({
    *   populationSize: 100,
@@ -900,13 +900,13 @@ export class MisterMind {
    * 🧬 Get SEGC controller
    * 
    * Returns the raw SEGC controller for advanced genetic algorithm operations.
-   * Use this for direct access to low-level SEGC APIs not exposed by MisterMind.
+   * Use this for direct access to low-level SEGC APIs not exposed by QAntum.
    * 
    * @returns SEGCController instance or null if SEGC not initialized
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * await mm.initSEGC();
    * 
    * const segc = mm.getSEGC();
@@ -937,7 +937,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * await mm.initSEGC();
    * 
    * // After running tests
@@ -975,7 +975,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * await mm.initSEGC();
    * 
    * // Run evolution after test suite
@@ -1019,7 +1019,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * await mm.initSEGC();
    * 
    * // Find alternatives for a flaky selector
@@ -1062,7 +1062,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * await mm.initSEGC();
    * 
    * // Create baseline
@@ -1111,7 +1111,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * await mm.initSEGC();
    * 
    * // 50/50 split
@@ -1158,7 +1158,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-ENTERPRISE-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-ENTERPRISE-KEY' });
    * 
    * await mm.initBastion({
    *   sandboxTimeout: 10000,
@@ -1420,7 +1420,7 @@ export class MisterMind {
    * ```typescript
    * const health = await mm.getSystemHealth();
    * if (health?.overall === 'unhealthy') {
-   *   await alertOps('MisterMind Bastion unhealthy', health);
+   *   await alertOps('QAntum Bastion unhealthy', health);
    * }
    * ```
    * 
@@ -1435,7 +1435,7 @@ export class MisterMind {
    * 🏰 Track browser for GC-friendly cleanup
    * 
    * Registers a browser instance for automatic cleanup via FinalizationRegistry.
-   * Use this when manually launching browsers outside MisterMind's control.
+   * Use this when manually launching browsers outside QAntum's control.
    * 
    * @param browser - Browser instance (Playwright or Selenium)
    * @param instanceId - Unique identifier for tracking
@@ -1474,7 +1474,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind();
+   * const mm = new QAntum();
    * 
    * const audit = await mm.audit('https://example.com');
    * 
@@ -1866,7 +1866,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind();
+   * const mm = new QAntum();
    * 
    * const result = await mm.checkLinks('https://example.com', {
    *   maxLinks: 100,
@@ -1990,7 +1990,7 @@ export class MisterMind {
               validateStatus: () => true,
               maxRedirects: 5,
               headers: {
-                'User-Agent': 'MisterMind-LinkChecker/1.0'
+                'User-Agent': 'QAntum-LinkChecker/1.0'
               }
             });
             
@@ -2072,7 +2072,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind();
+   * const mm = new QAntum();
    * 
    * // GET request
    * const result = await mm.testAPI('https://api.example.com/users');
@@ -2123,7 +2123,7 @@ export class MisterMind {
         method: method as any,
         url: endpoint,
         headers: {
-          'User-Agent': 'MisterMind-APITest/1.0',
+          'User-Agent': 'QAntum-APITest/1.0',
           ...headers
         },
         data: body,
@@ -2253,7 +2253,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * const gitDiff = await exec('git diff HEAD~1');
    * const testHistory = await loadTestResults('./reports/*.json');
@@ -2733,7 +2733,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * const result = await mm.chronos({
    *   autoSnapshot: true,
@@ -2916,7 +2916,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * // From OpenAPI spec
    * const result = await mm.apiSensei({
@@ -3283,7 +3283,7 @@ export class MisterMind {
         method: test.method as any,
         url: test.endpoint,
         headers: {
-          'User-Agent': 'MisterMind-APISensei/1.0',
+          'User-Agent': 'QAntum-APISensei/1.0',
           ...authHeaders
         },
         data: test.body,
@@ -3843,7 +3843,7 @@ export class MisterMind {
    * 💎 PRO: Execute common intent
    * 
    * Uses pre-defined intents for common user actions. No need to specify
-   * keywords - MisterMind knows what "LOGIN" means across all websites.
+   * keywords - QAntum knows what "LOGIN" means across all websites.
    * 
    * **Available Actions:**
    * - `LOGIN` - Find and click login button
@@ -3866,7 +3866,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * await mm.doAction(page, 'SEARCH', 'playwright testing');
    * await mm.doAction(page, 'LOGIN');
@@ -3975,7 +3975,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * await mm.initSwarm({
    *   maxAgents: 8,
@@ -4029,7 +4029,7 @@ export class MisterMind {
 
     this.observabilityBridge = new ObservabilityBridge({
       verbose: this.config.verbose,
-      serviceName: 'mister-mind-swarm',
+      serviceName: 'qantum-swarm',
       serviceVersion: VERSION,
       consoleExport: this.config.verbose,
     });
@@ -4328,7 +4328,7 @@ export class MisterMind {
   /**
    * 🔌 Shutdown all components
    * 
-   * Master shutdown method that gracefully terminates all MisterMind
+   * Master shutdown method that gracefully terminates all QAntum
    * subsystems. **Always call this before process exit.**
    * 
    * **Components Shutdown:**
@@ -4341,7 +4341,7 @@ export class MisterMind {
    * 
    * @example
    * ```typescript
-   * const mm = new MisterMind({ licenseKey: 'MM-PRO-KEY' });
+   * const mm = new QAntum({ licenseKey: 'MM-PRO-KEY' });
    * 
    * try {
    *   await mm.initSwarm();
@@ -4365,16 +4365,16 @@ export class MisterMind {
     await this.shutdownSwarm();
     
     if (this.config.verbose) {
-      console.log('🧠 Mister Mind shutdown complete');
+      console.log('🧠 QANTUM shutdown complete');
     }
   }
 }
 
 // Default export
-export default MisterMind;
+export default QAntum;
 
 // Named exports for convenience
-export const createMisterMind = (config?: MisterMindConfig) => new MisterMind(config);
+export const createQAntum = (config?: QAntumConfig) => new QAntum(config);
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // Version & Branding
@@ -4387,7 +4387,7 @@ export const VERSION = '26.0.0';
 export const VERSION_CODENAME = 'Sovereign Nexus';
 
 /** Full version string */
-export const VERSION_FULL = `MisterMind v${VERSION} "${VERSION_CODENAME}"`;
+export const VERSION_FULL = `QAntum v${VERSION} "${VERSION_CODENAME}"`;
 
 /**
  * 🎨 Print ASCII banner to console (optional visualization)
@@ -4404,7 +4404,7 @@ export function printBanner(options: { color?: boolean; compact?: boolean } = {}
   const bold = color ? '\x1b[1m' : '';
   
   if (compact) {
-    console.log(`${cyan}${bold}🧠 MisterMind${reset} ${yellow}v${VERSION}${reset} ${magenta}"${VERSION_CODENAME}"${reset}`);
+    console.log(`${cyan}${bold}🧠 QAntum${reset} ${yellow}v${VERSION}${reset} ${magenta}"${VERSION_CODENAME}"${reset}`);
     console.log(`${green}   Made with ❤️ in Bulgaria 🇧🇬${reset}\n`);
     return;
   }

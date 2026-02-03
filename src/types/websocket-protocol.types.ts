@@ -1,5 +1,5 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║  MISTER MIND v23.3.0 - WebSocket Protocol Type Definitions                    ║
+// ║  QANTUM v23.3.0 - WebSocket Protocol Type Definitions                    ║
 // ║  "Type-Safe Sovereign" - Neural HUD API Contract                              ║
 // ║  SHARED BETWEEN FRONTEND & BACKEND - Single Source of Truth                   ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
@@ -268,12 +268,12 @@ export interface IHardwareTelemetry {
   readonly network: readonly INetworkTelemetry[];
   /** System uptime in seconds */
   readonly uptime: number;
-  /** MisterMind process metrics */
+  /** QAntum process metrics */
   readonly process: IProcessTelemetry;
 }
 
 /**
- * MisterMind process metrics
+ * QAntum process metrics
  */
 export interface IProcessTelemetry {
   /** Process ID */

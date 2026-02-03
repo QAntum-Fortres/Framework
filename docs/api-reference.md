@@ -1,11 +1,11 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind v23.0.0 "The Local Sovereign" - API Reference
+QAntum v23.0.0 "The Local Sovereign" - API Reference
 © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# 📚 MisterMind API Reference
+# 📚 QAntum API Reference
 
 ## v23.0.0 "The Local Sovereign"
 
@@ -301,7 +301,7 @@ Configuration management.
 ```typescript
 import { ConfigManager } from './src/utils/config-manager';
 
-const config = ConfigManager.load('.mistermindrc');
+const config = ConfigManager.load('.QAntumrc');
 const value = config.get<T>('key', defaultValue);
 config.set('key', value);
 config.save();
@@ -370,7 +370,7 @@ interface LicenseInfo {
 
 ## 🔧 Configuration Files
 
-### .mistermindrc
+### .QAntumrc
 
 ```json
 {

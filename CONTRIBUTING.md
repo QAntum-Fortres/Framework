@@ -1,4 +1,4 @@
-# 🤝 Contributing to MISTER MIND
+# 🤝 Contributing to QANTUM
 
 Thank you for your interest in contributing! This document provides guidelines and best practices.
 
@@ -20,8 +20,8 @@ Thank you for your interest in contributing! This document provides guidelines a
 
 ```bash
 # Clone the repo
-git clone https://github.com/papica777-eng/MrMindQATool.git
-cd MrMindQATool
+git clone https://github.com/papica777-eng/QAntumQATool.git
+cd QAntumQATool
 
 # Install dependencies
 npm install
@@ -131,7 +131,7 @@ try {
 
 ## ❓ Questions?
 
-- Open a [GitHub Issue](https://github.com/papica777-eng/MrMindQATool/issues)
+- Open a [GitHub Issue](https://github.com/papica777-eng/QAntumQATool/issues)
 - Email: papica777.eng@gmail.com
 
 ---

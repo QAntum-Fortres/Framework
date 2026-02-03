@@ -1,11 +1,11 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind v23.0.0 "The Local Sovereign" - Enterprise Documentation
+QAntum v23.0.0 "The Local Sovereign" - Enterprise Documentation
 © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# 🏢 MisterMind Enterprise Guide
+# 🏢 QAntum Enterprise Guide
 
 ## v23.0.0 "The Local Sovereign"
 
@@ -180,7 +180,7 @@ import { LicenseManager } from './src/enterprise/license-manager';
 const license = new LicenseManager();
 const hwId = license.generateHardwareId();
 
-license.loadLicense('./.mistermind.license');
+license.loadLicense('./.QAntum.license');
 const validation = license.validate();
 ```
 

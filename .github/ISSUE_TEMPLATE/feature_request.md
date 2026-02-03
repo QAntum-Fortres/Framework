@@ -1,6 +1,6 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+QAntum | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
@@ -24,7 +24,7 @@ How do you think it should work?
 
 ```javascript
 // Example usage
-const mm = new MisterMind();
+const mm = new QAntum();
 await mm.yourNewFeature();
 ```
 

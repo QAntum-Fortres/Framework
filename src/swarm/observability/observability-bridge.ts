@@ -1,16 +1,16 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * For licensing inquiries: dimitar.papazov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -87,7 +87,7 @@ export class ObservabilityBridge extends EventEmitter {
     super();
     
     this.config = {
-      serviceName: config?.serviceName || 'mister-mind-swarm',
+      serviceName: config?.serviceName || 'qantum-swarm',
       serviceVersion: config?.serviceVersion || '17.0.0',
       endpoint: config?.endpoint || 'http://localhost:4318/v1/traces',
       exportInterval: config?.exportInterval || 30000,

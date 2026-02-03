@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind v23.0.0 - PHASE 3 TEST SUITE
+ * QAntum v23.0.0 - PHASE 3 TEST SUITE
  * "THE SOVEREIGN DASHBOARD & SHIELD"
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
@@ -104,7 +104,7 @@ describe('DashboardServer - Sovereign Control Center', () => {
             expect(response.headers.get('content-type')).toContain('text/html');
             
             const html = await response.text();
-            expect(html).toContain('MisterMind');
+            expect(html).toContain('QAntum');
             expect(html).toContain('Sovereign Control Center');
         });
         
@@ -404,7 +404,7 @@ describe('DashboardServer - Sovereign Control Center', () => {
 
 describe('LicenseManager - Intellectual Shield', () => {
     let manager: LicenseManager;
-    const testLicenseFile = path.join(os.tmpdir(), '.mistermind-test.license');
+    const testLicenseFile = path.join(os.tmpdir(), '.QAntum-test.license');
     
     beforeEach(() => {
         manager = new LicenseManager();

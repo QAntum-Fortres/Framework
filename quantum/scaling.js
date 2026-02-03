@@ -178,7 +178,7 @@ class QuantumOptimizer extends EventEmitter {
         for (let i = 0; i < state.amplitudes.length; i++) {
             const bitString = this._indexToBitString(i, dimensions);
             const cost = objective(bitString);
-            const phase = Math.exp(-1j * gamma * cost) || Math.cos(gamma * cost);
+            const phase = Math.cos(gamma * cost);
             state.amplitudes[i] *= phase;
         }
     }

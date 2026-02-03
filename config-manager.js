@@ -666,9 +666,14 @@ class EnvironmentProfiles {
 let instance = null;
 
 module.exports = {
+    // Primary Classes
     ConfigSchema,
     ConfigurationManager,
     EnvironmentProfiles,
+    
+    // Aliases for compatibility
+    ConfigManager: ConfigurationManager,
+    SchemaValidator: ConfigSchema,
     
     // Factory
     createManager: (options) => new ConfigurationManager(options),

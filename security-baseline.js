@@ -580,6 +580,516 @@ class SecurityBaseline extends EventEmitter {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// RBAC - Role-Based Access Control (Standalone Class)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * RBAC - Role-Based Access Control Manager
+ * 
+ * @description Standalone RBAC implementation for fine-grained access control
+ * 
+ * @example
+ * const rbac = new RBAC();
+ * rbac.addRole('editor', ['document:read', 'document:write']);
+ * rbac.assignRole('user123', 'editor');
+ * const canWrite = rbac.can('user123', 'document:write'); // true
+ */
+class RBAC {
+    constructor(options = {}) {
+        /**
+         * @type {Map<string, {permissions: string[], description: string}>}
+         * @description Role definitions
+         */
+        this.roles = new Map();
+        
+        /**
+         * @type {Map<string, Set<string>>}
+         * @description User to roles mapping
+         */
+        this.userRoles = new Map();
+        
+        /**
+         * @type {Set<string>}
+         * @description Valid resources
+         */
+        this.resources = new Set(options.resources || [
+            'model', 'data', 'experiment', 'metrics', 'config', 'user', 'system', 'document'
+        ]);
+        
+        /**
+         * @type {Set<string>}
+         * @description Valid actions
+         */
+        this.actions = new Set(options.actions || [
+            'create', 'read', 'update', 'delete', 'train', 'inference', 'upload', 'download', 'write', 'execute'
+        ]);
+        
+        // Initialize default roles if provided
+        if (options.defaultRoles) {
+            for (const [name, config] of Object.entries(options.defaultRoles)) {
+                this.addRole(name, config.permissions, config.description);
+            }
+        }
+    }
+
+    /**
+     * Add a new role with permissions
+     * 
+     * @param {string} name - Role name
+     * @param {string[]} permissions - Array of permissions (format: 'resource:action')
+     * @param {string} description - Role description
+     * @returns {RBAC} - Returns this for chaining
+     */
+    addRole(name, permissions = [], description = '') {
+        if (!name || typeof name !== 'string') {
+            throw new Error('Role name must be a non-empty string');
+        }
+        
+        this.roles.set(name, {
+            permissions: [...permissions],
+            description
+        });
+        
+        return this;
+    }
+
+    /**
+     * Remove a role
+     * 
+     * @param {string} name - Role name
+     * @returns {boolean} - True if role was removed
+     */
+    removeRole(name) {
+        // Remove role from all users
+        for (const roles of this.userRoles.values()) {
+            roles.delete(name);
+        }
+        return this.roles.delete(name);
+    }
+
+    /**
+     * Get role by name
+     * 
+     * @param {string} name - Role name
+     * @returns {Object|null} - Role object or null
+     */
+    getRole(name) {
+        return this.roles.get(name) || null;
+    }
+
+    /**
+     * Get all roles
+     * 
+     * @returns {Object} - All roles as object
+     */
+    getRoles() {
+        const result = {};
+        for (const [name, config] of this.roles) {
+            result[name] = { ...config };
+        }
+        return result;
+    }
+
+    /**
+     * Add permission to a role
+     * 
+     * @param {string} roleName - Role name
+     * @param {string} permission - Permission to add
+     * @returns {boolean} - True if added
+     */
+    addPermissionToRole(roleName, permission) {
+        const role = this.roles.get(roleName);
+        if (!role) return false;
+        
+        if (!role.permissions.includes(permission)) {
+            role.permissions.push(permission);
+        }
+        return true;
+    }
+
+    /**
+     * Remove permission from a role
+     * 
+     * @param {string} roleName - Role name
+     * @param {string} permission - Permission to remove
+     * @returns {boolean} - True if removed
+     */
+    removePermissionFromRole(roleName, permission) {
+        const role = this.roles.get(roleName);
+        if (!role) return false;
+        
+        const index = role.permissions.indexOf(permission);
+        if (index > -1) {
+            role.permissions.splice(index, 1);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Assign role to user
+     * 
+     * @param {string} userId - User identifier
+     * @param {string} roleName - Role to assign
+     * @returns {boolean} - True if assigned
+     */
+    assignRole(userId, roleName) {
+        if (!this.roles.has(roleName)) {
+            throw new Error(`Role '${roleName}' does not exist`);
+        }
+        
+        if (!this.userRoles.has(userId)) {
+            this.userRoles.set(userId, new Set());
+        }
+        
+        this.userRoles.get(userId).add(roleName);
+        return true;
+    }
+
+    /**
+     * Unassign role from user
+     * 
+     * @param {string} userId - User identifier
+     * @param {string} roleName - Role to unassign
+     * @returns {boolean} - True if unassigned
+     */
+    unassignRole(userId, roleName) {
+        const roles = this.userRoles.get(userId);
+        if (!roles) return false;
+        return roles.delete(roleName);
+    }
+
+    /**
+     * Get user's roles
+     * 
+     * @param {string} userId - User identifier
+     * @returns {string[]} - Array of role names
+     */
+    getUserRoles(userId) {
+        const roles = this.userRoles.get(userId);
+        return roles ? Array.from(roles) : [];
+    }
+
+    /**
+     * Get all permissions for a user
+     * 
+     * @param {string} userId - User identifier
+     * @returns {string[]} - Array of all permissions
+     */
+    getUserPermissions(userId) {
+        const userRoles = this.userRoles.get(userId);
+        if (!userRoles) return [];
+        
+        const permissions = new Set();
+        for (const roleName of userRoles) {
+            const role = this.roles.get(roleName);
+            if (role) {
+                for (const perm of role.permissions) {
+                    permissions.add(perm);
+                }
+            }
+        }
+        
+        return Array.from(permissions);
+    }
+
+    /**
+     * Check if user has permission
+     * 
+     * @param {string} userId - User identifier
+     * @param {string} permission - Permission to check (format: 'resource:action')
+     * @returns {boolean} - True if user has permission
+     */
+    can(userId, permission) {
+        const userRoles = this.userRoles.get(userId);
+        if (!userRoles) return false;
+        
+        for (const roleName of userRoles) {
+            const role = this.roles.get(roleName);
+            if (!role) continue;
+            
+            // Check for wildcard (admin)
+            if (role.permissions.includes('*')) return true;
+            
+            // Check exact permission
+            if (role.permissions.includes(permission)) return true;
+            
+            // Check resource wildcard
+            const [resource, action] = permission.split(':');
+            if (role.permissions.includes(`${resource}:*`)) return true;
+            if (role.permissions.includes(`*:${action}`)) return true;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Alias for can()
+     */
+    hasPermission(userId, permission) {
+        return this.can(userId, permission);
+    }
+
+    /**
+     * Check if role has permission
+     * 
+     * @param {string} roleName - Role name
+     * @param {string} permission - Permission to check
+     * @returns {boolean} - True if role has permission
+     */
+    roleHasPermission(roleName, permission) {
+        const role = this.roles.get(roleName);
+        if (!role) return false;
+        
+        if (role.permissions.includes('*')) return true;
+        if (role.permissions.includes(permission)) return true;
+        
+        const [resource, action] = permission.split(':');
+        if (role.permissions.includes(`${resource}:*`)) return true;
+        if (role.permissions.includes(`*:${action}`)) return true;
+        
+        return false;
+    }
+
+    /**
+     * Clear all user role assignments
+     */
+    clearUserRoles() {
+        this.userRoles.clear();
+    }
+
+    /**
+     * Get summary
+     * 
+     * @returns {Object} - Summary object
+     */
+    getSummary() {
+        return {
+            totalRoles: this.roles.size,
+            totalUsers: this.userRoles.size,
+            roles: Array.from(this.roles.keys()),
+            resources: Array.from(this.resources),
+            actions: Array.from(this.actions)
+        };
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ENCRYPTION - Standalone Encryption Class
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Encryption - Standalone encryption/decryption utilities
+ * 
+ * @description Provides encryption, decryption, hashing, and key derivation
+ * 
+ * @example
+ * const enc = new Encryption();
+ * const { key, salt } = enc.deriveKey('password');
+ * const encrypted = enc.encrypt({ secret: 'data' }, key);
+ * const decrypted = enc.decrypt(encrypted, key);
+ */
+class Encryption {
+    constructor(options = {}) {
+        /**
+         * @type {string}
+         * @description Encryption algorithm (default: aes-256-gcm)
+         */
+        this.algorithm = options.algorithm || 'aes-256-gcm';
+        
+        /**
+         * @type {string}
+         * @description Hash algorithm (default: sha256)
+         */
+        this.hashAlgorithm = options.hashAlgorithm || 'sha256';
+        
+        /**
+         * @type {number}
+         * @description Key length in bytes
+         */
+        this.keyLength = options.keyLength || 32;
+        
+        /**
+         * @type {number}
+         * @description IV length in bytes
+         */
+        this.ivLength = options.ivLength || 12;
+        
+        /**
+         * @type {number}
+         * @description Salt length in bytes
+         */
+        this.saltLength = options.saltLength || 32;
+    }
+
+    /**
+     * Derive key from password using scrypt
+     * 
+     * @param {string} password - Password to derive key from
+     * @param {Buffer|null} salt - Optional salt (generated if not provided)
+     * @returns {Object} - { key: Buffer, salt: Buffer }
+     */
+    deriveKey(password, salt = null) {
+        salt = salt || crypto.randomBytes(this.saltLength);
+        
+        const key = crypto.scryptSync(password, salt, this.keyLength, {
+            N: 16384,
+            r: 8,
+            p: 1
+        });
+        
+        return { key, salt };
+    }
+
+    /**
+     * Generate random key
+     * 
+     * @param {number} length - Key length in bytes
+     * @returns {Buffer} - Random key
+     */
+    generateKey(length = null) {
+        return crypto.randomBytes(length || this.keyLength);
+    }
+
+    /**
+     * Encrypt data
+     * 
+     * @param {any} data - Data to encrypt (will be JSON stringified)
+     * @param {Buffer} key - Encryption key
+     * @returns {Object} - { encrypted: string, iv: string, authTag: string }
+     */
+    encrypt(data, key) {
+        const iv = crypto.randomBytes(this.ivLength);
+        const cipher = crypto.createCipheriv(this.algorithm, key, iv);
+        
+        let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
+        encrypted += cipher.final('hex');
+        
+        const authTag = cipher.getAuthTag();
+        
+        return {
+            encrypted,
+            iv: iv.toString('hex'),
+            authTag: authTag.toString('hex'),
+            algorithm: this.algorithm
+        };
+    }
+
+    /**
+     * Decrypt data
+     * 
+     * @param {Object} encryptedData - Encrypted data object
+     * @param {Buffer} key - Decryption key
+     * @returns {any} - Decrypted data (parsed from JSON)
+     */
+    decrypt(encryptedData, key) {
+        const algorithm = encryptedData.algorithm || this.algorithm;
+        
+        const decipher = crypto.createDecipheriv(
+            algorithm,
+            key,
+            Buffer.from(encryptedData.iv, 'hex')
+        );
+        
+        decipher.setAuthTag(Buffer.from(encryptedData.authTag, 'hex'));
+        
+        let decrypted = decipher.update(encryptedData.encrypted, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        
+        return JSON.parse(decrypted);
+    }
+
+    /**
+     * Hash data
+     * 
+     * @param {any} data - Data to hash
+     * @returns {string} - Hex-encoded hash
+     */
+    hash(data) {
+        return crypto
+            .createHash(this.hashAlgorithm)
+            .update(typeof data === 'string' ? data : JSON.stringify(data))
+            .digest('hex');
+    }
+
+    /**
+     * Create HMAC
+     * 
+     * @param {any} data - Data to sign
+     * @param {string|Buffer} key - HMAC key
+     * @returns {string} - Hex-encoded HMAC
+     */
+    hmac(data, key) {
+        return crypto
+            .createHmac(this.hashAlgorithm, key)
+            .update(typeof data === 'string' ? data : JSON.stringify(data))
+            .digest('hex');
+    }
+
+    /**
+     * Verify HMAC
+     * 
+     * @param {any} data - Original data
+     * @param {string|Buffer} key - HMAC key
+     * @param {string} signature - HMAC signature to verify
+     * @returns {boolean} - True if valid
+     */
+    verifyHmac(data, key, signature) {
+        const computed = this.hmac(data, key);
+        return crypto.timingSafeEqual(
+            Buffer.from(computed, 'hex'),
+            Buffer.from(signature, 'hex')
+        );
+    }
+
+    /**
+     * Generate secure random token
+     * 
+     * @param {number} bytes - Number of bytes
+     * @returns {string} - Hex-encoded token
+     */
+    generateToken(bytes = 32) {
+        return crypto.randomBytes(bytes).toString('hex');
+    }
+
+    /**
+     * Generate UUID v4
+     * 
+     * @returns {string} - UUID string
+     */
+    generateUUID() {
+        return crypto.randomUUID();
+    }
+
+    /**
+     * Constant-time string comparison
+     * 
+     * @param {string} a - First string
+     * @param {string} b - Second string
+     * @returns {boolean} - True if equal
+     */
+    secureCompare(a, b) {
+        if (a.length !== b.length) return false;
+        return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
+    }
+
+    /**
+     * Get summary
+     * 
+     * @returns {Object} - Encryption configuration summary
+     */
+    getSummary() {
+        return {
+            algorithm: this.algorithm,
+            hashAlgorithm: this.hashAlgorithm,
+            keyLength: this.keyLength,
+            ivLength: this.ivLength,
+            saltLength: this.saltLength
+        };
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // SINGLETON & FACTORY
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -598,6 +1108,8 @@ function getSecurityBaseline(options = {}) {
 
 module.exports = {
     SecurityBaseline,
+    RBAC,
+    Encryption,
     getSecurityBaseline,
     
     // Quick access

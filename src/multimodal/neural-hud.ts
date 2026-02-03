@@ -1,16 +1,16 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.prodromov@mistermind.dev
+ * For licensing inquiries: dimitar.prodromov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -104,7 +104,7 @@ export type ModuleSource =
     | 'system'
     // v26.0 Sovereign Nexus additions
     | 'nexus_coordinator'
-    | 'shield'          // Mister Mind (defensive QA)
+    | 'shield'          // QANTUM (defensive QA)
     | 'sword'           // CyberCody (offensive security)
     | 'surgeon'         // Patch generator
     | 'chronos'         // MCTS look-ahead engine
@@ -1109,7 +1109,7 @@ export class NeuralHUD extends EventEmitter {
     }
     
     /**
-     * v26.0: Log test generation from Mister Mind (Shield)
+     * v26.0: Log test generation from QANTUM (Shield)
      */
     logTestGenerated(testId: string, vulnerabilityId: string, duration: number): NexusLogEntry {
         return this.logNexusEvent({

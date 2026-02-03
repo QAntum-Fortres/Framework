@@ -13,7 +13,7 @@ We take security seriously. If you discover a security vulnerability, please rep
 
 ### How to Report
 
-1. **Email**: Send details to [security@mistermind.dev](mailto:papica777.eng@gmail.com)
+1. **Email**: Send details to [security@QAntum.dev](mailto:papica777.eng@gmail.com)
 2. **Subject**: "SECURITY: [Brief Description]"
 3. **Include**:
    - Description of the vulnerability
@@ -35,21 +35,21 @@ We take security seriously. If you discover a security vulnerability, please rep
 
 ## 🛡️ Security Best Practices
 
-When using MISTER MIND:
+When using QANTUM:
 
 1. **Keep your license key secret** - Never commit it to version control
 2. **Use environment variables** for sensitive data
 3. **Keep dependencies updated** - Run `npm audit` regularly
-4. **Use the latest version** of MISTER MIND
+4. **Use the latest version** of QANTUM
 
 ```javascript
 // ✅ Good - Use environment variables
-const mm = new MisterMind({
-  licenseKey: process.env.MISTER_MIND_LICENSE
+const mm = new QAntum({
+  licenseKey: process.env.qantum_LICENSE
 });
 
 // ❌ Bad - Hardcoded license
-const mm = new MisterMind({
+const mm = new QAntum({
   licenseKey: 'MM-XXXX-XXXX-XXXX'
 });
 ```
@@ -61,4 +61,4 @@ const mm = new MisterMind({
 - Each key is tied to a specific email/account
 - Keys can be revoked if compromised
 
-Thank you for helping keep MISTER MIND secure! 🙏
+Thank you for helping keep QANTUM secure! 🙏

@@ -1,21 +1,21 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * For licensing inquiries: dimitar.papazov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 /**
- * 🧪 SIMPLE TEST RUNNER - MISTER MIND
+ * 🧪 SIMPLE TEST RUNNER - QANTUM
  * Runs unit tests only - no network calls, no hanging
  */
 
@@ -85,7 +85,7 @@ async function runTest(testFile) {
 async function main() {
   console.log('');
   console.log('╔══════════════════════════════════════════════════════╗');
-  console.log('║         🧠 MISTER MIND - TEST RUNNER                 ║');
+  console.log('║         🧠 QANTUM - TEST RUNNER                 ║');
   console.log('╚══════════════════════════════════════════════════════╝');
   console.log('');
 

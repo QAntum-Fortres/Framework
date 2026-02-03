@@ -1,16 +1,16 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.prodromov@mistermind.dev
+ * For licensing inquiries: dimitar.prodromov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -24,7 +24,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎛️ THE INTEGRATED DASHBOARD - Real-time Sovereign Control Center
 // ═══════════════════════════════════════════════════════════════════════════════
-// Live streaming dashboard for MisterMind at http://localhost:3847
+// Live streaming dashboard for QAntum at http://localhost:3847
 // Visualizes: CPU temperature, Docker status, Bulgarian activity logs
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -600,7 +600,7 @@ export class DashboardServer extends EventEmitter {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterMind Dashboard - Sovereign Control Center</title>
+    <title>QAntum Dashboard - Sovereign Control Center</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -994,7 +994,7 @@ export class DashboardServer extends EventEmitter {
         <div class="logo">
             <div class="logo-icon">🧠</div>
             <div class="logo-text">
-                <h1>MisterMind</h1>
+                <h1>QAntum</h1>
                 <span>Sovereign Control Center v23.0.0</span>
             </div>
         </div>
@@ -1111,7 +1111,7 @@ export class DashboardServer extends EventEmitter {
     </main>
     
     <footer class="footer">
-        © 2025 <a href="#">Димитър Продромов</a> | MisterMind v23.0.0 "The Local Sovereign" | All Rights Reserved
+        © 2025 <a href="#">Димитър Продромов</a> | QAntum v23.0.0 "The Local Sovereign" | All Rights Reserved
     </footer>
     
     <script>

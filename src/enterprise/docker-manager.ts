@@ -1,16 +1,16 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.prodromov@mistermind.dev
+ * For licensing inquiries: dimitar.prodromov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -135,7 +135,7 @@ export class DockerManager extends EventEmitter {
             hubPort: config?.hubPort || 4444,
             maxSessions: config?.maxSessions || 16,
             sessionTimeout: config?.sessionTimeout || 300,
-            networkName: config?.networkName || 'mistermind-grid',
+            networkName: config?.networkName || 'QAntum-grid',
             enableVideo: config?.enableVideo ?? false,
             videoPath: config?.videoPath || './recordings',
             nodes: config?.nodes || [
@@ -164,7 +164,7 @@ export class DockerManager extends EventEmitter {
      */
     generateDockerfile(): string {
         const dockerfile = `# ═══════════════════════════════════════════════════════════════════════════════
-# MisterMind Test Runner Container
+# QAntum Test Runner Container
 # © 2025 Димитър Продромов. All Rights Reserved.
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -225,7 +225,7 @@ COPY . .
 
 # Set environment
 ENV NODE_ENV=production
-ENV MISTERMIND_CONTAINER=true
+ENV QAntum_CONTAINER=true
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \\
@@ -246,7 +246,7 @@ CMD ["npm", "run", "test"]
         // Selenium Hub
         services['selenium-hub'] = {
             image: 'selenium/hub:4.16.1-20231219',
-            container_name: 'mistermind-hub',
+            container_name: 'QAntum-hub',
             ports: [`${this.config.hubPort}:4444`],
             environment: [
                 `GRID_MAX_SESSION=${this.config.maxSessions}`,
@@ -281,7 +281,7 @@ CMD ["npm", "run", "test"]
             
             services[serviceName] = {
                 image: browserImages[node.browser],
-                container_name: `mistermind-${node.name}`,
+                container_name: `QAntum-${node.name}`,
                 ports,
                 environment: [
                     'SE_EVENT_BUS_HOST=selenium-hub',
@@ -315,10 +315,10 @@ CMD ["npm", "run", "test"]
         if (this.config.enableVideo) {
             services['video-recorder'] = {
                 image: 'selenium/video:ffmpeg-6.0-20231219',
-                container_name: 'mistermind-video',
+                container_name: 'QAntum-video',
                 ports: [],
                 environment: [
-                    'DISPLAY_CONTAINER_NAME=mistermind-chrome',
+                    'DISPLAY_CONTAINER_NAME=QAntum-chrome',
                     'SE_VIDEO_FILE_NAME=test_recording'
                 ],
                 volumes: [
@@ -352,7 +352,7 @@ CMD ["npm", "run", "test"]
         // Playwright container
         services['playwright'] = {
             image: 'mcr.microsoft.com/playwright:v1.40.0-jammy',
-            container_name: 'mistermind-playwright',
+            container_name: 'QAntum-playwright',
             ports: ['9323:9323'],
             environment: [
                 'PLAYWRIGHT_BROWSERS_PATH=/ms-playwright',
@@ -511,7 +511,7 @@ CMD ["npm", "run", "test"]
         try {
             // Get container statuses
             const { stdout } = await execAsync(
-                'docker ps -a --filter "name=mistermind" --format "{{.ID}}|{{.Names}}|{{.Status}}|{{.Ports}}"'
+                'docker ps -a --filter "name=QAntum" --format "{{.ID}}|{{.Names}}|{{.Status}}|{{.Ports}}"'
             );
             
             const lines = stdout.trim().split('\n').filter(Boolean);

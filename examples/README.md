@@ -1,17 +1,17 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
+QAntum | © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# 🧠 MISTER MIND - Examples
+# 🧠 QANTUM - Examples
 
 ## Basic Usage (FREE Tier)
 
 ```javascript
-import MisterMind from 'mister-mind';
+import QAntum from 'qantum';
 
-const mm = new MisterMind();
+const mm = new QAntum();
 
 // 🔍 Audit a page
 const auditResult = await mm.audit('https://example.com');
@@ -29,9 +29,9 @@ console.log(apiResult);
 ## Pro Features (Requires License)
 
 ```javascript
-import MisterMind from 'mister-mind';
+import QAntum from 'qantum';
 
-const mm = new MisterMind({
+const mm = new QAntum({
   licenseKey: 'MM-XXXX-XXXX-XXXX'
 });
 

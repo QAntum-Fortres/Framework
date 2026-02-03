@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind v23.0 Phase 2 Tests - Hardware & Swarm Orchestration
+ * QAntum v23.0 Phase 2 Tests - Hardware & Swarm Orchestration
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
@@ -24,7 +24,7 @@ describe('DockerManager', () => {
             expect(config.hubPort).toBe(4444);
             expect(config.maxSessions).toBe(16);
             expect(config.sessionTimeout).toBe(300);
-            expect(config.networkName).toBe('mistermind-grid');
+            expect(config.networkName).toBe('QAntum-grid');
         });
         
         it('should accept custom configuration', async () => {
@@ -58,7 +58,7 @@ describe('DockerManager', () => {
             expect(dockerfile).toContain('FROM node:20-slim');
             expect(dockerfile).toContain('WORKDIR /app');
             expect(dockerfile).toContain('HEALTHCHECK');
-            expect(dockerfile).toContain('MISTERMIND_CONTAINER');
+            expect(dockerfile).toContain('QAntum_CONTAINER');
             expect(dockerfile).toContain('npm ci');
         });
         
@@ -80,7 +80,7 @@ describe('DockerManager', () => {
             const compose = manager.generateDockerCompose();
             
             expect(compose).toContain('selenium-hub');
-            expect(compose).toContain('mistermind-hub');
+            expect(compose).toContain('QAntum-hub');
             expect(compose).toContain('4444');
         });
         

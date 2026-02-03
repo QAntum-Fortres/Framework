@@ -1,4 +1,4 @@
-# 📋 MISTER MIND v18.0 - БЪРЗ СПРАВОЧНИК
+# 📋 QANTUM v18.0 - БЪРЗ СПРАВОЧНИК
 ## Quick Reference Card
 
 ---

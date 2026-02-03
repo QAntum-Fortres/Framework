@@ -1,11 +1,12 @@
 {
-  "name": "mister-mind-training-framework",
+  "name": "qantum-training-framework",
   "version": "18.0.0",
   "description": "🧠 SOVEREIGN SINGULARITY - AI-Powered Testing Framework with Self-Healing, Swarm Intelligence, and Predictive QA",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node --test test/*.test.js",
+    "test": "node tests/unit/phase1-core.test.js",
+    "test:unit": "node tests/unit/phase1-core.test.js",
     "test:phase1": "node -e \"const {Phase1Orchestrator} = require('./phase1-index'); const p = new Phase1Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
     "test:phase2": "node -e \"const {Phase2Orchestrator} = require('./phase2-index'); const p = new Phase2Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
     "test:phase3": "node -e \"const {Phase3Orchestrator} = require('./phase3-index'); const p = new Phase3Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
@@ -40,16 +41,16 @@
   ],
   "author": {
     "name": "Dimitar Prodromov",
-    "email": "dimitar@mistermind.ai"
+    "email": "dimitar@QAntum.ai"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/papica777-eng/MrMindQATool.git"
+    "url": "https://github.com/papica777-eng/QAntumQATool.git"
   },
-  "homepage": "https://github.com/papica777-eng/MrMindQATool#readme",
+  "homepage": "https://github.com/papica777-eng/QAntumQATool#readme",
   "bugs": {
-    "url": "https://github.com/papica777-eng/MrMindQATool/issues"
+    "url": "https://github.com/papica777-eng/QAntumQATool/issues"
   },
   "engines": {
     "node": ">=18.0.0"

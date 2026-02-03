@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterMind v23.0.0 - The Local Sovereign</title>
+    <title>QAntum v23.0.0 - The Local Sovereign</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -588,7 +588,7 @@
         <div class="logo">
             <span class="logo-icon">🧠</span>
             <div class="logo-text">
-                <h1 data-i18n="header.title">MISTER MIND</h1>
+                <h1 data-i18n="header.title">QANTUM</h1>
                 <p data-i18n="header.codename">v23.0.0 "The Local Sovereign"</p>
             </div>
         </div>
@@ -1191,7 +1191,7 @@ const stats = getSystemStats();
                 </p>
                 
                 <div class="results">
-<pre>const mm = new MisterMind({ verbose: true });
+<pre>const mm = new QAntum({ verbose: true });
 const logger = mm.getLogger();
 
 logger.info('Operation started', { taskId: '001' });
@@ -1303,7 +1303,7 @@ logger.clear();</pre>
             bg: {
                 language: 'Език',
                 header: {
-                    title: 'MISTER MIND',
+                    title: 'QANTUM',
                     codename: 'v23.0.0 "Локалният Суверен"',
                     lines: 'Редове:',
                     tests: 'Тестове:',
@@ -1463,7 +1463,7 @@ logger.clear();</pre>
                     success: 'Успех',
                     warning: 'Предупреждение',
                     opened: 'Отворено:',
-                    initialized: 'MisterMind v23.0.0 UI инициализиран',
+                    initialized: 'QAntum v23.0.0 UI инициализиран',
                     madeInBulgaria: '🇧🇬 Направено с ❤️ в България'
                 },
                 footer: { copyright: '© 2025 Димитър Продромов' }
@@ -1475,7 +1475,7 @@ logger.clear();</pre>
             en: {
                 language: 'Language',
                 header: {
-                    title: 'MISTER MIND',
+                    title: 'QANTUM',
                     codename: 'v23.0.0 "The Local Sovereign"',
                     lines: 'Lines:',
                     tests: 'Tests:',
@@ -1635,7 +1635,7 @@ logger.clear();</pre>
                     success: 'Success',
                     warning: 'Warning',
                     opened: 'Opened:',
-                    initialized: 'MisterMind v23.0.0 UI initialized',
+                    initialized: 'QAntum v23.0.0 UI initialized',
                     madeInBulgaria: '🇧🇬 Made with ❤️ in Bulgaria'
                 },
                 footer: { copyright: '© 2025 Dimitar Prodromov' }
@@ -1647,7 +1647,7 @@ logger.clear();</pre>
             de: {
                 language: 'Sprache',
                 header: {
-                    title: 'MISTER MIND',
+                    title: 'QANTUM',
                     codename: 'v23.0.0 "Der Lokale Souverän"',
                     lines: 'Zeilen:',
                     tests: 'Tests:',
@@ -1807,7 +1807,7 @@ logger.clear();</pre>
                     success: 'Erfolg',
                     warning: 'Warnung',
                     opened: 'Geöffnet:',
-                    initialized: 'MisterMind v23.0.0 UI initialisiert',
+                    initialized: 'QAntum v23.0.0 UI initialisiert',
                     madeInBulgaria: '🇧🇬 Mit ❤️ in Bulgarien hergestellt'
                 },
                 footer: { copyright: '© 2025 Dimitar Prodromow' }
@@ -1819,7 +1819,7 @@ logger.clear();</pre>
             fr: {
                 language: 'Langue',
                 header: {
-                    title: 'MISTER MIND',
+                    title: 'QANTUM',
                     codename: 'v23.0.0 "Le Souverain Local"',
                     lines: 'Lignes:',
                     tests: 'Tests:',
@@ -1979,7 +1979,7 @@ logger.clear();</pre>
                     success: 'Succès',
                     warning: 'Avertissement',
                     opened: 'Ouvert:',
-                    initialized: 'MisterMind v23.0.0 UI initialisé',
+                    initialized: 'QAntum v23.0.0 UI initialisé',
                     madeInBulgaria: '🇧🇬 Fait avec ❤️ en Bulgarie'
                 },
                 footer: { copyright: '© 2025 Dimitar Prodromov' }
@@ -1992,7 +1992,7 @@ logger.clear();</pre>
         
         function initI18n() {
             // Load saved language or detect from browser
-            const savedLang = localStorage.getItem('misterMindLang');
+            const savedLang = localStorage.getItem('QAntumLang');
             if (savedLang && translations[savedLang]) {
                 currentLang = savedLang;
             } else {
@@ -2022,7 +2022,7 @@ logger.clear();</pre>
             if (!translations[lang]) return;
             
             currentLang = lang;
-            localStorage.setItem('misterMindLang', lang);
+            localStorage.setItem('QAntumLang', lang);
             
             // Update active button
             document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -2121,7 +2121,7 @@ logger.clear();</pre>
         }
 
         // ══════════════════════════════════════════════════════════════
-        // API FUNCTIONS - These connect to MisterMind backend
+        // API FUNCTIONS - These connect to QAntum backend
         // ══════════════════════════════════════════════════════════════
         
         // In a real implementation, these would call the backend API
@@ -2300,9 +2300,9 @@ ${broken > 0 ? '\n⚠️ Broken links found - review recommended' : '\n✅ All l
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <footer class="footer">
         <p>
-            <strong>MisterMind v23.0.0</strong> "The Local Sovereign" | 
+            <strong>QAntum v23.0.0</strong> "The Local Sovereign" | 
             <span data-i18n="footer.copyright">© 2025 Димитър Продромов</span> | 
-            <a href="https://github.com/papica777-eng/MrMindQATool">GitHub</a> |
+            <a href="https://github.com/papica777-eng/QAntumQATool">GitHub</a> |
             <span data-i18n="common.madeInBulgaria">🇧🇬 Made with ❤️ in Bulgaria</span>
         </p>
     </footer>

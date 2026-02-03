@@ -1,5 +1,5 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║  MISTER MIND v23.3.0 - i18n Manager                                          ║
+// ║  QANTUM v23.3.0 - i18n Manager                                          ║
 // ║  "Type-Safe Sovereign" - Международна поддръжка                              ║
 // ║  Internationalization system with BG/EN/DE/FR/CN/JP support                  ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
@@ -214,7 +214,7 @@ export interface I18nTranslations {
 
 export const bg: I18nTranslations = {
   header: {
-    title: 'MISTER MIND',
+    title: 'QANTUM',
     codename: 'v23.0.0 "Локалният Суверен"',
     lines: 'Редове:',
     tests: 'Тестове:',
@@ -390,7 +390,7 @@ export const bg: I18nTranslations = {
     success: 'Успех',
     warning: 'Предупреждение',
     opened: 'Отворено:',
-    initialized: 'MisterMind v23.0.0 UI инициализиран',
+    initialized: 'QAntum v23.0.0 UI инициализиран',
     madeInBulgaria: '🇧🇬 Направено с ❤️ в България',
   },
   footer: {
@@ -404,7 +404,7 @@ export const bg: I18nTranslations = {
 
 export const en: I18nTranslations = {
   header: {
-    title: 'MISTER MIND',
+    title: 'QANTUM',
     codename: 'v23.0.0 "The Local Sovereign"',
     lines: 'Lines:',
     tests: 'Tests:',
@@ -580,7 +580,7 @@ export const en: I18nTranslations = {
     success: 'Success',
     warning: 'Warning',
     opened: 'Opened:',
-    initialized: 'MisterMind v23.0.0 UI initialized',
+    initialized: 'QAntum v23.0.0 UI initialized',
     madeInBulgaria: '🇧🇬 Made with ❤️ in Bulgaria',
   },
   footer: {
@@ -594,7 +594,7 @@ export const en: I18nTranslations = {
 
 export const de: I18nTranslations = {
   header: {
-    title: 'MISTER MIND',
+    title: 'QANTUM',
     codename: 'v23.0.0 "Der Lokale Souverän"',
     lines: 'Zeilen:',
     tests: 'Tests:',
@@ -770,7 +770,7 @@ export const de: I18nTranslations = {
     success: 'Erfolg',
     warning: 'Warnung',
     opened: 'Geöffnet:',
-    initialized: 'MisterMind v23.0.0 UI initialisiert',
+    initialized: 'QAntum v23.0.0 UI initialisiert',
     madeInBulgaria: '🇧🇬 Mit ❤️ in Bulgarien hergestellt',
   },
   footer: {
@@ -784,7 +784,7 @@ export const de: I18nTranslations = {
 
 export const fr: I18nTranslations = {
   header: {
-    title: 'MISTER MIND',
+    title: 'QANTUM',
     codename: 'v23.0.0 "Le Souverain Local"',
     lines: 'Lignes:',
     tests: 'Tests:',
@@ -960,7 +960,7 @@ export const fr: I18nTranslations = {
     success: 'Succès',
     warning: 'Avertissement',
     opened: 'Ouvert:',
-    initialized: 'MisterMind v23.0.0 UI initialisé',
+    initialized: 'QAntum v23.0.0 UI initialisé',
     madeInBulgaria: '🇧🇬 Fait avec ❤️ en Bulgarie',
   },
   footer: {
@@ -974,7 +974,7 @@ export const fr: I18nTranslations = {
 
 export const cn: I18nTranslations = {
   header: {
-    title: 'MISTER MIND',
+    title: 'QANTUM',
     codename: 'v23.3.0 "类型安全主权"',
     lines: '代码行数:',
     tests: '测试:',
@@ -1150,7 +1150,7 @@ export const cn: I18nTranslations = {
     success: '成功',
     warning: '警告',
     opened: '已打开:',
-    initialized: 'MisterMind v23.3.0 UI 已初始化',
+    initialized: 'QAntum v23.3.0 UI 已初始化',
     madeInBulgaria: '🇧🇬 用 ❤️ 在保加利亚制作',
   },
   footer: {
@@ -1164,7 +1164,7 @@ export const cn: I18nTranslations = {
 
 export const jp: I18nTranslations = {
   header: {
-    title: 'MISTER MIND',
+    title: 'QANTUM',
     codename: 'v23.3.0 "型安全主権"',
     lines: '行数:',
     tests: 'テスト:',
@@ -1340,7 +1340,7 @@ export const jp: I18nTranslations = {
     success: '成功',
     warning: '警告',
     opened: '開いた:',
-    initialized: 'MisterMind v23.3.0 UI 初期化完了',
+    initialized: 'QAntum v23.3.0 UI 初期化完了',
     madeInBulgaria: '🇧🇬 ブルガリアで ❤️ を込めて作成',
   },
   footer: {
@@ -1387,7 +1387,7 @@ export class I18nManager {
   
   /**
    * Get translation by dot-notation path
-   * Example: i18n.get('header.title') returns 'MISTER MIND'
+   * Example: i18n.get('header.title') returns 'QANTUM'
    */
   get(path: string): string {
     const keys = path.split('.');

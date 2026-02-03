@@ -1,27 +1,27 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * For licensing inquiries: dimitar.papazov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 /**
- * MISTER MIND - Advanced Usage Examples
+ * QANTUM - Advanced Usage Examples
  * 
  * This file demonstrates PRO features with real-world use cases.
  * Requires a valid PRO license: https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe
  */
 
-import { MisterMind } from '../src/index';
+import { QAntum } from '../src/index';
 
 // ===================================
 // EXAMPLE 1: CI/CD Pipeline Integration
@@ -30,8 +30,8 @@ import { MisterMind } from '../src/index';
 async function ciPipelineExample() {
   console.log('\n🔮 === CI/CD Pipeline Integration ===\n');
 
-  const mm = new MisterMind({
-    licenseKey: process.env.MISTER_MIND_LICENSE || '',
+  const mm = new QAntum({
+    licenseKey: process.env.qantum_LICENSE || '',
     verbose: true
   });
 
@@ -73,8 +73,8 @@ async function ciPipelineExample() {
 async function chronosExample() {
   console.log('\n⏰ === Chronos Time-Travel Debugging ===\n');
 
-  const mm = new MisterMind({
-    licenseKey: process.env.MISTER_MIND_LICENSE || ''
+  const mm = new QAntum({
+    licenseKey: process.env.qantum_LICENSE || ''
   });
 
   // Record a test session for later analysis
@@ -107,8 +107,8 @@ async function chronosExample() {
 async function apiSenseiExample() {
   console.log('\n🥋 === API Sensei - Auto-Generated Tests ===\n');
 
-  const mm = new MisterMind({
-    licenseKey: process.env.MISTER_MIND_LICENSE || ''
+  const mm = new QAntum({
+    licenseKey: process.env.qantum_LICENSE || ''
   });
 
   // Point Sensei at your OpenAPI spec
@@ -141,8 +141,8 @@ async function apiSenseiExample() {
 async function preCommitHookExample() {
   console.log('\n🪝 === Pre-Commit Hook Integration ===\n');
 
-  const mm = new MisterMind({
-    licenseKey: process.env.MISTER_MIND_LICENSE || ''
+  const mm = new QAntum({
+    licenseKey: process.env.qantum_LICENSE || ''
   });
 
   // Quick audit before committing
@@ -172,8 +172,8 @@ async function preCommitHookExample() {
 async function fullWorkflowExample() {
   console.log('\n🚀 === Full QA Workflow ===\n');
 
-  const mm = new MisterMind({
-    licenseKey: process.env.MISTER_MIND_LICENSE || '',
+  const mm = new QAntum({
+    licenseKey: process.env.qantum_LICENSE || '',
     verbose: false
   });
 
@@ -205,13 +205,13 @@ async function fullWorkflowExample() {
 
 async function main() {
   console.log('╔══════════════════════════════════════════════════════════════╗');
-  console.log('║          MISTER MIND - Advanced Examples (PRO)               ║');
+  console.log('║          QANTUM - Advanced Examples (PRO)               ║');
   console.log('║     Get your license: buy.polar.sh/polar_cl_XBbOE...        ║');
   console.log('╚══════════════════════════════════════════════════════════════╝');
 
   // Check for license
-  if (!process.env.MISTER_MIND_LICENSE) {
-    console.log('\n⚠️  Warning: No license key found in MISTER_MIND_LICENSE');
+  if (!process.env.qantum_LICENSE) {
+    console.log('\n⚠️  Warning: No license key found in qantum_LICENSE');
     console.log('   PRO features will show simulated results.');
     console.log('   Get your Pro license: https://buy.polar.sh/polar_cl_XBbOE1Qr4Vfv9QHRn7exBdaOB9qoC2Wees7zX1yQsOe\n');
   }

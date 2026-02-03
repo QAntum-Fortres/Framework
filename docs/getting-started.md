@@ -1,11 +1,11 @@
 <!-- 
 ═══════════════════════════════════════════════════════════════════════════════
-MisterMind v23.0.0 "The Local Sovereign" - Getting Started Guide
+QAntum v23.0.0 "The Local Sovereign" - Getting Started Guide
 © 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
 ═══════════════════════════════════════════════════════════════════════════════
 -->
 
-# 🚀 Getting Started with MisterMind
+# 🚀 Getting Started with QAntum
 
 ## v23.0.0 "The Local Sovereign"
 
@@ -47,8 +47,8 @@ MisterMind v23.0.0 "The Local Sovereign" - Getting Started Guide
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/dimitar-prodromov/MrMindQATool.git
-cd MrMindQATool
+git clone https://github.com/dimitar-prodromov/QAntumQATool.git
+cd QAntumQATool
 ```
 
 ### 2. Install Dependencies
@@ -230,7 +230,7 @@ http://localhost:3847
 ## 🆘 Support
 
 - **Issues**: GitHub Issues
-- **Email**: dimitar@mistermind.bg
+- **Email**: dimitar@QAntum.bg
 - **Documentation**: `/docs/` folder
 
 ---

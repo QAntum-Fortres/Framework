@@ -1,21 +1,21 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * For licensing inquiries: dimitar.papazov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 /**
- * MISTER MIND - Basic Example (FREE Tier)
+ * QANTUM - Basic Example (FREE Tier)
  * 
  * This example shows how to use the FREE features:
  * - audit() - Page accessibility and performance audit
@@ -23,13 +23,13 @@
  * - testAPI() - Test API endpoints
  */
 
-import MisterMind from 'mister-mind';
+import QAntum from 'qantum';
 
 async function main() {
-  console.log('🧠 MISTER MIND - Basic Example\n');
+  console.log('🧠 QANTUM - Basic Example\n');
 
   // Initialize without license (FREE tier)
-  const mm = new MisterMind();
+  const mm = new QAntum();
 
   try {
     // 1. Audit a webpage

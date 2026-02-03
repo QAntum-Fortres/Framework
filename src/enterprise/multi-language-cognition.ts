@@ -1,23 +1,23 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.prodromov@mistermind.dev
+ * For licensing inquiries: dimitar.prodromov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 MULTI-LANGUAGE COGNITION - Global Voice Understanding
 // ═══════════════════════════════════════════════════════════════════════════════
-// Enables MisterMind to understand and execute voice commands in multiple 
+// Enables QAntum to understand and execute voice commands in multiple 
 // languages, with primary focus on Bulgarian (bg) and English (en).
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -247,7 +247,7 @@ export const BULGARIAN_PATTERNS: LanguagePatterns = {
         'грешка', 'грешката', 'успех', 'резултат', 'доклад',
         'скрийншот', 'екранна снимка', 'видео', 'запис',
         
-        // MisterMind specific
+        // QAntum specific
         'мистър майнд', 'суверен', 'персона', 'хаос тест'
     ],
     entityMappings: [

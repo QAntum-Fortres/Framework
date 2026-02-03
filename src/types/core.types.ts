@@ -1,5 +1,5 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║  MISTER MIND v23.2.0 - Core Type Definitions                                  ║
+// ║  QANTUM v23.2.0 - Core Type Definitions                                  ║
 // ║  "The Local Sovereign" - TypeScript Migration                                 ║
 // ║  ZERO TOLERANCE for `any` - Full Type Safety                                  ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
@@ -563,10 +563,10 @@ export interface IFinancialOracle {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// MISTER MIND - Main Interface
+// QANTUM - Main Interface
 // ══════════════════════════════════════════════════════════════════════════════
 
-export interface IMisterMindConfig {
+export interface IQAntumConfig {
   readonly verbose?: boolean;
   readonly headless?: boolean;
   readonly browser?: 'chromium' | 'firefox' | 'webkit';
@@ -577,7 +577,7 @@ export interface IMisterMindConfig {
   readonly tracing?: boolean;
 }
 
-export interface IMisterMind {
+export interface IQAntum {
   // Core Methods
   audit(url: string): Promise<IAuditResult>;
   testAPI(endpoint: string, options?: IAPITestOptions): Promise<IAPITestResult>;

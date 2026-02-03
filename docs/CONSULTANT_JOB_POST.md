@@ -1,8 +1,8 @@
-# 🧠 MisterMind - Търсим Technical Consultant / QA Architect
+# 🧠 QAntum - Търсим Technical Consultant / QA Architect
 
 ## 🎯 За проекта
 
-**MisterMind** е enterprise-grade AI-powered QA automation framework с **45,000+ реда TypeScript код** и **492 теста**. Търсим опитен консултант за стратегическо развитие и комерсиализация.
+**QAntum** е enterprise-grade AI-powered QA automation framework с **45,000+ реда TypeScript код** и **492 теста**. Търсим опитен консултант за стратегическо развитие и комерсиализация.
 
 ### Технологичен стек:
 - **Core:** TypeScript, Node.js 18+
@@ -91,11 +91,11 @@
 ## 📞 Контакт:
 
 **Димитър Продромов**  
-QA Architect & Creator of MisterMind
+QA Architect & Creator of QAntum
 
-- 📧 Email: dimitar.prodromov@mistermind.dev
+- 📧 Email: dimitar.prodromov@QAntum.dev
 - 💼 LinkedIn: [linkedin.com/in/dimitar-prodromov]
-- 🐙 GitHub: [github.com/papica777-eng/MrMindQATool](https://github.com/papica777-eng/MrMindQATool)
+- 🐙 GitHub: [github.com/papica777-eng/QAntumQATool](https://github.com/papica777-eng/QAntumQATool)
 
 ---
 

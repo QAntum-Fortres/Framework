@@ -1,26 +1,26 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind
+ * QAntum
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This file is part of MisterMind.
+ * This file is part of QAntum.
  * Unauthorized copying, modification, distribution, or use of this file,
  * via any medium, is strictly prohibited without express written permission.
  * 
- * For licensing inquiries: dimitar.papazov@mistermind.dev
+ * For licensing inquiries: dimitar.papazov@QAntum.dev
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
 /**
- * 🧪 UNIT TESTS - MISTER MIND
+ * 🧪 UNIT TESTS - QANTUM
  * Fast unit tests without network calls
  * NO SELF-HEALING, NO RETRIES - SIMPLE PASS/FAIL
  */
 
-const { MisterMind } = require('../dist/index.js');
+const { QAntum } = require('../dist/index.js');
 
 // Global timeout for safety
 const TEST_TIMEOUT = 5000;
@@ -70,7 +70,7 @@ function test(name, fn) {
 async function runTests() {
   console.log('');
   console.log('╔══════════════════════════════════════════════════════╗');
-  console.log('║         🧪 MISTER MIND - UNIT TESTS                  ║');
+  console.log('║         🧪 QANTUM - UNIT TESTS                  ║');
   console.log('╚══════════════════════════════════════════════════════╝');
   console.log('');
 
@@ -80,23 +80,23 @@ async function runTests() {
   console.log('📦 Constructor Tests:');
   
   await test('Creates instance without config', () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     if (!mm) throw new Error('Failed to create instance');
   });
 
   await test('Creates instance with empty config', () => {
-    const mm = new MisterMind({});
+    const mm = new QAntum({});
     if (!mm) throw new Error('Failed to create instance');
   });
 
   await test('Creates instance with timeout', () => {
-    const mm = new MisterMind({ timeout: 5000 });
+    const mm = new QAntum({ timeout: 5000 });
     if (!mm) throw new Error('Failed to create instance');
   });
 
   await test('Throws on invalid timeout', () => {
     try {
-      new MisterMind({ timeout: -1 });
+      new QAntum({ timeout: -1 });
       throw new Error('Should have thrown');
     } catch (e) {
       if (!e.message.includes('Invalid timeout')) throw e;
@@ -105,7 +105,7 @@ async function runTests() {
 
   await test('Throws on non-number timeout', () => {
     try {
-      new MisterMind({ timeout: 'abc' });
+      new QAntum({ timeout: 'abc' });
       throw new Error('Should have thrown');
     } catch (e) {
       if (!e.message.includes('Invalid timeout')) throw e;
@@ -118,27 +118,27 @@ async function runTests() {
   console.log('\n📦 License Tests:');
 
   await test('Free tier by default', () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     const status = mm.getLicenseStatus();
     if (status.tier !== 'free') throw new Error('Expected free tier');
     if (status.isValid) throw new Error('Should not be valid');
   });
 
   await test('Invalid license stays free', () => {
-    const mm = new MisterMind({ licenseKey: 'INVALID' });
+    const mm = new QAntum({ licenseKey: 'INVALID' });
     const status = mm.getLicenseStatus();
     if (status.tier !== 'free') throw new Error('Expected free tier');
   });
 
   await test('Valid license format activates PRO', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-ABCD-1234-WXYZ' });
+    const mm = new QAntum({ licenseKey: 'MM-ABCD-1234-WXYZ' });
     const status = mm.getLicenseStatus();
     if (status.tier !== 'pro') throw new Error('Expected pro tier');
     if (!status.isValid) throw new Error('Should be valid');
   });
 
   await test('Lowercase license converted to uppercase', () => {
-    const mm = new MisterMind({ licenseKey: 'mm-abcd-1234-wxyz' });
+    const mm = new QAntum({ licenseKey: 'mm-abcd-1234-wxyz' });
     const status = mm.getLicenseStatus();
     if (status.tier !== 'pro') throw new Error('Expected pro tier');
   });
@@ -149,7 +149,7 @@ async function runTests() {
   console.log('\n📦 Input Validation Tests:');
 
   await test('audit() throws on empty URL', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.audit('');
       throw new Error('Should have thrown');
@@ -159,7 +159,7 @@ async function runTests() {
   });
 
   await test('audit() throws on invalid URL', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.audit('not-a-url');
       throw new Error('Should have thrown');
@@ -169,7 +169,7 @@ async function runTests() {
   });
 
   await test('testAPI() throws on empty endpoint', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.testAPI('');
       throw new Error('Should have thrown');
@@ -179,7 +179,7 @@ async function runTests() {
   });
 
   await test('checkLinks() throws on invalid URL', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.checkLinks('not-valid');
       throw new Error('Should have thrown');
@@ -194,7 +194,7 @@ async function runTests() {
   console.log('\n📦 PRO Feature Gate Tests:');
 
   await test('predict() throws without license', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.predict({});
       throw new Error('Should have thrown');
@@ -204,7 +204,7 @@ async function runTests() {
   });
 
   await test('apiSensei() throws without license', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.apiSensei({ baseUrl: 'https://api.example.com' });
       throw new Error('Should have thrown');
@@ -214,7 +214,7 @@ async function runTests() {
   });
 
   await test('chronos() throws without license', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.chronos({ testFn: async () => {} });
       throw new Error('Should have thrown');
@@ -229,14 +229,14 @@ async function runTests() {
   console.log('\n📦 PRO Features With License:');
 
   await test('predict() works with valid license', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const result = await mm.predict({ codeChanges: 'const x = 1;' });
     if (typeof result.riskScore !== 'number') throw new Error('Missing riskScore');
     if (!result.recommendation) throw new Error('Missing recommendation');
   });
 
   await test('predict() analyzes complexity', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const complexCode = `
       if (a) {
         if (b) {
@@ -256,7 +256,7 @@ async function runTests() {
   });
 
   await test('chronos() records snapshots', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const result = await mm.chronos({
       testFn: async () => { await new Promise(r => setTimeout(r, 50)); },
       autoSnapshot: true,
@@ -267,7 +267,7 @@ async function runTests() {
   });
 
   await test('chronos() captures errors', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const result = await mm.chronos({
       testFn: async () => { throw new Error('Test error'); },
       autoSnapshot: false
@@ -277,7 +277,7 @@ async function runTests() {
   });
 
   await test('apiSensei() requires baseUrl', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     try {
       await mm.apiSensei({});
       throw new Error('Should have thrown');
@@ -292,7 +292,7 @@ async function runTests() {
   console.log('\n📦 ASC (Adaptive Semantic Core) Tests:');
 
   await test('ASC requires PRO license for createSemanticMap', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.createSemanticMap({});
       throw new Error('Should have thrown');
@@ -302,7 +302,7 @@ async function runTests() {
   });
 
   await test('ASC requires PRO license for findByIntent', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.findByIntent({}, { action: 'TEST', keywords: ['test'] });
       throw new Error('Should have thrown');
@@ -312,7 +312,7 @@ async function runTests() {
   });
 
   await test('ASC requires PRO license for smartClick', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.smartClick({}, ['login']);
       throw new Error('Should have thrown');
@@ -322,19 +322,19 @@ async function runTests() {
   });
 
   await test('ASC initializes with PRO license', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const asc = mm.getASC();
     if (!asc) throw new Error('ASC should be initialized with PRO license');
   });
 
   await test('ASC getStats returns null without init', () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     const stats = mm.getASCStats();
     if (stats !== null) throw new Error('Should return null without ASC');
   });
 
   await test('ASC getStats returns object with PRO', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const stats = mm.getASCStats();
     if (!stats) throw new Error('Should return stats');
     if (typeof stats.totalEntries !== 'number') throw new Error('Missing totalEntries');
@@ -342,7 +342,7 @@ async function runTests() {
   });
 
   await test('doAction throws on unknown action', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     try {
       await mm.doAction({}, 'UNKNOWN_ACTION');
       throw new Error('Should have thrown');
@@ -390,7 +390,7 @@ async function runTests() {
   });
 
   await test('initSwarm throws without PRO license', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.initSwarm();
       throw new Error('Should have thrown');
@@ -400,7 +400,7 @@ async function runTests() {
   });
 
   await test('executeGoal throws without PRO license', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.executeGoal('login to website');
       throw new Error('Should have thrown');
@@ -410,7 +410,7 @@ async function runTests() {
   });
 
   await test('executeParallel throws without PRO license', async () => {
-    const mm = new MisterMind();
+    const mm = new QAntum();
     try {
       await mm.executeParallel([]);
       throw new Error('Should have thrown');
@@ -420,25 +420,25 @@ async function runTests() {
   });
 
   await test('getSwarmStats returns null without init', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const stats = mm.getSwarmStats();
     if (stats !== null) throw new Error('Should return null without swarm init');
   });
 
   await test('getDistillationStats returns null without init', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const stats = mm.getDistillationStats();
     if (stats !== null) throw new Error('Should return null without swarm init');
   });
 
   await test('getObservabilityStats returns null without init', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const stats = mm.getObservabilityStats();
     if (stats !== null) throw new Error('Should return null without swarm init');
   });
 
   await test('getCurrentTraceId returns null without init', () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     const traceId = mm.getCurrentTraceId();
     if (traceId !== null) throw new Error('Should return null without swarm init');
   });
@@ -516,7 +516,7 @@ async function runTests() {
   });
 
   await test('shutdownSwarm does not throw when not initialized', async () => {
-    const mm = new MisterMind({ licenseKey: 'MM-TEST-1234-ABCD' });
+    const mm = new QAntum({ licenseKey: 'MM-TEST-1234-ABCD' });
     await mm.shutdownSwarm(); // Should not throw
   });
 

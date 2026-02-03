@@ -1,12 +1,12 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- * MisterMind - ENTERPRISE BUILD SCRIPT
+ * QAntum - ENTERPRISE BUILD SCRIPT
  * ═══════════════════════════════════════════════════════════════════════════════
  * 
  * @copyright 2025 Димитър Продромов (Dimitar Prodromov). All Rights Reserved.
  * @license PROPRIETARY AND CONFIDENTIAL
  * 
- * This script builds the protected enterprise version of MisterMind with:
+ * This script builds the protected enterprise version of QAntum with:
  * - TypeScript compilation
  * - JavaScript obfuscation (intellectual property protection)
  * - Bundle optimization
@@ -270,7 +270,7 @@ function generateManifest(): void {
     logger.section('📋 Генериране на Manifest');
     
     const manifest = {
-        name: 'MisterMind Enterprise',
+        name: 'QAntum Enterprise',
         version: '23.0.0',
         codename: 'The Local Sovereign',
         buildDate: new Date().toISOString(),
@@ -324,7 +324,7 @@ function createPackage(): void {
         fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
     );
     
-    packageJson.name = '@mistermind/enterprise';
+    packageJson.name = '@QAntum/enterprise';
     packageJson.main = 'index.js';
     packageJson.types = 'index.d.ts';
     packageJson.private = true;
@@ -339,7 +339,7 @@ function createPackage(): void {
     );
     
     // Create README
-    const readme = `# MisterMind Enterprise v23.0.0 "The Local Sovereign"
+    const readme = `# QAntum Enterprise v23.0.0 "The Local Sovereign"
 
 ## ⚠️ ВАЖНО
 
@@ -355,20 +355,20 @@ function createPackage(): void {
 ## 📋 Лиценз
 
 © 2025 Димитър Продромов. Всички права запазени.
-За лицензни запитвания: dimitar.prodromov@mistermind.dev
+За лицензни запитвания: dimitar.prodromov@QAntum.dev
 
 ## 🚀 Активация
 
 1. Генерирайте Hardware ID:
    \`\`\`
-   npx mistermind --hardware-id
+   npx QAntum --hardware-id
    \`\`\`
 
 2. Изпратете Hardware ID за получаване на лиценз
 
 3. Активирайте:
    \`\`\`
-   npx mistermind --activate <license-key>
+   npx QAntum --activate <license-key>
    \`\`\`
 `;
     
@@ -388,7 +388,7 @@ function printSummary(): void {
     
     console.log(`
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║                    🎉 MisterMind Enterprise Build Complete!                  ║
+║                    🎉 QAntum Enterprise Build Complete!                  ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  Версия:        v23.0.0 "The Local Sovereign"                                ║
 ║  Автор:         Димитър Продромов                                            ║
@@ -451,7 +451,7 @@ function countFiles(dir: string): number {
 async function main(): Promise<void> {
     console.log(`
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║          🧠 MisterMind Enterprise Build System v23.0.0                      ║
+║          🧠 QAntum Enterprise Build System v23.0.0                      ║
 ║                    "The Local Sovereign"                                     ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 `);

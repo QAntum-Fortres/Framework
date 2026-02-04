@@ -41,3 +41,33 @@
 # Include tests
 !tests/
 !tests/**
+
+# Include security modules
+!security/
+!security/**
+
+# Include swarm modules
+!swarm/
+!swarm/**
+
+# Include polyglot modules
+!polyglot-modules/
+!polyglot-modules/**
+
+# Exclude build artifacts in polyglot modules
+polyglot-modules/**/target/
+polyglot-modules/**/node_modules/
+polyglot-modules/**/*.so
+polyglot-modules/**/*.dylib
+polyglot-modules/**/*.dll
+
+# Include new documentation
+!POLYGLOT-ZERO-DOWNTIME.md
+!ENTERPRISE-TRANSFORMATION-SUMMARY.md
+!QUICK-REFERENCE.md
+!DOCUMENTATION-50-STEPS.md
+!VISUAL-MAP-50-STEPS.md
+
+# Exclude logs
+logs/
+*.log

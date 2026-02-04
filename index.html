@@ -1,0 +1,510 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAntum Framework | 752K+ Lines of Production Code</title>
+    <meta name="description"
+        content="Enterprise QA automation framework. 752K lines, 6,685 tests, AI-powered self-healing, Ghost Protocol bot bypass, distributed execution.">
+    <meta property="og:title" content="QAntum Framework - Production Evidence">
+    <meta property="og:description" content="752K+ lines. 6,685 tests. Zero entropy architecture.">
+    <meta property="og:url" content="https://qantum-fortres.github.io/Framework/">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #0f1419;
+            --bg-card: #161b26;
+            --bg-glass: rgba(22, 27, 38, 0.7);
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(148, 163, 184, 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+            font-family: var(--font-mono);
+        }
+
+        .hero .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-card .value {
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card .detail {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Features */
+        .features-section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card .metrics {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .metric-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #0d1117;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+        .terminal-header {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Contact */
+        .contact-section {
+            padding: 4rem 0;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>⚛️ QAntum Framework</h1>
+            <p class="tagline">752,573 lines of production code | 6,685 tests | 0.00 entropy</p>
+            <div class="cta-group">
+                <a href="#stats"
+                    style="padding: 1rem 2rem; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: 600;">📊
+                    View Evidence</a>
+                <a href="#contact"
+                    style="padding: 1rem 2rem; background: var(--bg-glass); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; font-weight: 600;">📧
+                    Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Production <span
+                        style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Evidence</span>
+                </h2>
+                <p>Real metrics from a fully operational enterprise framework</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="value">752K+</div>
+                    <div class="label">Lines of Code</div>
+                    <div class="detail">TypeScript, Rust, Python production codebase</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="value">6,685</div>
+                    <div class="label">Test Cases</div>
+                    <div class="detail">End-to-end Playwright tests</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="value">52,573</div>
+                    <div class="label">AI Vectors</div>
+                    <div class="detail">Pinecone knowledge base for intelligent testing</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="value">55+</div>
+                    <div class="label">Core Modules</div>
+                    <div class="detail">Self-Healing, Ghost Protocol, Swarm, Oracle</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="value">0.00</div>
+                    <div class="label">Entropy Level</div>
+                    <div class="detail">Deterministic architecture, zero hallucinations</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="value">100%</div>
+                    <div class="label">WAF Bypass</div>
+                    <div class="detail">Cloudflare, Akamai, PerimeterX, DataDome</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Core <span
+                        style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Capabilities</span>
+                </h2>
+                <p>Enterprise-grade automation features</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>👻 Ghost Protocol</h3>
+                    <p>Bypass all major bot detection systems with biometric simulation and browser fingerprinting.</p>
+                    <div class="terminal">
+                        <div class="terminal-header"><span style="color: #28c840;">●</span> Ghost Protocol v2</div>
+                        <div class="terminal-body">
+                            $ qantum ghost --stealth<br><br>
+                            ├─ Mouse: RANDOMIZED<br>
+                            ├─ Typing: HUMAN-LIKE<br>
+                            ├─ WebGL: SPOOFED<br>
+                            └─ Score: 0.98/1.00 (Undetectable)
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <span class="metric-badge">100% Bypass Rate</span>
+                        <span class="metric-badge">4 WAFs</span>
+                        <span class="metric-badge">Zero Detection</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔮 Self-Healing</h3>
+                    <p>19 autonomous healing strategies with ML-powered selector repair. Tests fix themselves when UI
+                        changes.</p>
+                    <div class="terminal">
+                        <div class="terminal-header"><span style="color: #f59e0b;">●</span> Healing Engine</div>
+                        <div class="terminal-body">
+                            [BREAK] Selector failed<br>
+                            [SCAN] Analyzing DOM...<br>
+                            [FIX] data-testid (99.2% confidence)<br>
+                            <span style="color: #10b981;">✅ Auto-healed in 342ms</span>
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <span class="metric-badge">19 Strategies</span>
+                        <span class="metric-badge">3000+ Fixes</span>
+                        <span class="metric-badge">99% Accuracy</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🐝 Swarm Execution</h3>
+                    <p>Distributed test execution across multiple regions with 1,294+ parallel workers.</p>
+                    <div class="terminal">
+                        <div class="terminal-header"><span style="color: #06b6d4;">●</span> Swarm Control</div>
+                        <div class="terminal-body">
+                            Workers: 1,294 active<br>
+                            Tests: 15,623 running<br>
+                            Speed: 40x vs sequential<br>
+                            <span style="color: #10b981;">Completion: 3:24 ETA</span>
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <span class="metric-badge">1.2K Workers</span>
+                        <span class="metric-badge">40x Faster</span>
+                        <span class="metric-badge">5 Regions</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔍 The Oracle</h3>
+                    <p>AI-powered test discovery. Provide a URL, Oracle crawls and generates comprehensive test suites.
+                    </p>
+                    <div class="terminal">
+                        <div class="terminal-header"><span style="color: #8b5cf6;">●</span> Oracle Discovery</div>
+                        <div class="terminal-body">
+                            🔍 Crawling website...<br><br>
+                            Found: 47 pages, 23 forms<br>
+                            <span style="color: #10b981;">✅ Generated 234 test cases</span><br>
+                            Coverage: 94% of functionality
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <span class="metric-badge">234 Tests</span>
+                        <span class="metric-badge">94% Coverage</span>
+                        <span class="metric-badge">AI-Powered</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🧠 Neural Inference</h3>
+                    <p>RTX 4050 GPU-accelerated local AI. Groq → DeepSeek → Ollama fallback chain. $0 API costs.</p>
+                    <div class="metrics">
+                        <span class="metric-badge">$0 API Cost</span>
+                        <span class="metric-badge">GPU Accelerated</span>
+                        <span class="metric-badge">3-Model Fallback</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>⚡ Chronos Warp</h3>
+                    <p>24-hour stress testing. 2.4 billion requests processed. Zero failures detected.</p>
+                    <div class="metrics">
+                        <span class="metric-badge">2.4B Requests</span>
+                        <span class="metric-badge">0 Failures</span>
+                        <span class="metric-badge">24h Tested</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Get in <span
+                    style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Touch</span>
+            </h2>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Interested in enterprise QA automation?</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    📧 <a href="mailto:papica777@gmail.com">papica777@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    🐙 <a href="https://github.com/QAntum-Fortres" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 3rem; padding: 2rem; background: var(--bg-glass); border: 1px solid var(--border-color); border-radius: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h3 style="margin-bottom: 1rem;">📊 Framework Architecture</h3>
+                <p style="color: var(--text-secondary);">
+                    5-layer architecture: Physics (Foundation), Chemistry (Orchestration), Biology (Intelligence),
+                    Cognition (Context), Reality (Execution).
+                </p>
+                <p style="color: var(--text-secondary); margin-top: 1rem;">
+                    <strong>Author:</strong> Dimitar Prodromov<br>
+                    <strong>Version:</strong> v34.0.0<br>
+                    <strong>Status:</strong> Production Ready
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

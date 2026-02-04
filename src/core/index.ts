@@ -196,3 +196,21 @@ export {
   type ChronosEngineConfig,
   type ChronosEngineStats
 } from './chronos-engine-v2';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// TRANSCENDENCE CORE (Active Paradox Resolution System)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export {
+  TranscendenceCore,
+  getTranscendenceCore,
+  
+  // Types
+  type ParadoxType,
+  type Paradox,
+  type ParadoxResolution,
+  type GodelianTrap,
+  type CatuskotiState,
+  type ShieldConfig,
+  type ThreatAnalysis
+} from './transcendence-core';

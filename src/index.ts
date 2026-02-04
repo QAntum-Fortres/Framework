@@ -4524,3 +4524,74 @@ export type {
   SystemHealth,
   HealthCheckResult,
 } from './bastion';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// PHASE 3: DOMINATION - Advanced Optimization Modules
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// Re-export Intent-Based Healing Engine
+export {
+  IntentHealingEngine,
+  getIntentHealingEngine,
+} from './healing';
+
+export type {
+  IntentCategory,
+  SemanticIntent,
+  SemanticElement as HealingSemanticElement,
+  ElementSemanticType,
+  HealingAttempt,
+  IntentResolutionStrategy,
+  PageContext,
+  FormContext,
+  ModalContext,
+  NavigationContext,
+  ResolutionResult,
+  IntentHealingConfig,
+} from './healing';
+
+// Re-export TranscendenceCore (Active Paradox Resolution)
+export {
+  TranscendenceCore,
+  getTranscendenceCore,
+} from './core';
+
+export type {
+  ParadoxType,
+  Paradox,
+  ParadoxResolution,
+  GodelianTrap,
+  CatuskotiState,
+  ShieldConfig,
+  ThreatAnalysis,
+} from './core';
+
+// Re-export SharedMemoryV2 (Lock-Free Memory Manager)
+export {
+  SharedMemoryV2,
+  getSharedMemoryV2,
+} from './swarm/parallelism';
+
+export type {
+  MemorySegmentConfig,
+  SharedMemoryStats,
+  MemoryOpResult,
+  MemorySegment,
+} from './swarm/parallelism';
+
+// Re-export NoiseProtocolBridge (Hardware-Level Encryption)
+export {
+  NoiseProtocolBridge,
+  createNoiseBridge,
+} from './swarm/orchestrator';
+
+export type {
+  NoisePattern,
+  CipherSuite,
+  KeyPair,
+  HandshakeState,
+  CipherState,
+  EncryptedMessage,
+  NoiseBridgeConfig,
+  ConnectionStats as NoiseConnectionStats,
+} from './swarm/orchestrator';

@@ -14,4 +14,21 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
-export { BrowserPoolManager, BrowserPoolConfig } from './browser-pool';
+export { BrowserPoolManager } from './browser-pool';
+export type { BrowserPoolConfig } from './browser-pool';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SHARED MEMORY V2 - Lock-Free High-Performance Memory Manager
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export {
+  SharedMemoryV2,
+  getSharedMemoryV2,
+} from './shared-memory-v2';
+
+export type {
+  MemorySegmentConfig,
+  SharedMemoryStats,
+  MemoryOpResult,
+  MemorySegment
+} from './shared-memory-v2';

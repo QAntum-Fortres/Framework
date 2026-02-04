@@ -55,25 +55,26 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "eslint": "^8.57.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "playwright": "^1.40.0",
     "puppeteer": "^22.0.0"
   },
   "optionalDependencies": {
-    "openai": "^4.28.0",
     "@anthropic-ai/sdk": "^0.14.0",
-    "sharp": "^0.33.2",
-    "jimp": "^0.22.10"
+    "jimp": "^0.22.10",
+    "openai": "^4.28.0",
+    "sharp": "^0.33.2"
   },
   "files": [
     "index.js",
     "phase1-index.js",
-    "phase2-index.js", 
+    "phase2-index.js",
     "phase3-index.js",
     "config.js",
     "config-manager.js",

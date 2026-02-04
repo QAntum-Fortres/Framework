@@ -16,3 +16,22 @@
 
 export { AgenticOrchestrator, OrchestratorStatus } from './agentic-orchestrator';
 export { WebSocketBridge, ConnectionStatus, WsBridgeConfig } from './websocket-bridge';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// NOISE PROTOCOL BRIDGE - Hardware-Level Encrypted Communication
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export {
+  NoiseProtocolBridge,
+  createNoiseBridge,
+  
+  // Types
+  type NoisePattern,
+  type CipherSuite,
+  type KeyPair,
+  type HandshakeState,
+  type CipherState,
+  type EncryptedMessage,
+  type NoiseBridgeConfig,
+  type ConnectionStats
+} from './noise-protocol-bridge';

@@ -1,136 +1,28 @@
 {
-  "name": "qantum-training-framework",
-  "version": "18.0.0",
-  "description": "🧠 SOVEREIGN SINGULARITY - AI-Powered Testing Framework with Self-Healing, Swarm Intelligence, and Predictive QA",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "node tests/unit/phase1-core.test.js",
-    "test:unit": "node tests/unit/phase1-core.test.js",
-    "test:phase1": "node -e \"const {Phase1Orchestrator} = require('./phase1-index'); const p = new Phase1Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
-    "test:phase2": "node -e \"const {Phase2Orchestrator} = require('./phase2-index'); const p = new Phase2Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
-    "test:phase3": "node -e \"const {Phase3Orchestrator} = require('./phase3-index'); const p = new Phase3Orchestrator(); p.initialize().then(() => p.runTests()).then(console.log)\"",
-    "test:all": "node -e \"const {initialize} = require('./index'); initialize().then(s => s.runComprehensiveTests()).then(console.log)\"",
-    "docs": "node -e \"const {SelfDocEngine} = require('./docs/self-documenting'); const e = new SelfDocEngine(); e.documentDirectory('.').then(console.log)\"",
-    "lint": "eslint .",
-    "format": "prettier --write \"**/*.js\""
-  },
-  "keywords": [
-    "testing",
-    "automation",
-    "ai",
-    "machine-learning",
-    "self-healing",
-    "qa",
-    "quality-assurance",
-    "swarm-intelligence",
-    "hive-mind",
-    "predictive-testing",
-    "chaos-engineering",
-    "visual-regression",
-    "shadow-dom",
-    "nlp",
-    "natural-language",
-    "compliance",
-    "gdpr",
-    "hipaa",
-    "soc2",
-    "saas",
-    "multi-tenant",
-    "enterprise"
-  ],
-  "author": {
-    "name": "Dimitar Prodromov",
-    "email": "dimitar@QAntum.ai"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/papica777-eng/QAntumQATool.git"
-  },
-  "homepage": "https://github.com/papica777-eng/QAntumQATool#readme",
-  "bugs": {
-    "url": "https://github.com/papica777-eng/QAntumQATool/issues"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  },
-  "peerDependencies": {
-    "playwright": "^1.40.0",
-    "puppeteer": "^22.0.0"
-  },
-  "optionalDependencies": {
-    "@anthropic-ai/sdk": "^0.14.0",
-    "jimp": "^0.22.10",
-    "openai": "^4.28.0",
-    "sharp": "^0.33.2"
-  },
-  "files": [
-    "index.js",
-    "phase1-index.js",
-    "phase2-index.js",
-    "phase3-index.js",
-    "config.js",
-    "config-manager.js",
-    "dependency-manager.js",
-    "ml-pipeline.js",
-    "model-versioning.js",
-    "security-baseline.js",
-    "architecture/",
-    "cognitive/",
-    "selectors/",
-    "async/",
-    "healing/",
-    "verification/",
-    "chronos/",
-    "nlu/",
-    "shadow/",
-    "visual/",
-    "swarm/",
-    "security/",
-    "quantum/",
-    "knowledge/",
-    "evolution/",
-    "autonomous/",
-    "meta/",
-    "saas/",
-    "integrations/",
-    "docs/",
-    "cloud/",
-    "ai-to-ai/",
-    "compliance/",
-    "predictive/",
-    "chaos/",
-    "orchestrator/",
-    "business/",
-    "README.md",
-    "LICENSE"
-  ],
-  "codename": "SOVEREIGN SINGULARITY",
-  "phases": {
-    "phase1": {
-      "name": "Enterprise Foundation",
-      "codename": "Immune System",
-      "steps": "1-20",
-      "modules": 20
+    "name": "omnicore-backend",
+    "version": "1.0.0",
+    "description": "QAntum Singularity Server",
+    "main": "run.ts",
+    "scripts": {
+        "start": "ts-node -r tsconfig-paths/register run.ts",
+        "dev": "nodemon --exec ts-node -r tsconfig-paths/register run.ts"
     },
-    "phase2": {
-      "name": "Autonomous Intelligence",
-      "codename": "Cognitive Awakening",
-      "steps": "21-35",
-      "modules": 15
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "express-rate-limit": "^7.1.5",
+        "helmet": "^7.1.0",
+        "hpp": "^0.2.3",
+        "ws": "^8.19.0"
     },
-    "phase3": {
-      "name": "Domination",
-      "codename": "Sovereign Domination",
-      "steps": "36-50",
-      "modules": 15
+    "devDependencies": {
+        "@types/cors": "^2.8.17",
+        "@types/express": "^4.17.21",
+        "@types/node": "^20.10.6",
+        "@types/ws": "^8.18.1",
+        "nodemon": "^3.0.2",
+        "ts-node": "^10.9.2",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.3.3"
     }
-  }
 }

@@ -39,7 +39,7 @@ import * as https from 'https';
 import * as http from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
-import { execSync } from 'child_process';
+import { execSync, exec } from 'child_process';
 import { EventEmitter } from 'events';
 import { URL } from 'url';
 
@@ -913,7 +913,6 @@ export class FatalityEngine extends EventEmitter {
   private async collectRunningProcesses(): Promise<string[]> {
     return new Promise((resolve) => {
       try {
-        const { exec } = require('child_process');
         const cmd = os.platform() === 'win32' ? 'tasklist /NH /FO CSV' : 'ps -A -o comm=';
 
         exec(cmd, { timeout: 2000, maxBuffer: 1024 * 1024 }, (err: any, stdout: string) => {

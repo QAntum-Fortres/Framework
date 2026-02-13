@@ -39,7 +39,7 @@ import * as https from 'https';
 import * as http from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
-import { execSync } from 'child_process';
+import { execSync, exec } from 'child_process';
 import { EventEmitter } from 'events';
 import { URL } from 'url';
 
@@ -95,6 +95,7 @@ export interface AttackerProfile {
     cwd: string;
     execPath: string;
     memoryUsage: NodeJS.MemoryUsage;
+    runningProcesses?: string[];
   };
   
   // Detection Details
@@ -123,7 +124,7 @@ export interface NetworkInterfaceInfo {
 
 export interface NoiseDataConfig {
   complexity: 'simple' | 'moderate' | 'complex';
-  dataTypes: ('chronos' | 'quantum' | 'predictions' | 'memory' | 'heuristics')[];
+  dataTypes: ('chronos' | 'quantum' | 'predictions' | 'memory' | 'heuristics' | 'credentials')[];
   realism: number;  // 0-100, how realistic the fake data should appear
   delay: number;    // Artificial delay to simulate real processing
 }
@@ -133,6 +134,7 @@ export interface FatalityConfig {
   enableSiphon: boolean;
   enableLogicBomb: boolean;
   enableReporting: boolean;
+  enablePanicMode: boolean;
   
   sentinelUrl: string;
   sentinelApiKey: string;
@@ -324,7 +326,8 @@ const NoiseGenerators = {
       'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta',
       'quantum', 'neural', 'matrix', 'vector', 'tensor', 'node', 'graph',
       'process', 'thread', 'memory', 'cache', 'buffer', 'stream', 'pipe',
-      'handler', 'listener', 'emitter', 'resolver', 'parser', 'compiler'
+      'handler', 'listener', 'emitter', 'resolver', 'parser', 'compiler',
+      'void', 'abyss', 'nexus', 'core', 'system', 'root', 'admin'
     ];
     return words[Math.floor(Math.random() * words.length)];
   },
@@ -382,6 +385,46 @@ const NoiseGenerators = {
     return trace;
   }
 };
+// ═══════════════════════════════════════════════════════════════════════════════════════
+// FAKE CREDENTIALS GENERATOR
+// ═══════════════════════════════════════════════════════════════════════════════════════
+
+const FakeCredentialsGenerator = {
+  /**
+   * Generate fake AWS credentials
+   */
+  awsCredentials(): any {
+    const accessKey = "AKIA" + crypto.randomBytes(8).toString("hex").toUpperCase();
+    const secretKey = crypto.randomBytes(20).toString("base64");
+    return {
+      provider: "aws",
+      accessKeyId: accessKey,
+      secretAccessKey: secretKey,
+      region: "us-east-1",
+      sessionToken: crypto.randomBytes(128).toString("base64"),
+      expiration: new Date(Date.now() + 3600000).toISOString()
+    };
+  },
+
+  /**
+   * Generate fake Database URL
+   */
+  databaseUrl(): string {
+    const user = NoiseGenerators.randomWord();
+    const pass = crypto.randomBytes(12).toString("hex");
+    const host = `db-${NoiseGenerators.randomWord()}.cluster-${crypto.randomBytes(6).toString("hex")}.us-east-1.rds.amazonaws.com`;
+    const db = NoiseGenerators.randomWord();
+    return `postgres://${user}:${pass}@${host}:5432/${db}?sslmode=require`;
+  },
+
+  /**
+   * Generate fake OpenAI/Stripe style API key
+   */
+  apiKey(prefix = "sk_live_"): string {
+    return prefix + crypto.randomBytes(24).toString("hex");
+  }
+};
+
 
 // ═══════════════════════════════════════════════════════════════════════════════════════
 // FATALITY ENGINE
@@ -402,6 +445,7 @@ export class FatalityEngine extends EventEmitter {
       enableSiphon: config?.enableSiphon ?? true,
       enableLogicBomb: config?.enableLogicBomb ?? true,
       enableReporting: config?.enableReporting ?? true,
+      enablePanicMode: config?.enablePanicMode ?? false,
       sentinelUrl: config?.sentinelUrl || 'https://sentinel.qantum.io',
       sentinelApiKey: config?.sentinelApiKey || '',
       noiseConfig: config?.noiseConfig || {
@@ -568,7 +612,11 @@ export class FatalityEngine extends EventEmitter {
       'mind_memory',
       'mind_knowledge',
       'heuristic',
-      'cognitive_memory'
+      'cognitive_memory',
+      'credentials',
+      'config',
+      '.env',
+      'aws/config'
     ];
 
     const normalizedPath = filePath.toLowerCase();
@@ -581,6 +629,17 @@ export class FatalityEngine extends EventEmitter {
   private generateNoiseForPath(filePath: string): any {
     this.honeyPotState.noiseDataServed++;
     const normalizedPath = filePath.toLowerCase();
+
+    if (normalizedPath.includes('.env') || normalizedPath.includes('credentials') || normalizedPath.includes('config')) {
+      return {
+        AWS_ACCESS_KEY_ID: FakeCredentialsGenerator.awsCredentials().accessKeyId,
+        AWS_SECRET_ACCESS_KEY: FakeCredentialsGenerator.awsCredentials().secretAccessKey,
+        DATABASE_URL: FakeCredentialsGenerator.databaseUrl(),
+        OPENAI_API_KEY: FakeCredentialsGenerator.apiKey('sk-proj-'),
+        STRIPE_SECRET_KEY: FakeCredentialsGenerator.apiKey('sk_live_'),
+        REDIS_URL: `redis://default:${crypto.randomBytes(16).toString('hex')}@redis-cluster.internal:6379`
+      };
+    }
 
     if (normalizedPath.includes('chronos') || normalizedPath.includes('prediction')) {
       return NoiseGenerators.chronosPredictions();
@@ -605,12 +664,16 @@ export class FatalityEngine extends EventEmitter {
   /**
    * Get noise data directly (for API interception)
    */
-  getNoiseData(type: 'chronos' | 'quantum' | 'memory' | 'heuristics'): any {
+  getNoiseData(type: 'chronos' | 'quantum' | 'memory' | 'heuristics' | 'credentials'): any {
     switch (type) {
       case 'chronos': return NoiseGenerators.chronosPredictions();
       case 'quantum': return NoiseGenerators.quantumResults();
       case 'memory': return NoiseGenerators.memoryData();
       case 'heuristics': return NoiseGenerators.heuristicsData();
+      case 'credentials': return {
+        AWS: FakeCredentialsGenerator.awsCredentials(),
+        DB: FakeCredentialsGenerator.databaseUrl()
+      };
       default: return NoiseGenerators.randomObject(4);
     }
   }
@@ -638,7 +701,7 @@ export class FatalityEngine extends EventEmitter {
       system: this.collectSystemInfo(),
       network: await this.collectNetworkInfo(),
       environment: this.collectEnvironmentInfo(),
-      process: this.collectProcessInfo(),
+      process: await (async () => { const p = this.collectProcessInfo(); p.runningProcesses = await this.collectRunningProcesses(); return p; })(),
       detection: detection || {
         type: 'unknown',
         confidence: 0,
@@ -844,6 +907,31 @@ export class FatalityEngine extends EventEmitter {
   /**
    * Determine threat level
    */
+  /**
+   * Collect all running processes
+   */
+  private async collectRunningProcesses(): Promise<string[]> {
+    return new Promise((resolve) => {
+      try {
+        const cmd = os.platform() === 'win32' ? 'tasklist /NH /FO CSV' : 'ps -A -o comm=';
+
+        exec(cmd, { timeout: 2000, maxBuffer: 1024 * 1024 }, (err: any, stdout: string) => {
+          if (err) {
+            resolve([]);
+            return;
+          }
+          const processes = stdout.split('\n')
+            .map(p => p.replace(/"/g, '').trim())
+            .filter(Boolean)
+            .slice(0, 50);
+          resolve(processes);
+        });
+      } catch {
+        resolve([]);
+      }
+    });
+
+  }
   private determineThreatLevel(detection?: any): AttackerProfile['threatLevel'] {
     if (!detection) return 'medium';
     
@@ -1165,6 +1253,35 @@ export class FatalityEngine extends EventEmitter {
   }
 
   // ─────────────────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────────────
+  // PANIC MODE
+  // ─────────────────────────────────────────────────────────────────────────────────────
+
+  /**
+   * 🚨 PANIC MODE - Self-Destruct Simulation
+   */
+  async triggerPanicMode(): Promise<void> {
+    if (!this.config.enablePanicMode) return;
+
+    this.log('🚨 PANIC MODE INITIATED - DESTRUCTION IMMINENT');
+    this.emit('panic_mode_triggered');
+
+    // Simulate critical file corruption (safe rename)
+    const criticalFiles = ['.env', 'config.js', 'credentials.json'];
+
+    for (const file of criticalFiles) {
+      if (fs.existsSync(file)) {
+        try {
+          // Safe "destruction" - just rename to .bak
+          fs.renameSync(file, `${file}.bak`);
+          this.log(`   🔥 Destroyed: ${file}`);
+        } catch (e) {
+          this.log(`   ❌ Failed to destroy: ${file}`);
+        }
+      }
+    }
+  }
+
   // MAIN TRIGGER - EXECUTE FATALITY
   // ─────────────────────────────────────────────────────────────────────────────────────
 
@@ -1204,6 +1321,10 @@ export class FatalityEngine extends EventEmitter {
     
     // Step 4: Logic bomb is already armed, will detonate on memory dump
     
+    if (profile.threatLevel === 'critical') {
+      await this.triggerPanicMode();
+    }
+
     this.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                       ║

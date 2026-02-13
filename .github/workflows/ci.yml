@@ -13,14 +13,15 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 
 name: CI/CD Pipeline
+  workflow_dispatch:
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  release:
-    types: [published]
+#  push:
+##    branches: [main]
+#  pull_request:
+##    branches: [main]
+#  release:
+#    types: [published]
 
 jobs:
   # ═══════════════════════════════════════════════════════════════
